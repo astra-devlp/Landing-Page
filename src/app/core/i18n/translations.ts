@@ -20,7 +20,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
     },
     whatsapp: {
       href: whatsappUrl('Hola Astra Dev, quiero cotizar un proyecto.'),
-      phone: '314 872 1707',
+      phone: '314 828 1480',
     },
     floating: {
       label: 'Cotizar por WhatsApp',
@@ -549,7 +549,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'chat',
           label: 'WhatsApp',
-          value: '314 872 1707',
+          value: '314 828 1480',
           href: whatsappUrl('Hola Astra Dev, quiero cotizar un proyecto.'),
         },
         {
@@ -941,7 +941,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
     },
     whatsapp: {
       href: whatsappUrl('Hi Astra Dev, I would like a quote for a project.'),
-      phone: '314 872 1707',
+      phone: '314 828 1480',
     },
     floating: {
       label: 'Quote on WhatsApp',
@@ -1468,7 +1468,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'chat',
           label: 'WhatsApp',
-          value: '314 872 1707',
+          value: '314 828 1480',
           href: whatsappUrl('Hi Astra Dev, I would like a quote for a project.'),
         },
         {
@@ -1852,7 +1852,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
     },
     whatsapp: {
       href: whatsappUrl('Olá Astra Dev, quero um orçamento para um projeto.'),
-      phone: '314 872 1707',
+      phone: '314 828 1480',
     },
     floating: {
       label: 'Orçamento pelo WhatsApp',
@@ -2383,7 +2383,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'chat',
           label: 'WhatsApp',
-          value: '314 872 1707',
+          value: '314 828 1480',
           href: whatsappUrl('Olá Astra Dev, quero um orçamento para um projeto.'),
         },
         {

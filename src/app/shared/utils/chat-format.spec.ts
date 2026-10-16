@@ -14,8 +14,8 @@ describe('formatReply', () => {
   });
 
   it('links https URLs and labels WhatsApp links', () => {
-    expect(formatReply('Escríbenos: https://wa.me/573148721707.')).toBe(
-      '<p>Escríbenos: <a href="https://wa.me/573148721707" target="_blank" rel="noopener noreferrer">WhatsApp</a>.</p>',
+    expect(formatReply('Escríbenos: https://wa.me/573148281480.')).toBe(
+      '<p>Escríbenos: <a href="https://wa.me/573148281480" target="_blank" rel="noopener noreferrer">WhatsApp</a>.</p>',
     );
   });
 

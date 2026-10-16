@@ -10,7 +10,7 @@ import type { AppCopy } from '../../../src/app/core/i18n/i18n.models';
 import { TRANSLATIONS } from '../../../src/app/core/i18n/translations';
 import { TECH_STACK } from '../../../src/app/features/inicio/data/inicio.data';
 
-export const WHATSAPP_URL = 'https://wa.me/573148721707';
+export const WHATSAPP_URL = 'https://wa.me/573148281480';
 
 const PAGE_LANGUAGES: Record<string, string> = {
   es: 'español',

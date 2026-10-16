@@ -16,7 +16,7 @@ const DEFAULT_BASE_URL = 'https://openrouter.ai/api/v1';
 // Free models get rate-limited or retired often, hence the fallbacks.
 // Avoid routers like openrouter/free: they may pick moderation or reasoning-only models.
 const DEFAULT_MODELS =
-  'nvidia/nemotron-3-super-120b-a12b:free,qwen/qwen3.8-27b:free,google/gemma-4-31b-it:free';
+  'nvidia/nemotron-3-ultra-550b-a55b:free,nvidia/nemotron-3.5-lightning:free,google/gemma-4-31b-it:free';
 
 const MAX_MESSAGES = 12;
 const MAX_CHARS = 1000;
