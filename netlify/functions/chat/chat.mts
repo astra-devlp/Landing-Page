@@ -2,21 +2,14 @@
  * Netlify Function behind the website assistant: POST /.netlify/functions/chat
  *
  * The API key lives only here (Netlify environment variables), never in the
- * browser bundle. Any OpenAI-compatible chat API works; the defaults target
- * OpenRouter's free models.
+ * browser bundle. The model list and the API address come from Netlify too.
  *
- * Environment variables:
+ * Environment variables (set in Netlify, not in this file):
  *   LLM_API_KEY   required. OpenRouter key (or any OpenAI-compatible provider's key).
- *   LLM_MODEL     optional. Comma-separated models, tried in order until one answers.
- *   LLM_BASE_URL  optional. OpenAI-compatible base URL; defaults to OpenRouter.
+ *   LLM_MODEL     required. Comma-separated models, tried in order until one answers.
+ *   LLM_BASE_URL  required. OpenAI-compatible base URL.
  */
 import { systemPrompt, WHATSAPP_URL } from './knowledge.mts';
-
-const DEFAULT_BASE_URL = 'https://openrouter.ai/api/v1';
-// Free models get rate-limited or retired often, hence the fallbacks.
-// Avoid routers like openrouter/free: they may pick moderation or reasoning-only models.
-const DEFAULT_MODELS =
-  'nvidia/nemotron-3-ultra-550b-a55b:free,nvidia/nemotron-3.5-lightning:free,google/gemma-4-31b-it:free';
 
 const MAX_MESSAGES = 12;
 const MAX_CHARS = 1000;
@@ -44,8 +37,13 @@ export default async (req: Request): Promise<Response> => {
   }
 
   const apiKey = process.env['LLM_API_KEY'];
-  if (!apiKey) {
-    console.error('[chat] LLM_API_KEY is not set');
+  const baseUrl = process.env['LLM_BASE_URL']?.replace(/\/$/, '');
+  const models = process.env['LLM_MODEL']
+    ?.split(',')
+    .map((model) => model.trim())
+    .filter(Boolean);
+  if (!apiKey || !baseUrl || !models?.length) {
+    console.error('[chat] LLM_API_KEY, LLM_BASE_URL or LLM_MODEL is not set');
     return json({ error: 'not_configured' }, 503);
   }
 
@@ -60,11 +58,6 @@ export default async (req: Request): Promise<Response> => {
   if (!messages) {
     return json({ error: 'bad_request' }, 400);
   }
-
-  const baseUrl = (process.env['LLM_BASE_URL'] || DEFAULT_BASE_URL).replace(/\/$/, '');
-  const models = (process.env['LLM_MODEL'] || DEFAULT_MODELS)
-    .split(',')
-    .map((model) => model.trim());
 
   let rateLimited = false;
   for (const model of models) {
