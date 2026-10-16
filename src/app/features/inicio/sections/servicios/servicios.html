@@ -1,0 +1,163 @@
+<section id="servicios" class="w-full py-space-xl lg:py-20">
+  <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div
+      appReveal
+      class="mb-space-xl flex flex-col justify-between gap-space-md lg:flex-row lg:items-end"
+    >
+      <div class="max-w-3xl">
+        <span class="eyebrow mb-space-md">
+          {{ i18n.copy().services.eyebrow }}
+        </span>
+        <h2
+          class="font-headline-lg text-headline-lg-mobile font-bold tracking-tight text-primary md:text-headline-lg"
+        >
+          {{ i18n.copy().services.title }}
+        </h2>
+      </div>
+      <p
+        class="max-w-md border-l-2 border-accent/50 pl-space-md font-body-lg text-body-lg text-on-surface"
+      >
+        {{ i18n.copy().services.intro }}
+      </p>
+    </div>
+
+    <div
+      appReveal
+      class="mb-space-lg flex flex-wrap gap-space-sm"
+      role="group"
+      [attr.aria-label]="i18n.copy().services.eyebrow"
+    >
+      @for (option of filters; track option) {
+        <button
+          class="inline-flex items-center gap-space-sm rounded-full border px-space-md py-space-sm font-body-md text-body-sm font-semibold transition duration-200"
+          [class]="
+            filter() === option
+              ? 'border-outline-variant bg-surface-container-high text-primary'
+              : 'border-outline-variant/40 text-on-surface-variant hover:border-outline-variant hover:text-primary'
+          "
+          type="button"
+          [attr.aria-pressed]="filter() === option"
+          (click)="filter.set(option)"
+        >
+          @if (option !== 'all') {
+            <span
+              class="h-2 w-2 rounded-full"
+              [class]="styles[option].dot"
+              aria-hidden="true"
+            ></span>
+          }
+          {{ i18n.copy().services.groups[option] }}
+          <span class="font-label-sm text-label-sm text-outline">{{ count(option) }}</span>
+        </button>
+      }
+    </div>
+
+    <div class="grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      @for (service of items(); track service.title; let i = $index) {
+        <article
+          appReveal
+          [revealDelay]="i * 60"
+          class="relative flex flex-col rounded-2xl p-space-lg transition duration-300 ease-out hover:-translate-y-1"
+          [class]="
+            service.popular
+              ? 'border-brand-gradient shadow-[0_20px_50px_-30px_rgba(124,58,237,0.7)]'
+              : 'card'
+          "
+        >
+          @if (service.popular) {
+            <span
+              class="btn-brand pointer-events-none absolute -top-3 right-space-md inline-flex items-center gap-1 rounded-full px-space-sm py-1 font-body-sm text-[12px] font-semibold"
+            >
+              <span
+                class="material-symbols-outlined text-[14px] [font-variation-settings:'FILL'_1]"
+                aria-hidden="true"
+                >star</span
+              >
+              {{ i18n.copy().services.popular }}
+            </span>
+          }
+          <div class="mb-space-md flex items-center gap-space-sm">
+            <div
+              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+              [class]="styles[service.group].soft + ' ' + styles[service.group].text"
+            >
+              <span class="material-symbols-outlined">{{ service.icon }}</span>
+            </div>
+            <span
+              class="font-body-sm text-[12px] font-semibold"
+              [class]="styles[service.group].text"
+            >
+              {{ i18n.copy().services.groups[service.group] }}
+            </span>
+          </div>
+          <h3 class="mb-space-sm font-headline-sm text-headline-sm font-semibold text-primary">
+            {{ service.title }}
+          </h3>
+          <p class="mb-space-md font-body-md text-body-md text-on-surface-variant">
+            {{ service.description }}
+          </p>
+          <p class="mb-space-lg font-body-sm text-body-sm text-on-surface-variant">
+            <span class="font-semibold text-primary">{{ i18n.copy().services.idealFor }}:</span>
+            {{ service.idealFor }}
+          </p>
+          @if (service.page) {
+            <a
+              class="mb-space-md inline-flex items-center gap-1 self-start font-body-sm text-body-sm font-semibold text-on-surface-variant underline decoration-outline-variant underline-offset-4 transition hover:text-primary hover:decoration-accent"
+              [routerLink]="['/', pagePaths[service.page]]"
+            >
+              {{ i18n.copy().servicePages.details }}
+              <span class="sr-only">{{ service.title }}</span>
+            </a>
+          }
+          @if (service.popular) {
+            <a
+              class="btn-brand mt-auto inline-flex items-center justify-center gap-space-xs rounded px-space-md py-space-sm font-body-md text-body-md font-semibold"
+              [href]="service.href"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ i18n.copy().services.cta }}
+              <span class="sr-only">{{ service.title }}</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </a>
+          } @else {
+            <a
+              class="mt-auto inline-flex items-center gap-space-xs self-start font-body-md text-body-md font-semibold transition-all duration-300 hover:gap-space-sm"
+              [class]="styles[service.group].text"
+              [href]="service.href"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ i18n.copy().services.cta }}
+              <span class="sr-only">{{ service.title }}</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </a>
+          }
+        </article>
+      }
+    </div>
+
+    <div
+      appReveal
+      class="card-static mt-space-lg flex flex-col items-start justify-between gap-space-md p-space-lg md:flex-row md:items-center"
+    >
+      <div>
+        <p class="mb-space-xs font-headline-sm text-headline-sm font-semibold text-primary">
+          {{ i18n.copy().services.unsureTitle }}
+        </p>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          {{ i18n.copy().services.unsureBody }}
+        </p>
+      </div>
+      <a
+        class="inline-flex shrink-0 items-center gap-space-xs rounded btn-brand px-space-lg py-space-md font-body-md text-body-md font-semibold"
+        [href]="i18n.copy().services.unsureHref"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="material-symbols-outlined text-[18px]">chat</span>
+        {{ i18n.copy().services.unsureCta }}
+      </a>
+    </div>
+  </div>
+</section>

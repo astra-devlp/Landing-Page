@@ -1,0 +1,472 @@
+@import 'tailwindcss';
+
+/* Styles that apply only to the light theme, e.g. light:bg-white. */
+@custom-variant light (&:where(.light, .light *));
+
+@source inline('motion-safe:opacity-0 motion-safe:animate-rise motion-safe:animate-float motion-safe:animate-ring');
+
+@theme {
+  --color-inverse-on-surface: #313032;
+  --color-error: #ffb4ab;
+  --color-on-secondary: #28313b;
+  --color-surface-container-highest: #292e3d;
+  --color-surface-container-lowest: #07080c;
+  --color-tertiary-container: #c4e7ff;
+  --color-on-tertiary-container: #006c93;
+  --color-on-primary: #2f3131;
+  --color-on-secondary-container: #acb6c2;
+  --color-primary-fixed: #e2e2e2;
+  --color-secondary-fixed-dim: #bdc8d3;
+  --color-inverse-primary: #5d5f5f;
+  --color-on-background: #e8eaf0;
+  --color-error-container: #93000a;
+  --color-on-surface-variant: #aab1c2;
+  --color-on-secondary-fixed: #131d25;
+  --color-surface-container-high: #1f2330;
+  --color-surface-dim: #090a10;
+  --color-secondary-container: #3e4852;
+  --color-background: #090a10;
+  --color-outline-variant: #2b3040;
+  --color-surface-tint: #c6c6c7;
+  --color-inverse-surface: #e5e1e4;
+  --color-on-primary-fixed-variant: #454747;
+  --color-surface-container: #171a24;
+  --color-tertiary: #ffffff;
+  --color-on-tertiary: #00354a;
+  --color-on-surface: #e8eaf0;
+  --color-on-primary-fixed: #1a1c1c;
+  --color-tertiary-fixed-dim: #7bd0ff;
+  --color-on-error-container: #ffdad6;
+  --color-primary-container: #e2e2e2;
+  --color-secondary: #bdc8d3;
+  --color-tertiary-fixed: #c4e7ff;
+  --color-on-primary-container: #636565;
+  --color-outline: #8a91a3;
+  --color-secondary-fixed: #dae3f0;
+  --color-surface-variant: #292e3d;
+  --color-surface-container-low: #11131b;
+  --color-on-tertiary-fixed-variant: #004c69;
+  --color-on-tertiary-fixed: #001e2c;
+  --color-on-error: #690005;
+  --color-on-secondary-fixed-variant: #3e4852;
+  --color-surface: #090a10;
+  --color-primary-fixed-dim: #c6c6c7;
+  --color-primary: #ffffff;
+  --color-surface-bright: #323849;
+  --color-accent: #7bd0ff;
+  --color-brand-from: #2563eb;
+  --color-brand-to: #7c3aed;
+  --color-brand-text-from: #5ec8ff;
+  --color-brand-text-to: #b197fc;
+  --color-group-manage: #34d399;
+  --color-group-sell: #38bdf8;
+  --color-group-automate: #a78bfa;
+
+  --radius-DEFAULT: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  --spacing-margin-mobile: 1.25rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-gutter-mobile: 1rem;
+  --spacing-margin: 4rem;
+  --spacing-margin-tablet: 2rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-space-xs: 0.25rem;
+
+  --font-headline-md: 'Space Grotesk', sans-serif;
+  --font-body-lg: 'Geist', sans-serif;
+  --font-body-sm: 'Geist', sans-serif;
+  --font-body-md: 'Geist', sans-serif;
+  --font-label-lg: 'JetBrains Mono', monospace;
+  --font-headline-lg-mobile: 'Space Grotesk', sans-serif;
+  --font-display-xl-mobile: 'Space Grotesk', sans-serif;
+  --font-label-sm: 'JetBrains Mono', monospace;
+  --font-headline-sm: 'Space Grotesk', sans-serif;
+  --font-display-xl: 'Space Grotesk', sans-serif;
+  --font-headline-lg: 'Space Grotesk', sans-serif;
+  --font-label-md: 'JetBrains Mono', monospace;
+  --font-sans: 'Geist', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-headline-md: 32px;
+  --text-headline-md--line-height: 40px;
+  --text-headline-md--letter-spacing: -0.02em;
+  --text-headline-md--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--letter-spacing: -0.01em;
+
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 20px;
+  --text-body-sm--letter-spacing: 0.01em;
+
+  --text-body-md: 15px;
+  --text-body-md--line-height: 24px;
+
+  --text-label-lg: 14px;
+  --text-label-lg--line-height: 20px;
+  --text-label-lg--letter-spacing: 0.06em;
+  --text-label-lg--font-weight: 500;
+
+  --text-headline-lg-mobile: 30px;
+  --text-headline-lg-mobile--line-height: 38px;
+  --text-headline-lg-mobile--letter-spacing: -0.02em;
+  --text-headline-lg-mobile--font-weight: 600;
+
+  --text-display-xl-mobile: 40px;
+  --text-display-xl-mobile--line-height: 48px;
+  --text-display-xl-mobile--letter-spacing: -0.03em;
+  --text-display-xl-mobile--font-weight: 700;
+
+  --text-label-sm: 10px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--letter-spacing: 0.1em;
+  --text-label-sm--font-weight: 500;
+
+  --text-headline-sm: 22px;
+  --text-headline-sm--line-height: 30px;
+  --text-headline-sm--letter-spacing: -0.01em;
+  --text-headline-sm--font-weight: 500;
+
+  --text-display-xl: 72px;
+  --text-display-xl--line-height: 80px;
+  --text-display-xl--letter-spacing: -0.04em;
+  --text-display-xl--font-weight: 700;
+
+  --text-headline-lg: 44px;
+  --text-headline-lg--line-height: 52px;
+  --text-headline-lg--letter-spacing: -0.03em;
+  --text-headline-lg--font-weight: 600;
+
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--letter-spacing: 0.08em;
+  --text-label-md--font-weight: 500;
+}
+
+@layer base {
+  :root {
+    --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 12px 32px -18px rgb(0 0 0 / 0.85);
+    --shadow-card-hover:
+      0 1px 0 0 rgb(255 255 255 / 0.06) inset, 0 30px 60px -28px rgb(0 0 0 / 0.95),
+      0 0 40px -12px rgb(91 76 240 / 0.35);
+    --grid-line: rgb(255 255 255 / 0.045);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+html.light {
+  --color-background: #eef1f7;
+  --color-surface: #eef1f7;
+  --color-surface-dim: #eef1f7;
+  --color-surface-bright: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #ffffff;
+  --color-surface-container: #e8ecf4;
+  --color-surface-container-high: #dde3ee;
+  --color-surface-container-highest: #cfd7e5;
+  --color-surface-variant: #dde3ee;
+  --color-on-surface: #0b0e1c;
+  --color-on-surface-variant: #3d4456;
+  --color-on-background: #0b0e1c;
+  --color-primary: #0b0e1c;
+  --color-on-primary: #ffffff;
+  --color-primary-fixed: #2f3131;
+  --color-on-primary-fixed: #ffffff;
+  --color-primary-container: #1a1c1c;
+  --color-on-primary-container: #e2e2e2;
+  --color-secondary: #4a5568;
+  --color-on-secondary: #ffffff;
+  --color-outline: #5f6678;
+  --color-outline-variant: #d0d7e3;
+  --color-accent: #1d4ed8;
+  --color-surface-tint: #5d5f5f;
+  --color-brand-text-from: #1d4ed8;
+  --color-brand-text-to: #7c3aed;
+  --color-group-manage: #047857;
+  --color-group-sell: #0369a1;
+  --color-group-automate: #6d28d9;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.06), 0 14px 34px -16px rgb(15 23 42 / 0.24);
+  --shadow-card-hover: 0 2px 6px rgb(15 23 42 / 0.06), 0 32px 60px -24px rgb(79 70 229 / 0.38);
+  --grid-line: rgb(29 78 216 / 0.07);
+}
+
+/* Brand gradient: reserved for conversion CTAs and the key headline phrase. */
+@utility text-brand-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-brand-text-from),
+    var(--color-brand-text-to)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Surface for every content card. Hover lift + a glow that follows the cursor (see SpotlightService). */
+@utility card {
+  position: relative;
+  isolation: isolate;
+  border-radius: 1rem;
+  border: 1px solid var(--color-outline-variant);
+  background-color: var(--color-surface-container-low);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--color-accent) 14%, transparent),
+      transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-outline-variant));
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/* Same surface, no hover movement: forms, info panels. */
+@utility card-static {
+  border-radius: 1rem;
+  border: 1px solid var(--color-outline-variant);
+  background-color: var(--color-surface-container-low);
+  box-shadow: var(--shadow-card);
+}
+
+/* Section label pill with a glowing brand dot. */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+  background-color: color-mix(in srgb, var(--color-accent) 9%, transparent);
+  padding: 0.3rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    background-image: linear-gradient(var(--color-brand-text-from), var(--color-brand-text-to));
+    box-shadow: 0 0 10px var(--color-brand-text-to);
+  }
+}
+
+/* Faint tech grid that fades out toward the edges. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+}
+
+/* Range slider with a brand-gradient thumb. */
+@utility range-brand {
+  appearance: none;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-surface-container-high);
+  accent-color: var(--color-brand-to);
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 9999px;
+    border: 3px solid #fff;
+    background-image: linear-gradient(135deg, var(--color-brand-from), var(--color-brand-to));
+    box-shadow: 0 4px 12px rgb(79 70 229 / 0.45);
+  }
+
+  &::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    border: 3px solid #fff;
+    background-image: linear-gradient(135deg, var(--color-brand-from), var(--color-brand-to));
+    box-shadow: 0 4px 12px rgb(79 70 229 / 0.45);
+  }
+
+  &::-moz-range-progress {
+    height: 8px;
+    border-radius: 9999px;
+    background-image: linear-gradient(90deg, var(--color-brand-from), var(--color-brand-to));
+  }
+}
+
+/* 1px brand-gradient border that keeps the element's own surface color. */
+@utility border-brand-gradient {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-surface-container-low), var(--color-surface-container-low))
+      padding-box,
+    linear-gradient(120deg, var(--color-brand-from), var(--color-brand-to)) border-box;
+}
+
+@utility btn-brand {
+  position: relative;
+  isolation: isolate;
+  color: #ffffff;
+  background-image: linear-gradient(100deg, var(--color-brand-from), var(--color-brand-to));
+  background-size: 160% 100%;
+  background-position: 0% 50%;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.08) inset,
+    0 10px 30px -10px rgb(91 76 240 / 0.7);
+  transition:
+    background-position 0.5s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+
+  &:hover {
+    background-position: 100% 50%;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.14) inset,
+      0 14px 40px -8px rgb(124 58 237 / 0.85);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-brand-text-from);
+    outline-offset: 3px;
+  }
+
+  /* Light sweep across the button on hover. */
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgb(255 255 255 / 0.35) 50%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
+  }
+
+  &:hover::after {
+    transform: translateX(120%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover,
+    &:active {
+      transform: none;
+    }
+  }
+}
+
+@theme {
+  --animate-rise: rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-ring: ring-pulse 2.8s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-pop: pop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-16px);
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes ring-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.45;
+    }
+    100% {
+      transform: scale(1.7);
+      opacity: 0;
+    }
+  }
+}

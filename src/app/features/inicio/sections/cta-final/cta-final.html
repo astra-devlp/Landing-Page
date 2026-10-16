@@ -1,0 +1,52 @@
+<section class="w-full py-space-xl">
+  <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div
+      appReveal
+      class="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-[#1d4ed8] via-[#4f46e5] to-[#7c3aed] px-space-lg py-space-xl text-center text-white shadow-2xl shadow-brand-to/30 md:px-space-xl lg:py-20"
+    >
+      <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div
+          class="absolute inset-0 bg-[linear-gradient(rgb(255_255_255/0.08)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.08)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_center,#000_20%,transparent_70%)]"
+        ></div>
+        <div
+          class="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-[#38bdf8]/40 blur-3xl motion-safe:animate-float"
+        ></div>
+        <div
+          class="absolute -right-20 -bottom-28 h-80 w-80 rounded-full bg-[#f472b6]/30 blur-3xl motion-safe:animate-float [animation-delay:1.5s]"
+        ></div>
+      </div>
+
+      <h2
+        class="mx-auto mb-space-md max-w-3xl font-headline-lg text-headline-lg-mobile font-bold tracking-tight md:text-headline-lg lg:text-[52px] lg:leading-[1.1]"
+      >
+        {{ i18n.copy().finalCta.title }}
+        <span class="bg-gradient-to-r from-[#a5f3fc] to-[#f0abfc] bg-clip-text text-transparent">
+          {{ i18n.copy().finalCta.highlight }}
+        </span>
+      </h2>
+      <p class="mx-auto mb-space-xl max-w-2xl font-body-lg text-body-lg text-white/85">
+        {{ i18n.copy().finalCta.body }}
+      </p>
+
+      <div class="flex flex-col items-center justify-center gap-space-sm sm:flex-row">
+        <a
+          class="inline-flex w-full items-center justify-center gap-space-xs rounded-lg bg-white px-space-lg py-space-md font-body-md text-body-md font-semibold text-[#3b2bd9] shadow-lg transition duration-300 hover:-translate-y-0.5 hover:shadow-2xl sm:w-auto"
+          [href]="i18n.copy().whatsapp.href"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="material-symbols-outlined text-[20px]">chat</span>
+          {{ i18n.copy().hero.ctaPrimary }}
+        </a>
+        <button
+          class="inline-flex w-full items-center justify-center gap-space-xs rounded-lg border border-white/40 bg-white/10 px-space-lg py-space-md font-body-md text-body-md font-semibold text-white backdrop-blur transition duration-300 hover:bg-white/20 sm:w-auto"
+          type="button"
+          (click)="chat.show()"
+        >
+          <span class="material-symbols-outlined text-[20px]">smart_toy</span>
+          {{ i18n.copy().finalCta.secondary }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

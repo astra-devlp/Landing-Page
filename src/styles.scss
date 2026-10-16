@@ -1,0 +1,50 @@
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    overscroll-behavior: none;
+    background-color: #090a10;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  html.light body {
+    background-color: #eef1f7;
+  }
+
+  /*
+   * Large monitors and TVs: the layout is capped at 1440px and sized in px, so
+   * scale the whole page instead of leaving a small island in the middle.
+   */
+  @media (min-width: 2200px) {
+    html {
+      zoom: 1.25;
+    }
+  }
+
+  @media (min-width: 2800px) {
+    html {
+      zoom: 1.5;
+    }
+  }
+
+  @media (min-width: 3400px) {
+    html {
+      zoom: 2;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

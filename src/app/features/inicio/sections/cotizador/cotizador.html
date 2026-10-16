@@ -1,0 +1,142 @@
+<section id="cotizador" class="relative w-full overflow-hidden py-space-xl lg:py-20">
+  <div
+    class="pointer-events-none absolute top-10 left-1/2 h-80 w-[640px] -translate-x-1/2 rounded-full bg-gradient-to-r from-brand-from/20 to-brand-to/20 blur-3xl"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div appReveal class="mx-auto mb-space-xl max-w-2xl text-center">
+      <span class="eyebrow mb-space-md">{{ quiz().eyebrow }}</span>
+      <h2
+        class="mb-space-sm font-headline-lg text-headline-lg-mobile font-bold tracking-tight text-primary md:text-headline-lg"
+      >
+        {{ quiz().title }}
+      </h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant">{{ quiz().intro }}</p>
+    </div>
+
+    <div appReveal [revealDelay]="100" class="card-static mx-auto max-w-3xl overflow-hidden">
+      <div class="h-1.5 bg-surface-container-high">
+        <div
+          class="h-full bg-gradient-to-r from-brand-from to-brand-to transition-[width] duration-500 ease-out"
+          [style.width.%]="done() ? 100 : (step() / total()) * 100"
+        ></div>
+      </div>
+
+      <div class="p-space-lg md:p-space-xl">
+        @if (!done()) {
+          @let question = quiz().questions[step()];
+          <div class="mb-space-lg flex items-center justify-between gap-space-md">
+            <span class="font-label-md text-label-md text-accent uppercase">{{ stepLabel() }}</span>
+            @if (step() > 0) {
+              <button
+                class="inline-flex items-center gap-1 font-body-sm text-body-sm font-semibold text-on-surface-variant hover:text-primary"
+                type="button"
+                (click)="back()"
+              >
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                {{ quiz().back }}
+              </button>
+            }
+          </div>
+          <h3 class="mb-space-lg font-headline-sm text-headline-sm font-semibold text-primary">
+            {{ question.question }}
+          </h3>
+          <div class="grid grid-cols-1 gap-space-sm sm:grid-cols-2">
+            @for (option of question.options; track option.value; let i = $index) {
+              <button
+                class="group flex items-center gap-space-sm rounded-xl border border-outline-variant bg-surface-container px-space-md py-space-md text-left font-body-md text-body-md font-semibold text-on-surface transition duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 motion-safe:animate-pop"
+                [class.border-accent]="answers()[step()] === option.value"
+                [style.animation-delay.ms]="i * 50"
+                type="button"
+                (click)="choose(option.value)"
+              >
+                <span
+                  class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/12 text-accent transition group-hover:bg-accent group-hover:text-white"
+                >
+                  <span class="material-symbols-outlined text-[20px]">{{ option.icon }}</span>
+                </span>
+                {{ option.label }}
+              </button>
+            }
+          </div>
+        } @else {
+          <div class="motion-safe:animate-pop">
+            <span
+              class="mb-space-sm flex h-12 w-12 items-center justify-center rounded-full bg-group-manage/15 text-group-manage"
+            >
+              <span class="material-symbols-outlined">task_alt</span>
+            </span>
+            <h3 class="mb-space-xs font-headline-sm text-headline-sm font-semibold text-primary">
+              {{ quiz().resultTitle }}
+            </h3>
+            <p class="mb-space-lg font-body-md text-body-md text-on-surface-variant">
+              {{ quiz().resultBody }}
+            </p>
+
+            <div class="mb-space-lg grid grid-cols-1 gap-space-md sm:grid-cols-2">
+              @for (service of recommendation(); track service.title; let first = $first) {
+                <div
+                  class="relative rounded-xl p-space-md"
+                  [class]="
+                    first
+                      ? 'border-brand-gradient'
+                      : 'border border-outline-variant bg-surface-container'
+                  "
+                >
+                  @if (first) {
+                    <span
+                      class="btn-brand absolute -top-3 left-space-md rounded-full px-space-sm py-0.5 text-[12px] font-semibold"
+                    >
+                      {{ quiz().recommended }}
+                    </span>
+                  }
+                  <span
+                    class="mb-space-xs flex items-center gap-space-xs font-body-md text-body-md font-semibold text-primary"
+                  >
+                    <span class="material-symbols-outlined text-[20px] text-accent">{{
+                      service.icon
+                    }}</span>
+                    {{ service.title }}
+                  </span>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    {{ service.description }}
+                  </p>
+                  @if (service.page) {
+                    <a
+                      class="mt-space-xs inline-flex items-center gap-1 font-body-sm text-body-sm font-semibold text-accent hover:underline"
+                      [routerLink]="['/', pagePaths[service.page]]"
+                    >
+                      {{ i18n.copy().servicePages.details }}
+                      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </a>
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="flex flex-col gap-space-sm sm:flex-row sm:items-center">
+              <a
+                class="btn-brand inline-flex items-center justify-center gap-space-xs rounded-lg px-space-lg py-space-md font-body-md text-body-md font-semibold"
+                [href]="whatsappHref()"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="material-symbols-outlined text-[20px]">chat</span>
+                {{ quiz().cta }}
+              </a>
+              <button
+                class="inline-flex items-center justify-center gap-1 px-space-md py-space-sm font-body-md text-body-md font-semibold text-on-surface-variant hover:text-primary"
+                type="button"
+                (click)="restart()"
+              >
+                <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                {{ quiz().restart }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

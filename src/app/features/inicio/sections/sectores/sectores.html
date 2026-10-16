@@ -1,0 +1,52 @@
+<section id="sectores" class="w-full py-space-xl">
+  <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div appReveal class="mb-space-xl max-w-3xl">
+      <span class="eyebrow mb-space-md">
+        {{ i18n.copy().sectors.eyebrow }}
+      </span>
+      <h2
+        class="mb-space-sm font-headline-lg text-headline-lg-mobile font-bold tracking-tight text-primary md:text-headline-lg"
+      >
+        {{ i18n.copy().sectors.title }}
+      </h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant">
+        {{ i18n.copy().sectors.intro }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-3">
+      @for (sector of i18n.copy().sectors.items; track sector.title; let i = $index) {
+        <a
+          appReveal
+          [revealDelay]="i * 80"
+          class="card group flex items-start gap-space-md p-space-lg"
+          [href]="href(sector.title)"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div
+            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/12 text-accent transition duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-white"
+          >
+            <span class="material-symbols-outlined">{{ sector.icon }}</span>
+          </div>
+          <div class="flex-1">
+            <h3 class="mb-1 font-headline-sm text-headline-sm font-semibold text-primary">
+              {{ sector.title }}
+            </h3>
+            <p class="mb-space-sm font-body-md text-body-md text-on-surface-variant">
+              {{ sector.description }}
+            </p>
+            <span
+              class="inline-flex items-center gap-1 font-body-sm text-body-sm font-semibold text-accent transition-all duration-300 group-hover:gap-2"
+            >
+              {{ i18n.copy().sectors.cta }}
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true"
+                >arrow_forward</span
+              >
+            </span>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>

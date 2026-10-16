@@ -1,0 +1,84 @@
+<section id="ahorro" class="w-full py-space-xl lg:py-20">
+  <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div class="grid grid-cols-1 items-center gap-space-xl lg:grid-cols-12 lg:gap-gutter">
+      <div appReveal class="lg:col-span-5">
+        <span class="eyebrow mb-space-md">{{ i18n.copy().calculator.eyebrow }}</span>
+        <h2
+          class="mb-space-sm font-headline-lg text-headline-lg-mobile font-bold tracking-tight text-primary md:text-headline-lg"
+        >
+          {{ i18n.copy().calculator.title }}
+        </h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">
+          {{ i18n.copy().calculator.intro }}
+        </p>
+      </div>
+
+      <div appReveal [revealDelay]="120" class="card-static overflow-hidden lg:col-span-7">
+        <div class="grid grid-cols-1 md:grid-cols-5">
+          <div class="space-y-space-lg p-space-lg md:col-span-3 md:p-space-xl">
+            @for (field of fields; track field.key) {
+              <label class="block">
+                <span class="mb-space-sm flex items-end justify-between gap-space-md">
+                  <span class="font-body-md text-body-md font-semibold text-primary">
+                    {{ i18n.copy().calculator[field.key] }}
+                  </span>
+                  <span class="shrink-0 font-headline-sm text-headline-sm font-bold text-accent">
+                    {{ field.key === 'messages' ? messages() : receipts() }}
+                    <span class="font-body-sm text-body-sm font-normal text-on-surface-variant">
+                      {{ i18n.copy().calculator.perDay }}
+                    </span>
+                  </span>
+                </span>
+                <input
+                  class="range-brand w-full"
+                  type="range"
+                  min="0"
+                  [max]="field.max"
+                  step="5"
+                  [value]="field.key === 'messages' ? messages() : receipts()"
+                  (input)="onInput(field.key, $event)"
+                />
+              </label>
+            }
+            <p class="font-body-sm text-[12px] leading-5 text-on-surface-variant">
+              {{ i18n.copy().calculator.note }}
+            </p>
+          </div>
+
+          <div
+            class="relative flex flex-col justify-center overflow-hidden bg-gradient-to-br from-[#1d4ed8] via-[#4f46e5] to-[#7c3aed] p-space-lg text-white md:col-span-2 md:p-space-xl"
+          >
+            <div
+              class="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-white/15 blur-2xl"
+              aria-hidden="true"
+            ></div>
+            <p class="font-body-md text-body-md text-white/85">
+              {{ i18n.copy().calculator.resultLabel }}
+            </p>
+            <p
+              class="font-display-xl text-[64px] leading-none font-bold tracking-tight"
+              aria-live="polite"
+            >
+              {{ hours() }}
+            </p>
+            <p class="mb-space-xs font-body-lg text-body-lg font-semibold">
+              {{ i18n.copy().calculator.hoursUnit }}
+            </p>
+            <p class="mb-space-lg font-body-sm text-body-sm text-white/80">
+              {{ i18n.copy().calculator.days.replace('{days}', days()) }}
+            </p>
+            <a
+              class="inline-flex items-center justify-center gap-space-xs rounded-lg bg-white px-space-md py-space-sm font-body-md text-body-md font-semibold text-[#3b2bd9] shadow-lg transition hover:-translate-y-0.5"
+              [href]="whatsappHref()"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ i18n.copy().calculator.cta }}
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

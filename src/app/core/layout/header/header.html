@@ -1,0 +1,154 @@
+<header
+  class="fixed top-0 left-0 z-50 w-full bg-surface-dim/80 light:bg-white/85 shadow-[0_1px_8px_rgba(0,0,0,0.12)] backdrop-blur-xl"
+>
+  <div
+    class="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-margin-mobile md:px-margin-tablet lg:px-margin"
+  >
+    <a class="flex items-center" routerLink="/" fragment="inicio" (click)="closeMenu()">
+      <app-brand-logo class="sm:hidden" variant="mark" imgClass="h-9 w-auto" />
+      <app-brand-logo
+        class="hidden sm:block"
+        variant="horizontal"
+        imgClass="h-10 w-auto max-w-[220px] lg:max-w-[240px]"
+      />
+    </a>
+
+    <nav class="hidden items-center gap-space-xs xl:flex">
+      @for (link of i18n.copy().nav; track link.fragment) {
+        <a
+          class="relative rounded px-space-sm py-space-xs font-body-md text-body-md font-medium transition duration-300 hover:text-primary"
+          [class]="
+            scroll.activeSection() === link.fragment
+              ? 'text-primary after:absolute after:inset-x-space-sm after:-bottom-1 after:h-0.5 after:rounded-full after:bg-gradient-to-r after:from-brand-from after:to-brand-to'
+              : 'text-on-surface-variant'
+          "
+          routerLink="/"
+          [fragment]="link.fragment"
+          [attr.aria-current]="scroll.activeSection() === link.fragment ? 'location' : null"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="flex items-center gap-space-xs">
+      <div #langMenu class="relative">
+        <button
+          class="inline-flex h-10 items-center gap-space-xs rounded px-space-sm font-label-md text-label-md font-semibold uppercase text-on-surface-variant transition hover:bg-surface-container hover:text-primary"
+          type="button"
+          (click)="toggleLang()"
+          aria-haspopup="menu"
+          [attr.aria-expanded]="langOpen()"
+          [attr.aria-label]="i18n.copy().header.language + ': ' + i18n.option().label"
+        >
+          <app-flag [code]="i18n.option().flag" />
+          <span>{{ i18n.lang() }}</span>
+          <span
+            class="material-symbols-outlined text-[18px] transition-transform duration-200"
+            [class.rotate-180]="langOpen()"
+            aria-hidden="true"
+            >expand_more</span
+          >
+        </button>
+
+        @if (langOpen()) {
+          <ul
+            class="absolute right-0 mt-space-xs w-48 overflow-hidden rounded-lg border border-outline-variant/50 bg-surface-container-low p-space-xs shadow-2xl motion-safe:animate-rise"
+            role="menu"
+          >
+            @for (option of langs; track option.code) {
+              <li role="none">
+                <button
+                  class="flex w-full items-center gap-space-sm rounded px-space-sm py-space-sm text-left font-body-md text-body-md transition hover:bg-surface-container-high"
+                  [class]="
+                    option.code === i18n.lang()
+                      ? 'font-semibold text-primary'
+                      : 'text-on-surface-variant'
+                  "
+                  type="button"
+                  role="menuitemradio"
+                  [attr.aria-checked]="option.code === i18n.lang()"
+                  [attr.lang]="option.code"
+                  (click)="chooseLang(option.code)"
+                >
+                  <app-flag [code]="option.flag" />
+                  <span class="flex-1">{{ option.label }}</span>
+                  @if (option.code === i18n.lang()) {
+                    <span
+                      class="material-symbols-outlined text-[18px] text-accent"
+                      aria-hidden="true"
+                      >check</span
+                    >
+                  }
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+      <button
+        class="inline-flex h-10 w-10 items-center justify-center rounded text-on-surface-variant hover:bg-surface-container hover:text-primary"
+        type="button"
+        (click)="theme.toggle()"
+        [attr.aria-label]="i18n.copy().header.theme"
+      >
+        <span class="material-symbols-outlined">
+          {{ theme.theme() === 'dark' ? 'light_mode' : 'dark_mode' }}
+        </span>
+      </button>
+      <a
+        class="ml-space-xs hidden items-center justify-center gap-space-xs rounded btn-brand px-space-md py-space-sm font-body-md text-body-md font-semibold sm:inline-flex"
+        [href]="i18n.copy().whatsapp.href"
+        target="_blank"
+        rel="noopener noreferrer"
+        (click)="closeMenu()"
+      >
+        <span class="material-symbols-outlined text-[18px]">chat</span>
+        {{ i18n.copy().header.quote }}
+      </a>
+      <button
+        class="inline-flex h-10 w-10 items-center justify-center rounded bg-surface-container text-primary xl:hidden"
+        type="button"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-label]="i18n.copy().header.openMenu"
+      >
+        <span class="material-symbols-outlined">{{ menuOpen() ? 'close' : 'menu' }}</span>
+      </button>
+    </div>
+  </div>
+
+  @if (menuOpen()) {
+    <nav
+      class="border-t border-outline-variant bg-surface-dim px-margin-mobile py-space-md md:px-margin-tablet xl:hidden"
+    >
+      <div class="flex flex-col gap-space-xs">
+        @for (link of i18n.copy().nav; track link.fragment) {
+          <a
+            class="rounded px-space-sm py-space-sm font-body-md text-body-lg font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
+            routerLink="/"
+            [fragment]="link.fragment"
+            (click)="closeMenu()"
+          >
+            {{ link.label }}
+          </a>
+        }
+        <a
+          class="mt-space-sm rounded btn-brand px-space-sm py-space-sm text-center font-body-md text-body-md font-semibold sm:hidden"
+          [href]="i18n.copy().whatsapp.href"
+          target="_blank"
+          rel="noopener noreferrer"
+          (click)="closeMenu()"
+        >
+          {{ i18n.copy().header.quote }}
+        </a>
+      </div>
+    </nav>
+  }
+  <div class="absolute inset-x-0 bottom-0 h-0.5" aria-hidden="true">
+    <div
+      class="h-full bg-gradient-to-r from-brand-from to-brand-to transition-[width] duration-150"
+      [style.width.%]="scroll.progress()"
+    ></div>
+  </div>
+</header>

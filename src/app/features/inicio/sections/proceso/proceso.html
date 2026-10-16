@@ -1,0 +1,53 @@
+<section id="proceso" class="relative w-full overflow-hidden py-space-xl lg:py-20">
+  <div class="bg-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div appReveal class="mb-space-xl max-w-3xl">
+      <span class="eyebrow mb-space-md">
+        {{ i18n.copy().process.eyebrow }}
+      </span>
+      <h2
+        class="mb-space-sm font-headline-lg text-headline-lg-mobile font-bold tracking-tight text-primary md:text-headline-lg"
+      >
+        {{ i18n.copy().process.title }}
+      </h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant">
+        {{ i18n.copy().process.intro }}
+      </p>
+    </div>
+
+    <ol
+      class="relative grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-4 lg:before:absolute lg:before:inset-x-12 lg:before:top-[3.25rem] lg:before:h-0.5 lg:before:bg-gradient-to-r lg:before:from-brand-from lg:before:via-brand-to lg:before:to-brand-from lg:before:opacity-60"
+    >
+      @for (step of i18n.copy().process.steps; track step.title; let i = $index) {
+        <li appReveal [revealDelay]="i * 90" class="card group p-space-lg">
+          <div class="mb-space-md flex items-center justify-between">
+            <span
+              class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-from to-brand-to text-white shadow-lg shadow-brand-to/30 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
+            >
+              <span class="material-symbols-outlined text-[26px]">{{ icons[i] }}</span>
+            </span>
+            <span class="text-brand-gradient font-display-xl text-headline-lg font-bold">
+              {{ (i + 1).toString().padStart(2, '0') }}
+            </span>
+          </div>
+          <h3 class="mb-space-sm font-headline-sm text-headline-sm font-semibold text-primary">
+            {{ step.title }}
+          </h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">{{ step.description }}</p>
+        </li>
+      }
+    </ol>
+
+    <div class="mt-space-xl flex justify-center">
+      <a
+        class="inline-flex items-center gap-space-xs rounded btn-brand px-space-lg py-space-md font-body-md text-body-md font-semibold"
+        [href]="i18n.copy().whatsapp.href"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="material-symbols-outlined text-[18px]">chat</span>
+        {{ i18n.copy().process.cta }}
+      </a>
+    </div>
+  </div>
+</section>

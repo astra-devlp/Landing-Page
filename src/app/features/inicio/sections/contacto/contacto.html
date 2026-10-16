@@ -1,0 +1,190 @@
+<section id="contacto" class="relative w-full overflow-hidden py-space-xl lg:py-20">
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div
+      class="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-brand-from/15 blur-3xl motion-safe:animate-float"
+    ></div>
+    <div
+      class="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-brand-to/15 blur-3xl motion-safe:animate-float [animation-delay:2s]"
+    ></div>
+  </div>
+  <div class="relative mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div class="grid grid-cols-1 gap-gutter lg:grid-cols-12">
+      <div appReveal class="flex flex-col lg:col-span-5">
+        <span class="eyebrow mb-space-md self-start">
+          {{ i18n.copy().contact.eyebrow }}
+        </span>
+        <h2
+          class="mb-space-md font-headline-lg text-headline-lg-mobile font-bold tracking-tight text-primary md:text-headline-lg"
+        >
+          {{ i18n.copy().contact.title }}
+        </h2>
+        <p class="mb-space-xl font-body-lg text-body-lg text-on-surface-variant">
+          {{ i18n.copy().contact.body }}
+        </p>
+        <div class="space-y-space-md">
+          @for (channel of i18n.copy().contact.channels; track channel.label) {
+            <div class="card flex items-center gap-space-md p-space-md">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/12 text-accent"
+              >
+                <span class="material-symbols-outlined">{{ channel.icon }}</span>
+              </div>
+              <div>
+                <span class="block font-label-sm text-label-sm uppercase text-outline">{{
+                  channel.label
+                }}</span>
+                @if (channel.href) {
+                  <a
+                    class="font-body-md text-body-md font-medium text-primary hover:text-secondary"
+                    [href]="channel.href"
+                    [attr.target]="channel.href.startsWith('http') ? '_blank' : null"
+                    [attr.rel]="channel.href.startsWith('http') ? 'noopener noreferrer' : null"
+                  >
+                    {{ channel.value }}
+                  </a>
+                } @else {
+                  <p class="font-body-md text-body-md text-primary">{{ channel.value }}</p>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <form
+          appReveal
+          [revealDelay]="120"
+          class="card-static relative overflow-hidden p-space-lg before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-r before:from-brand-from before:to-brand-to md:p-space-xl"
+          (submit)="onSubmit($event)"
+        >
+          <h3 class="mb-space-xs font-headline-sm text-headline-sm font-semibold text-primary">
+            {{ i18n.copy().contact.formTitle }}
+          </h3>
+          <p class="mb-space-lg font-body-sm text-body-sm text-on-surface-variant">
+            {{ i18n.copy().contact.formIntro }}
+          </p>
+          <div class="space-y-space-md">
+            <div class="grid grid-cols-1 gap-space-md md:grid-cols-2">
+              <div>
+                <label
+                  class="mb-space-xs block font-label-sm text-label-sm uppercase tracking-wider text-secondary"
+                  for="contact-name"
+                >
+                  {{ i18n.copy().contact.name }} *
+                </label>
+                <input
+                  class="w-full rounded bg-surface-container px-space-md py-space-sm font-body-md text-body-md text-primary placeholder:text-outline focus:bg-surface-container-high focus:outline-2 focus:outline-accent"
+                  id="contact-name"
+                  name="name"
+                  autocomplete="name"
+                  [placeholder]="i18n.copy().contact.namePlaceholder"
+                  required
+                  type="text"
+                />
+              </div>
+              <div>
+                <label
+                  class="mb-space-xs block font-label-sm text-label-sm uppercase tracking-wider text-secondary"
+                  for="contact-company"
+                >
+                  {{ i18n.copy().contact.company }}
+                  <span class="normal-case text-outline">({{ i18n.copy().contact.optional }})</span>
+                </label>
+                <input
+                  class="w-full rounded bg-surface-container px-space-md py-space-sm font-body-md text-body-md text-primary placeholder:text-outline focus:bg-surface-container-high focus:outline-2 focus:outline-accent"
+                  id="contact-company"
+                  name="company"
+                  autocomplete="organization"
+                  [placeholder]="i18n.copy().contact.companyPlaceholder"
+                  type="text"
+                />
+              </div>
+            </div>
+
+            <fieldset>
+              <legend
+                class="mb-space-xs block font-label-sm text-label-sm uppercase tracking-wider text-secondary"
+              >
+                {{ i18n.copy().contact.solution }} *
+              </legend>
+              <div class="grid grid-cols-2 gap-space-sm sm:grid-cols-3">
+                @for (
+                  option of i18n.copy().contact.solutions;
+                  track option.value;
+                  let first = $first
+                ) {
+                  <label class="group relative cursor-pointer">
+                    <input
+                      class="peer sr-only"
+                      type="radio"
+                      name="solution"
+                      [value]="option.value"
+                      [required]="first"
+                    />
+                    <span
+                      class="flex h-full items-center gap-space-sm rounded-lg border border-outline-variant/50 bg-surface-container px-space-sm py-space-sm font-body-md text-body-sm font-medium text-on-surface-variant transition duration-200 group-hover:border-outline-variant group-hover:text-primary peer-checked:border-transparent peer-checked:bg-accent/15 peer-checked:text-primary peer-checked:ring-2 peer-checked:ring-accent peer-focus-visible:ring-2 peer-focus-visible:ring-accent"
+                    >
+                      <span
+                        class="material-symbols-outlined text-[20px] text-accent"
+                        aria-hidden="true"
+                      >
+                        {{ solutionIcons[option.value] }}
+                      </span>
+                      <span class="leading-tight">{{ option.label }}</span>
+                    </span>
+                  </label>
+                }
+              </div>
+            </fieldset>
+
+            <div>
+              <label
+                class="mb-space-xs block font-label-sm text-label-sm uppercase tracking-wider text-secondary"
+                for="contact-description"
+              >
+                {{ i18n.copy().contact.description }}
+                <span class="normal-case text-outline">({{ i18n.copy().contact.optional }})</span>
+              </label>
+              <textarea
+                class="w-full resize-none rounded bg-surface-container px-space-md py-space-sm font-body-md text-body-md text-primary placeholder:text-outline focus:bg-surface-container-high focus:outline-2 focus:outline-accent"
+                id="contact-description"
+                name="description"
+                [placeholder]="i18n.copy().contact.descriptionPlaceholder"
+                rows="4"
+              ></textarea>
+            </div>
+
+            <button
+              class="inline-flex w-full items-center justify-center gap-space-xs rounded btn-brand px-space-lg py-space-md font-body-md text-body-md font-semibold"
+              type="submit"
+            >
+              <span class="material-symbols-outlined text-[18px]">chat</span>
+              {{ i18n.copy().contact.submit }}
+            </button>
+            <p
+              class="-mt-space-sm flex items-center justify-center gap-space-xs text-center font-body-sm text-body-sm text-on-surface-variant"
+            >
+              <span
+                class="material-symbols-outlined text-[16px] text-group-manage"
+                aria-hidden="true"
+                >verified_user</span
+              >
+              {{ i18n.copy().contact.reassurance }}
+            </p>
+
+            @if (formSent()) {
+              <div
+                class="flex items-center gap-space-sm rounded bg-surface-container p-space-md font-body-sm text-body-sm text-primary"
+                role="status"
+              >
+                <span class="material-symbols-outlined text-secondary">check_circle</span>
+                <span>{{ i18n.copy().contact.success }}</span>
+              </div>
+            }
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

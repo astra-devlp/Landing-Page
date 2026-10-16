@@ -1,0 +1,93 @@
+<!doctype html>
+<html class="dark" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      (() => {
+        const theme = localStorage.getItem('astra-theme') === 'light' ? 'light' : 'dark';
+        const langs = ['es', 'en', 'pt'];
+        const stored = localStorage.getItem('astra-lang');
+        const browser = (navigator.language || '').slice(0, 2).toLowerCase();
+        const lang = langs.includes(stored) ? stored : langs.includes(browser) ? browser : 'es';
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        document.documentElement.classList.toggle('light', theme === 'light');
+        document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+      })();
+    </script>
+    <title>AstraDev — Software a la medida e Inteligencia Artificial</title>
+    <meta
+      name="description"
+      content="Bots de WhatsApp con IA, sistemas POS, ERP y CRM, plataformas SaaS y páginas web a la medida de tu negocio. Cotiza gratis por WhatsApp."
+    />
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090a10" />
+    <link rel="canonical" href="%SITE_URL%/" />
+
+    <!-- Social previews (WhatsApp, Facebook, LinkedIn, X). %SITE_URL% is filled in at build time. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Astra Dev" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="pt_BR" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta
+      property="og:title"
+      content="Astra Dev — Tu negocio vendiendo y atendiendo clientes, incluso mientras duermes"
+    />
+    <meta
+      property="og:description"
+      content="Bots de WhatsApp con IA, sistemas POS, ERP y CRM y páginas web a la medida. Cotiza gratis por WhatsApp."
+    />
+    <meta property="og:image" content="%SITE_URL%/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Astra Dev: software a la medida e inteligencia artificial"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Astra Dev — Software a la medida e Inteligencia Artificial"
+    />
+    <meta
+      name="twitter:description"
+      content="Bots de WhatsApp con IA, sistemas POS, ERP y CRM y páginas web a la medida. Cotiza gratis por WhatsApp."
+    />
+    <meta name="twitter:image" content="%SITE_URL%/og-image.jpg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Astra Dev",
+        "slogan": "Ideas que construyen futuro",
+        "description": "Software a la medida e inteligencia artificial: bots de WhatsApp con IA, sistemas POS, ERP y CRM, plataformas SaaS y páginas web.",
+        "url": "%SITE_URL%/",
+        "logo": "%SITE_URL%/brand/logo-stacked.png",
+        "image": "%SITE_URL%/og-image.jpg",
+        "email": "astra.dev.tech@gmail.com",
+        "areaServed": "CO",
+        "knowsLanguage": ["es", "en", "pt"]
+      }
+    </script>
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="author" content="Astra Dev" />
+    <link rel="icon" type="image/png" href="brand/favicon.png" />
+    <link rel="apple-touch-icon" href="brand/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-background font-body-md text-on-surface antialiased">
+    <app-root></app-root>
+  </body>
+</html>
