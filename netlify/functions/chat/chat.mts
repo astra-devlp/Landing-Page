@@ -15,6 +15,8 @@ const MAX_MESSAGES = 12;
 const MAX_CHARS = 1000;
 const RATE_LIMIT = 15;
 const RATE_WINDOW_MS = 5 * 60 * 1000;
+/** Stay under Netlify's gateway limit. A slow model must not consume the whole request. */
+const ATTEMPT_MS = 8_000;
 /** The only sites the assistant may link to; any other URL is removed from replies. */
 const ALLOWED_HOSTS = ['wa.me', 'drcristianvalencia.com'];
 
@@ -60,7 +62,7 @@ export default async (req: Request): Promise<Response> => {
   }
 
   let rateLimited = false;
-  for (const model of models) {
+  for (const model of fastestFirst(models)) {
     try {
       const prompt = systemPrompt(typeof pageLang === 'string' ? pageLang : undefined);
       const reply = cleanReply(await complete(baseUrl, apiKey, model, prompt, messages));
@@ -105,12 +107,12 @@ async function complete(
       model,
       messages: [{ role: 'system', content: prompt }, ...messages],
       temperature: 0.3,
-      // Generous limit: reasoning models spend tokens thinking before they answer.
-      max_tokens: 1500,
+      // Short replies only: the prompt asks for a few sentences.
+      max_tokens: 400,
       // OpenRouter: keep reasoning short and out of the reply. Other providers skip it.
       ...(baseUrl.includes('openrouter.ai') && { reasoning: { effort: 'low', exclude: true } }),
     }),
-    signal: AbortSignal.timeout(25_000),
+    signal: AbortSignal.timeout(ATTEMPT_MS),
   });
 
   if (!response.ok) {
@@ -170,6 +172,13 @@ function isRateLimited(ip: string): boolean {
   recent.push(now);
   hits.set(ip, recent);
   return recent.length > RATE_LIMIT;
+}
+
+/** Tries quicker models before the very large ones, which often miss the gateway deadline. */
+function fastestFirst(models: string[]): string[] {
+  const weight = (model: string) =>
+    /lightning/i.test(model) ? 0 : /ultra|550b/i.test(model) ? 2 : 1;
+  return [...models].sort((a, b) => weight(a) - weight(b));
 }
 
 function json(body: unknown, status = 200): Response {
