@@ -17,6 +17,8 @@ import { ChatService } from './chat.service';
 interface ChatTurn {
   role: 'user' | 'assistant';
   content: string;
+  /** How many characters of an assistant reply are visible while it types. */
+  shown?: number;
 }
 
 const CHAT_ENDPOINT = '/.netlify/functions/chat';
@@ -85,7 +87,8 @@ function readSession(key: string): boolean {
             } @else {
               <div
                 class="chat-bubble self-start rounded-tl-none bg-surface-container-high text-on-surface"
-                [innerHTML]="format(turn.content)"
+                [class.is-typing]="typingIndex() === $index"
+                [innerHTML]="bubble(turn, $index)"
               ></div>
             }
           }
@@ -146,7 +149,7 @@ function readSession(key: string): boolean {
           <button
             class="btn-brand inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg disabled:opacity-50"
             type="submit"
-            [disabled]="loading()"
+            [disabled]="loading() || typingIndex() !== null"
             [attr.aria-label]="copy().send"
           >
             <span class="material-symbols-outlined text-[20px]">send</span>
@@ -219,6 +222,20 @@ function readSession(key: string): boolean {
       font-weight: 600;
       text-decoration: underline;
     }
+    :host ::ng-deep .typing-caret {
+      display: inline-block;
+      width: 2px;
+      height: 0.9em;
+      margin-left: 2px;
+      background: currentColor;
+      vertical-align: text-bottom;
+      animation: chat-caret 1s steps(1) infinite;
+    }
+    @keyframes chat-caret {
+      50% {
+        opacity: 0;
+      }
+    }
   `,
 })
 export class ChatWidget {
@@ -235,6 +252,9 @@ export class ChatWidget {
   protected readonly error = signal('');
   protected readonly maxInput = MAX_INPUT;
   protected readonly format = formatReply;
+  /** Index of the assistant turn that is still being typed out. */
+  protected readonly typingIndex = signal<number | null>(null);
+  private typeTimer = 0;
 
   /** WhatsApp handoff that carries the visitor's first question, so nobody has to repeat it. */
   protected readonly handoffHref = computed(() => {
@@ -257,6 +277,7 @@ export class ChatWidget {
         this.destroyRef.onDestroy(() => clearTimeout(timer));
       }
     });
+    this.destroyRef.onDestroy(() => window.clearInterval(this.typeTimer));
 
     // Focus the input whenever the panel opens, from the launcher or any "Ask Astra" button.
     effect(() => {
@@ -300,7 +321,7 @@ export class ChatWidget {
 
   protected async send(text: string): Promise<void> {
     const content = text.trim().slice(0, MAX_INPUT);
-    if (!content || this.loading()) {
+    if (!content || this.loading() || this.typingIndex() !== null) {
       return;
     }
 
@@ -318,7 +339,7 @@ export class ChatWidget {
       const data = (await response.json().catch(() => ({}))) as { reply?: string; error?: string };
 
       if (response.ok && data.reply) {
-        this.turns.update((turns) => [...turns, { role: 'assistant', content: data.reply! }]);
+        this.reveal(data.reply);
       } else {
         this.error.set(data.error === 'rate_limited' ? this.copy().rateLimited : this.copy().error);
       }
@@ -330,9 +351,66 @@ export class ChatWidget {
     }
   }
 
+  /** Visible slice of a reply, so the message types out instead of appearing at once. */
+  protected shown(turn: ChatTurn): string {
+    return turn.shown === undefined ? turn.content : turn.content.slice(0, turn.shown);
+  }
+
+  protected bubble(turn: ChatTurn, index: number): string {
+    const html = this.format(this.shown(turn));
+    if (this.typingIndex() !== index) {
+      return html;
+    }
+    return html.replace(
+      /<\/(p|li)>(?![\s\S]*<\/(p|li)>)/,
+      '<span class="typing-caret"></span></$1>',
+    );
+  }
+
+  private reveal(reply: string): void {
+    const reduce =
+      typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      this.turns.update((turns) => [...turns, { role: 'assistant', content: reply }]);
+      this.scrollToEnd();
+      return;
+    }
+
+    const index = this.turns().length;
+    this.turns.update((turns) => [...turns, { role: 'assistant', content: reply, shown: 0 }]);
+    this.typingIndex.set(index);
+    const step = reply.length > 700 ? 3 : reply.length > 320 ? 2 : 1;
+    window.clearInterval(this.typeTimer);
+    this.typeTimer = window.setInterval(() => {
+      const turn = this.turns()[index];
+      if (!turn) {
+        this.stopTyping();
+        return;
+      }
+      const shown = Math.min(turn.content.length, (turn.shown ?? 0) + step);
+      this.turns.update((turns) =>
+        turns.map((item, i) => (i === index ? { ...item, shown } : item)),
+      );
+      this.scrollToEnd();
+      if (shown >= turn.content.length) {
+        this.stopTyping();
+      }
+    }, 20);
+  }
+
+  private stopTyping(): void {
+    window.clearInterval(this.typeTimer);
+    this.typeTimer = 0;
+    this.typingIndex.set(null);
+    this.turns.update((turns) =>
+      turns.map((turn) => (turn.shown === undefined ? turn : { ...turn, shown: undefined })),
+    );
+    this.scrollToEnd();
+  }
+
   private submitInput(): void {
     const input = this.input()?.nativeElement;
-    if (input && input.value.trim() && !this.loading()) {
+    if (input && input.value.trim() && !this.loading() && this.typingIndex() === null) {
       void this.send(input.value);
       input.value = '';
     }

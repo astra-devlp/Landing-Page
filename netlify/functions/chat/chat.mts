@@ -113,7 +113,7 @@ async function complete(
     body: JSON.stringify({
       model,
       messages: [{ role: 'system', content: prompt }, ...messages],
-      temperature: 0.3,
+      temperature: 0.2,
       // Short replies only: the prompt asks for a few sentences.
       max_tokens: 400,
       // OpenRouter: keep reasoning short and out of the reply. Other providers skip it.
