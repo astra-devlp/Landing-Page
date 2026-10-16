@@ -2,12 +2,13 @@
  * Netlify Function behind the website assistant: POST /.netlify/functions/chat
  *
  * The API key lives only here (Netlify environment variables), never in the
- * browser bundle. The model list and the API address come from Netlify too.
+ * browser bundle. The API address comes from Netlify too.
  *
  * Environment variables (set in Netlify, not in this file):
  *   LLM_API_KEY   required. OpenRouter key (or any OpenAI-compatible provider's key).
- *   LLM_MODEL     required. Comma-separated models, tried in order until one answers.
  *   LLM_BASE_URL  required. OpenAI-compatible base URL.
+ *
+ * Free models are tried fastest first. The first one that returns text wins.
  */
 import { systemPrompt, WHATSAPP_URL } from './knowledge.mts';
 
@@ -17,6 +18,16 @@ const RATE_LIMIT = 15;
 const RATE_WINDOW_MS = 5 * 60 * 1000;
 /** Stay under Netlify's gateway limit. A slow model must not consume the whole request. */
 const ATTEMPT_MS = 8_000;
+/** Fastest free models that returned text first, then slower or rate-limited fallbacks. */
+const MODELS = [
+  'liquid/lfm-2.5-2.6b:free',
+  'dots-studio/dots-3-note-preview:free',
+  'google/gemma-4-26b-a4b-it:free',
+  'google/gemma-4-31b-it:free',
+  'poolside/laguna-s-2.1:free',
+  'nvidia/nemotron-3.5-lightning:free',
+  'nvidia/nemotron-3-super-120b-a12b:free',
+];
 /** The only sites the assistant may link to; any other URL is removed from replies. */
 const ALLOWED_HOSTS = ['wa.me', 'drcristianvalencia.com'];
 
@@ -40,12 +51,8 @@ export default async (req: Request): Promise<Response> => {
 
   const apiKey = process.env['LLM_API_KEY'];
   const baseUrl = process.env['LLM_BASE_URL']?.replace(/\/$/, '');
-  const models = process.env['LLM_MODEL']
-    ?.split(',')
-    .map((model) => model.trim())
-    .filter(Boolean);
-  if (!apiKey || !baseUrl || !models?.length) {
-    console.error('[chat] LLM_API_KEY, LLM_BASE_URL or LLM_MODEL is not set');
+  if (!apiKey || !baseUrl) {
+    console.error('[chat] LLM_API_KEY or LLM_BASE_URL is not set');
     return json({ error: 'not_configured' }, 503);
   }
 
@@ -62,7 +69,7 @@ export default async (req: Request): Promise<Response> => {
   }
 
   let rateLimited = false;
-  for (const model of fastestFirst(models)) {
+  for (const model of MODELS) {
     try {
       const prompt = systemPrompt(typeof pageLang === 'string' ? pageLang : undefined);
       const reply = cleanReply(await complete(baseUrl, apiKey, model, prompt, messages));
@@ -172,13 +179,6 @@ function isRateLimited(ip: string): boolean {
   recent.push(now);
   hits.set(ip, recent);
   return recent.length > RATE_LIMIT;
-}
-
-/** Tries quicker models before the very large ones, which often miss the gateway deadline. */
-function fastestFirst(models: string[]): string[] {
-  const weight = (model: string) =>
-    /lightning/i.test(model) ? 0 : /ultra|550b/i.test(model) ? 2 : 1;
-  return [...models].sort((a, b) => weight(a) - weight(b));
 }
 
 function json(body: unknown, status = 200): Response {
