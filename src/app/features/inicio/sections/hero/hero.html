@@ -34,12 +34,15 @@
         </a>
       </div>
 
-      <ul
-        class="hidden flex-col gap-1 font-body-sm text-body-sm text-on-surface-variant sm:flex sm:gap-1.5"
-      >
-        @for (item of i18n.copy().hero.trust; track item) {
-          <li class="flex items-center gap-2">
-            <span class="h-1 w-1 rounded-full bg-accent" aria-hidden="true"></span>
+      <ul class="flex flex-col gap-3 font-body-md text-body-md text-on-surface">
+        @for (item of i18n.copy().hero.trust; track item; let i = $index) {
+          <li class="flex items-center gap-3">
+            <span
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-accent"
+              aria-hidden="true"
+            >
+              <span class="material-symbols-outlined text-[20px]">{{ trustIcons[i] }}</span>
+            </span>
             {{ item }}
           </li>
         }
@@ -157,9 +160,6 @@
           </div>
         </div>
       </div>
-      <figcaption class="mt-4 font-body-sm text-body-sm text-outline">
-        {{ i18n.copy().hero.chat.demo.label }}
-      </figcaption>
     </figure>
   </div>
 </section>

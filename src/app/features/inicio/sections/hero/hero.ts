@@ -22,6 +22,7 @@ const RESTART_MS = 5000;
 })
 export class Hero {
   protected readonly i18n = inject(I18nService);
+  protected readonly trustIcons = ['forum', 'layers', 'support_agent'];
 
   /** How many chat messages are visible; the demo conversation replays in a loop. */
   protected readonly shown = signal(0);

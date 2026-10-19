@@ -19,7 +19,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       theme: 'Cambiar tema',
     },
     whatsapp: {
-      href: whatsappUrl('Hola Astra Dev, quiero hablar de un proyecto.\nMi negocio: \nLo que necesito: '),
+      href: whatsappUrl('Hola Astra Dev, quiero cotizar un proyecto.'),
       phone: '314 828 1480',
     },
     floating: {
@@ -940,7 +940,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       theme: 'Switch theme',
     },
     whatsapp: {
-      href: whatsappUrl('Hi Astra Dev, I would like to talk about a project.\nMy business: \nWhat I need: '),
+      href: whatsappUrl('Hi Astra Dev, I would like a quote for a project.'),
       phone: '314 828 1480',
     },
     floating: {
@@ -1851,7 +1851,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       theme: 'Mudar tema',
     },
     whatsapp: {
-      href: whatsappUrl('Olá Astra Dev, quero falar sobre um projeto.\nMeu negócio: \nO que preciso: '),
+      href: whatsappUrl('Olá Astra Dev, quero um orçamento para um projeto.'),
       phone: '314 828 1480',
     },
     floating: {
