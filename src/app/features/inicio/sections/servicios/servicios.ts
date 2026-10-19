@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { Component, computed, inject, signal } from '@angular/core';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 import { ServiceGroup } from '../../../../shared/models/site.models';
@@ -34,7 +35,7 @@ const GROUP_STYLES: Record<
 
 @Component({
   selector: 'app-servicios',
-  imports: [Reveal, RouterLink],
+  imports: [WhatsappIcon, Reveal, RouterLink],
   templateUrl: './servicios.html',
 })
 export class Servicios {

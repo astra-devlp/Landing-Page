@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import {
   afterNextRender,
   Component,
@@ -35,6 +36,7 @@ function readSession(key: string): boolean {
 }
 
 @Component({
+  imports: [WhatsappIcon],
   selector: 'app-chat-widget',
   template: `
     @if (open()) {
@@ -161,7 +163,7 @@ function readSession(key: string): boolean {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">chat</span>
+          <app-whatsapp-icon [size]="16" />
           {{ copy().handoff }}
         </a>
       </section>

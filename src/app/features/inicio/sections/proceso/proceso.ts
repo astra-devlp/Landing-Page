@@ -1,10 +1,11 @@
+import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { Component, inject } from '@angular/core';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 import { Reveal } from '../../../../shared/ui/reveal/reveal';
 
 @Component({
   selector: 'app-proceso',
-  imports: [Reveal],
+  imports: [WhatsappIcon, Reveal],
   templateUrl: './proceso.html',
 })
 export class Proceso {

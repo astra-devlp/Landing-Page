@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Lang, LANGS } from '../../i18n/i18n.models';
@@ -9,7 +10,7 @@ import { Flag } from '../../../shared/ui/flag/flag';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, BrandLogo, Flag],
+  imports: [WhatsappIcon, RouterLink, BrandLogo, Flag],
   templateUrl: './header.html',
   styles: ``,
   host: {

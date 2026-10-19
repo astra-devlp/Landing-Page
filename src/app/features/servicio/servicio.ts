@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { DOCUMENT } from '@angular/common';
 import { Component, computed, DestroyRef, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -18,7 +19,7 @@ const RELATED_PROJECT: Record<ServicePageKey, number> = { pos: 3, bot: 2, ia: 1 
 
 @Component({
   selector: 'app-servicio',
-  imports: [Reveal, Proceso, CtaFinal],
+  imports: [WhatsappIcon, Reveal, Proceso, CtaFinal],
   templateUrl: './servicio.html',
 })
 export class Servicio {

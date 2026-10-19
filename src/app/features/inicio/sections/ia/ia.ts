@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { afterNextRender, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 import { ChatService } from '../../../../core/layout/chat-widget/chat.service';
@@ -7,7 +8,7 @@ const ROTATE_MS = 7000;
 
 @Component({
   selector: 'app-ia',
-  imports: [Reveal],
+  imports: [WhatsappIcon, Reveal],
   templateUrl: './ia.html',
 })
 export class Ia {

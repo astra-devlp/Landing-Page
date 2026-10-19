@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import {
   afterNextRender,
   Component,
@@ -18,7 +19,7 @@ const RESTART_MS = 5000;
 
 @Component({
   selector: 'app-hero',
-  imports: [RouterLink, BrandLogo, Reveal],
+  imports: [WhatsappIcon, RouterLink, BrandLogo, Reveal],
   templateUrl: './hero.html',
 })
 export class Hero {

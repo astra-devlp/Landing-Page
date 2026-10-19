@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18nService } from '../../../../core/i18n/i18n.service';
@@ -25,7 +26,7 @@ const OVERRIDES: Record<string, string[]> = {
 
 @Component({
   selector: 'app-cotizador',
-  imports: [Reveal, RouterLink],
+  imports: [WhatsappIcon, Reveal, RouterLink],
   templateUrl: './cotizador.html',
 })
 export class Cotizador {
