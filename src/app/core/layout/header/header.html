@@ -1,5 +1,5 @@
 <header
-  class="fixed top-0 left-0 z-50 w-full bg-surface-dim/80 light:bg-white/85 shadow-[0_1px_8px_rgba(0,0,0,0.12)] backdrop-blur-xl"
+  class="fixed top-0 left-0 z-50 w-full border-b border-outline-variant bg-surface/90 backdrop-blur-xl"
 >
   <div
     class="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-margin-mobile md:px-margin-tablet lg:px-margin"
@@ -19,7 +19,7 @@
           class="relative rounded px-space-sm py-space-xs font-body-md text-body-md font-medium transition duration-300 hover:text-primary"
           [class]="
             scroll.activeSection() === link.fragment
-              ? 'text-primary after:absolute after:inset-x-space-sm after:-bottom-1 after:h-0.5 after:rounded-full after:bg-gradient-to-r after:from-brand-from after:to-brand-to'
+              ? 'text-primary after:absolute after:inset-x-space-sm after:-bottom-1 after:h-0.5 after:rounded-full after:bg-accent'
               : 'text-on-surface-variant'
           "
           routerLink="/"
@@ -87,12 +87,16 @@
         }
       </div>
       <button
-        class="inline-flex h-10 w-10 items-center justify-center rounded text-on-surface-variant hover:bg-surface-container hover:text-primary"
+        class="inline-flex h-10 w-10 items-center justify-center rounded text-on-surface-variant hover:bg-surface-container group hover:text-primary"
         type="button"
         (click)="theme.toggle()"
         [attr.aria-label]="i18n.copy().header.theme"
       >
-        <span class="material-symbols-outlined">
+        <span
+          class="material-symbols-outlined transition-colors duration-200"
+          [class.group-hover:text-yellow-400]="theme.theme() === 'dark'"
+          [class.group-hover:text-blue-600]="theme.theme() !== 'dark'"
+        >
           {{ theme.theme() === 'dark' ? 'light_mode' : 'dark_mode' }}
         </span>
       </button>
@@ -147,7 +151,7 @@
   }
   <div class="absolute inset-x-0 bottom-0 h-0.5" aria-hidden="true">
     <div
-      class="h-full bg-gradient-to-r from-brand-from to-brand-to transition-[width] duration-150"
+      class="h-full bg-accent transition-[width] duration-150"
       [style.width.%]="scroll.progress()"
     ></div>
   </div>

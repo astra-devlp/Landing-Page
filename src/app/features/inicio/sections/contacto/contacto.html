@@ -1,41 +1,51 @@
-<section id="contacto" class="relative w-full overflow-hidden py-space-xl lg:py-20">
-  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-    <div
-      class="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-brand-from/15 blur-3xl motion-safe:animate-float"
-    ></div>
-    <div
-      class="absolute -right-24 bottom-10 h-96 w-96 rounded-full bg-brand-to/15 blur-3xl motion-safe:animate-float [animation-delay:2s]"
-    ></div>
-  </div>
-  <div class="relative mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
-    <div class="grid grid-cols-1 gap-gutter lg:grid-cols-12">
-      <div appReveal class="flex flex-col lg:col-span-5">
-        <span class="eyebrow mb-space-md self-start">
-          {{ i18n.copy().contact.eyebrow }}
-        </span>
-        <h2
-          class="mb-space-md font-headline-lg text-headline-lg-mobile font-bold tracking-tight text-primary md:text-headline-lg"
-        >
-          {{ i18n.copy().contact.title }}
+<section
+  id="contacto"
+  class="w-full border-t border-outline-variant bg-surface-container-low py-20 lg:py-28"
+>
+  <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div class="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
+      <div class="flex flex-col items-start lg:col-span-6">
+        <h2 class="section-title mb-6">
+          {{ i18n.copy().finalCta.title }}
+          <span class="text-on-surface-variant">{{ i18n.copy().finalCta.highlight }}</span>
         </h2>
-        <p class="mb-space-xl font-body-lg text-body-lg text-on-surface-variant">
-          {{ i18n.copy().contact.body }}
-        </p>
-        <div class="space-y-space-md">
+        <p class="section-lede mb-8">{{ i18n.copy().finalCta.body }}</p>
+
+        <div
+          class="mb-12 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-6"
+        >
+          <a
+            class="btn-brand inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-6 py-3 font-body-md text-body-md font-semibold"
+            [href]="i18n.copy().whatsapp.href"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <app-whatsapp-icon [size]="22" />
+            {{ i18n.copy().hero.ctaPrimary }}
+          </a>
+          <button
+            class="inline-flex min-h-12 items-center justify-center gap-2 font-body-md text-body-md font-semibold text-on-surface link-quiet"
+            type="button"
+            (click)="chat.show()"
+          >
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">smart_toy</span>
+            {{ i18n.copy().finalCta.secondary }}
+          </button>
+        </div>
+
+        <ul class="flex flex-col gap-4">
           @for (channel of i18n.copy().contact.channels; track channel.label) {
-            <div class="card flex items-center gap-space-md p-space-md">
-              <div
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/12 text-accent"
-              >
-                <span class="material-symbols-outlined">{{ channel.icon }}</span>
-              </div>
-              <div>
-                <span class="block font-label-sm text-label-sm uppercase text-outline">{{
+            <li class="flex items-center gap-4">
+              <span class="material-symbols-outlined text-[24px] text-accent" aria-hidden="true">{{
+                channel.icon
+              }}</span>
+              <span>
+                <span class="block font-body-sm text-body-sm text-on-surface-variant">{{
                   channel.label
                 }}</span>
                 @if (channel.href) {
                   <a
-                    class="font-body-md text-body-md font-medium text-primary hover:text-secondary"
+                    class="font-body-md text-body-md font-semibold text-primary hover:text-accent"
                     [href]="channel.href"
                     [attr.target]="channel.href.startsWith('http') ? '_blank' : null"
                     [attr.rel]="channel.href.startsWith('http') ? 'noopener noreferrer' : null"
@@ -43,38 +53,38 @@
                     {{ channel.value }}
                   </a>
                 } @else {
-                  <p class="font-body-md text-body-md text-primary">{{ channel.value }}</p>
+                  <span class="font-body-md text-body-md font-semibold text-primary">{{
+                    channel.value
+                  }}</span>
                 }
-              </div>
-            </div>
+              </span>
+            </li>
           }
-        </div>
+        </ul>
       </div>
 
-      <div class="lg:col-span-7">
+      <div class="lg:col-span-6">
         <form
-          appReveal
-          [revealDelay]="120"
-          class="card-static relative overflow-hidden p-space-lg before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-r before:from-brand-from before:to-brand-to md:p-space-xl"
+          class="rounded-2xl border border-outline-variant bg-surface p-6 md:p-8"
           (submit)="onSubmit($event)"
         >
-          <h3 class="mb-space-xs font-headline-sm text-headline-sm font-semibold text-primary">
+          <h3 class="mb-1 font-display text-[1.5rem] font-semibold text-primary">
             {{ i18n.copy().contact.formTitle }}
           </h3>
-          <p class="mb-space-lg font-body-sm text-body-sm text-on-surface-variant">
-            {{ i18n.copy().contact.formIntro }}
+          <p class="mb-6 font-body-sm text-body-sm text-on-surface-variant">
+            {{ i18n.copy().contact.body }}
           </p>
-          <div class="space-y-space-md">
-            <div class="grid grid-cols-1 gap-space-md md:grid-cols-2">
+          <div class="flex flex-col gap-5">
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
               <div>
                 <label
-                  class="mb-space-xs block font-label-sm text-label-sm uppercase tracking-wider text-secondary"
+                  class="mb-1.5 block font-body-sm text-body-sm font-semibold text-on-surface"
                   for="contact-name"
                 >
                   {{ i18n.copy().contact.name }} *
                 </label>
                 <input
-                  class="w-full rounded bg-surface-container px-space-md py-space-sm font-body-md text-body-md text-primary placeholder:text-outline focus:bg-surface-container-high focus:outline-2 focus:outline-accent"
+                  class="min-h-12 w-full rounded-lg border border-outline-variant bg-surface-container-low px-4 py-2.5 font-body-md text-body-md text-primary placeholder:text-outline focus:border-accent focus:outline-2 focus:outline-accent"
                   id="contact-name"
                   name="name"
                   autocomplete="name"
@@ -85,14 +95,16 @@
               </div>
               <div>
                 <label
-                  class="mb-space-xs block font-label-sm text-label-sm uppercase tracking-wider text-secondary"
+                  class="mb-1.5 block font-body-sm text-body-sm font-semibold text-on-surface"
                   for="contact-company"
                 >
                   {{ i18n.copy().contact.company }}
-                  <span class="normal-case text-outline">({{ i18n.copy().contact.optional }})</span>
+                  <span class="font-normal text-on-surface-variant"
+                    >({{ i18n.copy().contact.optional }})</span
+                  >
                 </label>
                 <input
-                  class="w-full rounded bg-surface-container px-space-md py-space-sm font-body-md text-body-md text-primary placeholder:text-outline focus:bg-surface-container-high focus:outline-2 focus:outline-accent"
+                  class="min-h-12 w-full rounded-lg border border-outline-variant bg-surface-container-low px-4 py-2.5 font-body-md text-body-md text-primary placeholder:text-outline focus:border-accent focus:outline-2 focus:outline-accent"
                   id="contact-company"
                   name="company"
                   autocomplete="organization"
@@ -103,12 +115,10 @@
             </div>
 
             <fieldset>
-              <legend
-                class="mb-space-xs block font-label-sm text-label-sm uppercase tracking-wider text-secondary"
-              >
+              <legend class="mb-2 block font-body-sm text-body-sm font-semibold text-on-surface">
                 {{ i18n.copy().contact.solution }} *
               </legend>
-              <div class="grid grid-cols-2 gap-space-sm sm:grid-cols-3">
+              <div class="grid grid-cols-1 gap-2 min-[420px]:grid-cols-2 sm:grid-cols-3">
                 @for (
                   option of i18n.copy().contact.solutions;
                   track option.value;
@@ -123,10 +133,10 @@
                       [required]="first"
                     />
                     <span
-                      class="flex h-full items-center gap-space-sm rounded-lg border border-outline-variant/50 bg-surface-container px-space-sm py-space-sm font-body-md text-body-sm font-medium text-on-surface-variant transition duration-200 group-hover:border-outline-variant group-hover:text-primary peer-checked:border-transparent peer-checked:bg-accent/15 peer-checked:text-primary peer-checked:ring-2 peer-checked:ring-accent peer-focus-visible:ring-2 peer-focus-visible:ring-accent"
+                      class="flex h-full min-h-12 items-center gap-2 rounded-lg border border-outline-variant px-3 py-2 font-body-sm text-body-sm font-medium text-on-surface-variant transition group-hover:border-outline group-hover:text-primary peer-checked:border-accent peer-checked:bg-accent/10 peer-checked:text-primary peer-focus-visible:outline-2 peer-focus-visible:outline-accent"
                     >
                       <span
-                        class="material-symbols-outlined text-[20px] text-accent"
+                        class="material-symbols-outlined text-[18px] text-accent"
                         aria-hidden="true"
                       >
                         {{ solutionIcons[option.value] }}
@@ -140,14 +150,16 @@
 
             <div>
               <label
-                class="mb-space-xs block font-label-sm text-label-sm uppercase tracking-wider text-secondary"
+                class="mb-1.5 block font-body-sm text-body-sm font-semibold text-on-surface"
                 for="contact-description"
               >
                 {{ i18n.copy().contact.description }}
-                <span class="normal-case text-outline">({{ i18n.copy().contact.optional }})</span>
+                <span class="font-normal text-on-surface-variant"
+                  >({{ i18n.copy().contact.optional }})</span
+                >
               </label>
               <textarea
-                class="w-full resize-none rounded bg-surface-container px-space-md py-space-sm font-body-md text-body-md text-primary placeholder:text-outline focus:bg-surface-container-high focus:outline-2 focus:outline-accent"
+                class="w-full resize-none rounded-lg border border-outline-variant bg-surface-container-low px-4 py-2.5 font-body-md text-body-md text-primary placeholder:text-outline focus:border-accent focus:outline-2 focus:outline-accent"
                 id="contact-description"
                 name="description"
                 [placeholder]="i18n.copy().contact.descriptionPlaceholder"
@@ -156,29 +168,24 @@
             </div>
 
             <button
-              class="inline-flex w-full items-center justify-center gap-space-xs rounded btn-brand px-space-lg py-space-md font-body-md text-body-md font-semibold"
+              class="btn-brand inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg px-6 py-3 font-body-md text-body-md font-semibold"
               type="submit"
             >
-              <app-whatsapp-icon [size]="18" />
+              <app-whatsapp-icon [size]="20" />
               {{ i18n.copy().contact.submit }}
             </button>
-            <p
-              class="-mt-space-sm flex items-center justify-center gap-space-xs text-center font-body-sm text-body-sm text-on-surface-variant"
-            >
-              <span
-                class="material-symbols-outlined text-[16px] text-group-manage"
-                aria-hidden="true"
-                >verified_user</span
-              >
+            <p class="text-center font-body-sm text-body-sm text-on-surface-variant">
               {{ i18n.copy().contact.reassurance }}
             </p>
 
             @if (formSent()) {
               <div
-                class="flex items-center gap-space-sm rounded bg-surface-container p-space-md font-body-sm text-body-sm text-primary"
+                class="flex items-center gap-3 rounded-lg bg-surface-container p-4 font-body-sm text-body-sm text-primary"
                 role="status"
               >
-                <span class="material-symbols-outlined text-secondary">check_circle</span>
+                <span class="material-symbols-outlined text-group-manage" aria-hidden="true"
+                  >check_circle</span
+                >
                 <span>{{ i18n.copy().contact.success }}</span>
               </div>
             }

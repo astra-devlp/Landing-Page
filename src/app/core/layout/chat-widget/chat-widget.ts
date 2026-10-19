@@ -41,7 +41,7 @@ function readSession(key: string): boolean {
   template: `
     @if (open()) {
       <section
-        class="fixed right-4 bottom-20 z-50 flex h-[min(560px,calc(100dvh-10rem))] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low shadow-2xl motion-safe:animate-rise sm:right-6 sm:bottom-[10.5rem]"
+        class="fixed right-4 bottom-20 z-50 flex h-[min(560px,calc(100dvh-10rem))] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low shadow-2xl motion-safe:animate-rise sm:right-6 sm:bottom-24"
         role="dialog"
         [attr.aria-label]="copy().title"
       >
@@ -171,7 +171,7 @@ function readSession(key: string): boolean {
 
     @if (nudge() && !open()) {
       <div
-        class="fixed right-4 bottom-20 z-40 flex max-w-[260px] items-start gap-space-xs rounded-2xl rounded-br-sm border border-outline-variant bg-surface-container-low p-space-sm pl-space-md shadow-[var(--shadow-card-hover)] motion-safe:animate-pop sm:right-24 sm:bottom-28"
+        class="fixed right-4 bottom-20 z-40 flex max-w-[260px] items-start gap-space-xs rounded-2xl rounded-br-sm border border-outline-variant bg-surface-container-low p-space-sm pl-space-md shadow-xl motion-safe:animate-pop sm:right-24 sm:bottom-8"
       >
         <button
           class="text-left font-body-md text-body-sm font-medium text-on-surface"
@@ -192,7 +192,7 @@ function readSession(key: string): boolean {
     }
 
     <button
-      class="btn-brand fixed right-4 bottom-20 z-40 hidden h-14 w-14 items-center justify-center rounded-full sm:right-6 sm:bottom-24 sm:inline-flex"
+      class="btn-brand fixed right-4 bottom-20 z-40 hidden h-14 w-14 items-center justify-center rounded-full sm:right-6 sm:bottom-6 sm:inline-flex"
       type="button"
       (click)="toggle()"
       [attr.aria-expanded]="open()"
