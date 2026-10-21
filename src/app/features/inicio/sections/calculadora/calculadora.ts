@@ -1,7 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 import { whatsappUrl } from '../../../../shared/utils/whatsapp';
-import { Reveal } from '../../../../shared/ui/reveal/reveal';
 
 // Assumptions behind the estimate; they are also spelled out in the on-page note.
 const MINUTES_PER_MESSAGE = 3;
@@ -12,7 +11,7 @@ const HOURS_PER_WORKDAY = 8;
 
 @Component({
   selector: 'app-calculadora',
-  imports: [Reveal],
+  imports: [],
   templateUrl: './calculadora.html',
 })
 export class Calculadora {

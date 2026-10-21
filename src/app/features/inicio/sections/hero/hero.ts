@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import {
   afterNextRender,
   Component,
@@ -9,8 +10,6 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18nService } from '../../../../core/i18n/i18n.service';
-import { BrandLogo } from '../../../../shared/ui/brand-logo/brand-logo';
-import { Reveal } from '../../../../shared/ui/reveal/reveal';
 
 const CLIENT_PAUSE_MS = 1100;
 const TYPING_MS = 1300;
@@ -18,11 +17,12 @@ const RESTART_MS = 5000;
 
 @Component({
   selector: 'app-hero',
-  imports: [RouterLink, BrandLogo, Reveal],
+  imports: [WhatsappIcon, RouterLink],
   templateUrl: './hero.html',
 })
 export class Hero {
   protected readonly i18n = inject(I18nService);
+  protected readonly trustIcons = ['forum', 'layers', 'support_agent'];
 
   /** How many chat messages are visible; the demo conversation replays in a loop. */
   protected readonly shown = signal(0);
@@ -30,11 +30,8 @@ export class Hero {
   protected readonly messages = computed(() => this.i18n.copy().hero.chat.messages);
   protected readonly visibleMessages = computed(() => this.messages().slice(0, this.shown()));
   protected readonly finished = computed(() => this.shown() >= this.messages().length);
-  /** Solutions shown twice so the marquee can loop seamlessly. */
-  protected readonly marquee = computed(() => {
-    const items = this.i18n.copy().services.items;
-    return [...items, ...items];
-  });
+  /** The demo inventory starts at 3 pairs; one is held when the conversation ends. */
+  protected readonly stock = computed(() => (this.finished() ? 2 : 3));
 
   private timer?: ReturnType<typeof setTimeout>;
 

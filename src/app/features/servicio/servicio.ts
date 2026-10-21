@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { DOCUMENT } from '@angular/common';
 import { Component, computed, DestroyRef, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -10,7 +11,7 @@ import { ChatService } from '../../core/layout/chat-widget/chat.service';
 import { SERVICE_PAGE_PATHS } from '../../shared/data/service-pages';
 import { Reveal } from '../../shared/ui/reveal/reveal';
 import { whatsappUrl } from '../../shared/utils/whatsapp';
-import { CtaFinal } from '../inicio/sections/cta-final/cta-final';
+import { Contacto } from '../inicio/sections/contacto/contacto';
 import { Proceso } from '../inicio/sections/proceso/proceso';
 
 /** Project shown under "See it in action" for each page (index in projects.items). */
@@ -18,7 +19,7 @@ const RELATED_PROJECT: Record<ServicePageKey, number> = { pos: 3, bot: 2, ia: 1 
 
 @Component({
   selector: 'app-servicio',
-  imports: [Reveal, Proceso, CtaFinal],
+  imports: [WhatsappIcon, Reveal, Proceso, Contacto],
   templateUrl: './servicio.html',
 })
 export class Servicio {

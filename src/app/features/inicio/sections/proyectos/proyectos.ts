@@ -1,20 +1,25 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 import { ProjectItem } from '../../../../shared/models/site.models';
-import { Reveal } from '../../../../shared/ui/reveal/reveal';
 
 @Component({
   selector: 'app-proyectos',
-  imports: [Reveal],
   templateUrl: './proyectos.html',
 })
 export class Proyectos {
   protected readonly i18n = inject(I18nService);
 
+  /** Delivered work (a client site and our own product) gets the large rows. */
+  protected readonly featured = computed(() =>
+    this.i18n.copy().projects.items.filter((project) => project.kind !== 'offer'),
+  );
+
+  /** Solutions we offer, shown smaller so they are not mistaken for client work. */
+  protected readonly offers = computed(() =>
+    this.i18n.copy().projects.items.filter((project) => project.kind === 'offer'),
+  );
+
   protected imageClass(project: ProjectItem): string {
-    if (project.imageFit === 'contain') {
-      return 'object-contain p-space-md';
-    }
     if (project.imageAnchor === 'center') {
       return 'object-cover object-center';
     }

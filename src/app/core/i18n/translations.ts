@@ -51,11 +51,10 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         'Estoy recibiendo muchas preguntas. Espera un momento o escríbenos por WhatsApp.',
     },
     hero: {
-      badge: 'Software a la medida + Inteligencia Artificial',
-      title: 'Tu negocio vendiendo y atendiendo clientes,',
-      highlight: 'incluso mientras duermes.',
-      body: 'Bots de WhatsApp con IA, sistemas POS, ERP y CRM, y páginas web que trabajan por ti: responden a tus clientes, controlan tu inventario y te muestran cuánto vendes, sin hojas de cálculo.',
-      ctaPrimary: 'Cotiza gratis por WhatsApp',
+      title: 'Tu negocio atiende y vende',
+      highlight: 'aunque tú estés descansando.',
+      body: 'Creamos software a la medida, bots de WhatsApp con IA y sistemas que conectan tu inventario, tu caja y tus clientes, para que dejes de depender de hojas de cálculo y mensajes sin responder.',
+      ctaPrimary: 'Hablemos de tu proyecto',
       ctaSecondary: 'Ver proyectos',
       trust: [
         'Te explicamos todo sin tecnicismos',
@@ -79,6 +78,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         ],
         notificationTitle: 'Venta apartada en tu POS',
         notificationBody: 'El inventario se actualizó solo.',
+        demo: { label: 'Ejemplo ilustrativo', channel: 'WhatsApp', assistant: 'Asistente con IA', system: 'Tu sistema', item: 'Tenis blancos · talla 40', stock: 'En inventario', unit: 'pares', held: 'Apartado' },
       },
     },
     services: {
@@ -971,11 +971,10 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       rateLimited: 'I’m getting a lot of questions. Wait a moment or message us on WhatsApp.',
     },
     hero: {
-      badge: 'Custom software + Artificial Intelligence',
-      title: 'Your business selling and serving customers,',
-      highlight: 'even while you sleep.',
-      body: 'AI-powered WhatsApp bots, POS, ERP, and CRM systems, and websites that work for you: they answer your customers, track your inventory, and show you how much you sell, no spreadsheets needed.',
-      ctaPrimary: 'Get a free quote on WhatsApp',
+      title: 'Your business answers and sells',
+      highlight: 'even while you rest.',
+      body: 'We build custom software, AI-powered WhatsApp bots and systems that connect your inventory, your register and your customers, so you stop depending on spreadsheets and unanswered messages.',
+      ctaPrimary: 'Let’s talk about your project',
       ctaSecondary: 'See our work',
       trust: [
         'We explain everything in plain words',
@@ -999,6 +998,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         ],
         notificationTitle: 'Sale held in your POS',
         notificationBody: 'Inventory updated automatically.',
+        demo: { label: 'Illustrative example', channel: 'WhatsApp', assistant: 'AI assistant', system: 'Your system', item: 'White sneakers · size 9', stock: 'In stock', unit: 'pairs', held: 'On hold' },
       },
     },
     services: {
@@ -1882,11 +1882,10 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         'Estou recebendo muitas perguntas. Espere um pouco ou fale com a gente pelo WhatsApp.',
     },
     hero: {
-      badge: 'Software sob medida + Inteligência Artificial',
-      title: 'Seu negócio vendendo e atendendo clientes,',
-      highlight: 'até enquanto você dorme.',
-      body: 'Bots de WhatsApp com IA, sistemas PDV, ERP e CRM, e sites que trabalham por você: respondem seus clientes, controlam seu estoque e mostram quanto você vende, sem planilhas.',
-      ctaPrimary: 'Orçamento grátis pelo WhatsApp',
+      title: 'Seu negócio atende e vende',
+      highlight: 'mesmo quando você está descansando.',
+      body: 'Criamos software sob medida, bots de WhatsApp com IA e sistemas que conectam seu estoque, seu caixa e seus clientes, para você deixar de depender de planilhas e mensagens sem resposta.',
+      ctaPrimary: 'Vamos falar do seu projeto',
       ctaSecondary: 'Ver projetos',
       trust: [
         'Explicamos tudo sem termos técnicos',
@@ -1910,6 +1909,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         ],
         notificationTitle: 'Venda reservada no seu PDV',
         notificationBody: 'O estoque foi atualizado sozinho.',
+        demo: { label: 'Exemplo ilustrativo', channel: 'WhatsApp', assistant: 'Assistente com IA', system: 'Seu sistema', item: 'Tênis branco · nº 40', stock: 'Em estoque', unit: 'pares', held: 'Reservado' },
       },
     },
     services: {

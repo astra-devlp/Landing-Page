@@ -1,17 +1,19 @@
+import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { Component, inject, signal } from '@angular/core';
 import { AnalyticsService } from '../../../../core/analytics/analytics.service';
 import { I18nService } from '../../../../core/i18n/i18n.service';
+import { ChatService } from '../../../../core/layout/chat-widget/chat.service';
 import { buildQuoteMessage, whatsappUrl } from '../../../../shared/utils/whatsapp';
-import { Reveal } from '../../../../shared/ui/reveal/reveal';
 
 @Component({
   selector: 'app-contacto',
-  imports: [Reveal],
+  imports: [WhatsappIcon],
   templateUrl: './contacto.html',
   styles: ``,
 })
 export class Contacto {
   protected readonly i18n = inject(I18nService);
+  protected readonly chat = inject(ChatService);
   protected readonly formSent = signal(false);
   private readonly analytics = inject(AnalyticsService);
 

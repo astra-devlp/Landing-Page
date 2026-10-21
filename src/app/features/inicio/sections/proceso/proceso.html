@@ -1,36 +1,27 @@
-<section id="proceso" class="relative w-full overflow-hidden py-space-xl lg:py-20">
-  <div class="bg-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
-  <div class="relative mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
-    <div appReveal class="mb-space-xl max-w-3xl">
-      <span class="eyebrow mb-space-md">
-        {{ i18n.copy().process.eyebrow }}
-      </span>
-      <h2
-        class="mb-space-sm font-headline-lg text-headline-lg-mobile font-bold tracking-tight text-primary md:text-headline-lg"
-      >
-        {{ i18n.copy().process.title }}
-      </h2>
-      <p class="font-body-lg text-body-lg text-on-surface-variant">
+<section id="proceso" class="w-full border-t border-outline-variant py-20 lg:py-28">
+  <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div class="mb-14 grid grid-cols-1 items-end gap-6 lg:mb-20 lg:grid-cols-12">
+      <h2 class="section-title lg:col-span-7">{{ i18n.copy().process.title }}</h2>
+      <p class="section-lede lg:col-span-5 lg:justify-self-end">
         {{ i18n.copy().process.intro }}
       </p>
     </div>
 
-    <ol
-      class="relative grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-4 lg:before:absolute lg:before:inset-x-12 lg:before:top-[3.25rem] lg:before:h-0.5 lg:before:bg-gradient-to-r lg:before:from-brand-from lg:before:via-brand-to lg:before:to-brand-from lg:before:opacity-60"
-    >
+    <ol class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
       @for (step of i18n.copy().process.steps; track step.title; let i = $index) {
-        <li appReveal [revealDelay]="i * 90" class="card group p-space-lg">
-          <div class="mb-space-md flex items-center justify-between">
-            <span
-              class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-from to-brand-to text-white shadow-lg shadow-brand-to/30 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
-            >
-              <span class="material-symbols-outlined text-[26px]">{{ icons[i] }}</span>
-            </span>
-            <span class="text-brand-gradient font-display-xl text-headline-lg font-bold">
-              {{ (i + 1).toString().padStart(2, '0') }}
-            </span>
-          </div>
-          <h3 class="mb-space-sm font-headline-sm text-headline-sm font-semibold text-primary">
+        <li class="relative border-t-2 border-outline-variant pt-6">
+          <span
+            class="absolute -top-0.5 left-0 h-0.5 bg-accent"
+            [style.width.%]="((i + 1) / 4) * 100"
+            aria-hidden="true"
+          ></span>
+          <span
+            class="mb-6 block font-display text-[3.5rem] leading-none font-semibold tracking-tight text-outline"
+            aria-hidden="true"
+          >
+            {{ i + 1 }}
+          </span>
+          <h3 class="mb-3 font-display text-[1.375rem] leading-snug font-semibold text-primary">
             {{ step.title }}
           </h3>
           <p class="font-body-md text-body-md text-on-surface-variant">{{ step.description }}</p>
@@ -38,14 +29,26 @@
       }
     </ol>
 
-    <div class="mt-space-xl flex justify-center">
+    <div class="mt-14 flex flex-col gap-12 lg:mt-20 lg:flex-row lg:items-start lg:justify-between">
+      <ul class="grid max-w-3xl grid-cols-1 gap-8 sm:grid-cols-3">
+        @for (pillar of i18n.copy().about.pillars; track pillar.title) {
+          <li>
+            <p class="mb-1 font-body-md text-body-md font-semibold text-primary">
+              {{ pillar.title }}
+            </p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">
+              {{ pillar.description }}
+            </p>
+          </li>
+        }
+      </ul>
       <a
-        class="inline-flex items-center gap-space-xs rounded btn-brand px-space-lg py-space-md font-body-md text-body-md font-semibold"
+        class="btn-brand inline-flex min-h-12 shrink-0 items-center justify-center gap-2 self-start rounded-lg px-6 py-3 font-body-md text-body-md font-semibold"
         [href]="i18n.copy().whatsapp.href"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="material-symbols-outlined text-[18px]">chat</span>
+        <app-whatsapp-icon [size]="20" />
         {{ i18n.copy().process.cta }}
       </a>
     </div>

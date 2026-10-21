@@ -136,7 +136,6 @@ export interface AppCopy {
     rateLimited: string;
   };
   hero: {
-    badge: string;
     title: string;
     highlight: string;
     body: string;
@@ -149,6 +148,16 @@ export interface AppCopy {
       messages: ChatMessage[];
       notificationTitle: string;
       notificationBody: string;
+      demo: {
+        label: string;
+        channel: string;
+        assistant: string;
+        system: string;
+        item: string;
+        stock: string;
+        unit: string;
+        held: string;
+      };
     };
   };
   services: {

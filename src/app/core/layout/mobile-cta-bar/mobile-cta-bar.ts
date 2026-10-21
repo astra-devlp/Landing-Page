@@ -1,3 +1,4 @@
+import { WhatsappIcon } from '../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { Component, computed, inject } from '@angular/core';
 import { I18nService } from '../../i18n/i18n.service';
 import { ChatService } from '../chat-widget/chat.service';
@@ -7,6 +8,7 @@ const SHOW_AFTER_PX = 500;
 
 /** Phone-only bottom bar with the two main actions, shown once the visitor scrolls. */
 @Component({
+  imports: [WhatsappIcon],
   selector: 'app-mobile-cta-bar',
   template: `
     <div
@@ -22,7 +24,7 @@ const SHOW_AFTER_PX = 500;
           rel="noopener noreferrer"
           [attr.tabindex]="visible() ? null : -1"
         >
-          <span class="material-symbols-outlined text-[20px]">chat</span>
+          <app-whatsapp-icon [size]="20" />
           {{ i18n.copy().mobileBar.quote }}
         </a>
         <button

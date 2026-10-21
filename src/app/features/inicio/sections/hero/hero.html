@@ -1,116 +1,85 @@
-<section
-  id="inicio"
-  class="relative w-full overflow-hidden light:bg-[radial-gradient(ellipse_at_top_right,rgb(124_58_237/0.13),transparent_55%),radial-gradient(ellipse_at_top_left,rgb(29_78_216/0.10),transparent_50%)]"
->
-  <div class="bg-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+<section id="inicio" class="relative w-full overflow-hidden">
   <div
-    class="pointer-events-none absolute top-1/4 right-0 h-[550px] w-[550px] rounded-full bg-gradient-to-br from-brand-from/20 via-brand-to/10 to-transparent blur-3xl motion-safe:animate-float"
-  ></div>
-  <div
-    class="pointer-events-none absolute -top-24 left-1/4 h-96 w-96 rounded-full bg-gradient-to-b from-brand-to/15 to-transparent blur-3xl motion-safe:animate-float [animation-delay:1.4s]"
-  ></div>
-
-  <div
-    class="mx-auto max-w-[1440px] px-margin-mobile pt-space-xl pb-space-xl md:px-margin-tablet lg:px-margin lg:pt-16 lg:pb-20"
+    class="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 px-margin-mobile pt-10 pb-16 md:px-margin-tablet xl:grid-cols-[minmax(0,1fr)_minmax(0,640px)] xl:gap-16 xl:px-margin xl:pt-14 xl:pb-24"
   >
-    <div class="grid grid-cols-1 items-center gap-space-xl lg:grid-cols-12 lg:gap-gutter">
-      <div appReveal class="z-10 flex flex-col items-start lg:col-span-7">
-        <span class="eyebrow mb-space-md">
-          {{ i18n.copy().hero.badge }}
-        </span>
+    <div class="flex flex-col items-start">
+      <h1
+        class="mb-6 max-w-[16ch] font-display text-[2.6rem] leading-[1.02] font-semibold tracking-[-0.04em] text-primary sm:text-[3.5rem] xl:text-[4.25rem]"
+      >
+        {{ i18n.copy().hero.title }}
+        <span class="text-on-surface-variant">{{ i18n.copy().hero.highlight }}</span>
+      </h1>
 
-        <h1
-          class="mb-space-md max-w-3xl font-display-xl text-display-xl-mobile leading-[1.08] tracking-tight text-primary sm:text-headline-lg lg:text-[52px] lg:leading-[1.05] xl:text-[60px]"
+      <p class="mb-8 max-w-[34rem] font-body-lg text-body-lg text-on-surface-variant">
+        {{ i18n.copy().hero.body }}
+      </p>
+
+      <div class="mb-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-6">
+        <a
+          class="btn-brand inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-6 py-3 font-body-md text-body-md font-semibold"
+          [href]="i18n.copy().whatsapp.href"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          {{ i18n.copy().hero.title }}
-          <span class="text-brand-gradient">{{ i18n.copy().hero.highlight }}</span>
-        </h1>
-
-        <p class="mb-space-lg max-w-xl font-body-lg text-body-lg text-on-surface-variant">
-          {{ i18n.copy().hero.body }}
-        </p>
-
-        <div
-          class="mb-space-lg flex w-full flex-col gap-space-sm sm:w-auto sm:flex-row sm:items-center sm:gap-space-md"
+          <app-whatsapp-icon [size]="22" />
+          <span>{{ i18n.copy().hero.ctaPrimary }}</span>
+        </a>
+        <a
+          class="inline-flex min-h-12 items-center justify-center gap-1 self-center px-2 sm:self-auto font-body-md text-body-md font-semibold text-on-surface link-quiet"
+          routerLink="/"
+          fragment="proyectos"
         >
-          <a
-            class="inline-flex items-center justify-center gap-space-xs rounded btn-brand px-space-lg py-space-md font-body-md text-body-md font-semibold"
-            [href]="i18n.copy().whatsapp.href"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="material-symbols-outlined text-[18px]">chat</span>
-            <span>{{ i18n.copy().hero.ctaPrimary }}</span>
-          </a>
-          <a
-            class="inline-flex items-center justify-center gap-space-xs rounded bg-surface-container-high px-space-lg py-space-md font-body-md text-body-md font-semibold text-on-surface transition-all hover:bg-surface-container-highest"
-            routerLink="/"
-            fragment="proyectos"
-          >
-            <span>{{ i18n.copy().hero.ctaSecondary }}</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_downward</span>
-          </a>
-        </div>
-
-        <ul class="flex flex-col gap-space-xs sm:flex-row sm:flex-wrap sm:gap-x-space-lg">
-          @for (item of i18n.copy().hero.trust; track item) {
-            <li
-              class="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant"
-            >
-              <span class="material-symbols-outlined text-[18px] text-accent">check_circle</span>
-              {{ item }}
-            </li>
-          }
-        </ul>
+          {{ i18n.copy().hero.ctaSecondary }}
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_downward</span>
+        </a>
       </div>
 
+      <ul class="flex flex-col gap-3 font-body-md text-body-md text-on-surface">
+        @for (item of i18n.copy().hero.trust; track item; let i = $index) {
+          <li class="flex items-center gap-3">
+            <span
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-accent"
+              aria-hidden="true"
+            >
+              <span class="material-symbols-outlined text-[20px]">{{ trustIcons[i] }}</span>
+            </span>
+            {{ item }}
+          </li>
+        }
+      </ul>
+    </div>
+
+    <figure class="m-0 w-full" [attr.aria-label]="i18n.copy().hero.chat.demo.label">
       <div
-        appReveal
-        [revealDelay]="160"
-        class="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none"
+        class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-0"
+        aria-hidden="true"
       >
         <div
-          class="pointer-events-none absolute -top-10 -right-6 hidden w-40 opacity-[0.08] lg:block"
+          class="w-full overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low sm:w-[300px] sm:shrink-0"
         >
-          <app-brand-logo variant="mark" imgClass="h-auto w-full" />
-        </div>
-
-        <div
-          class="relative overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low shadow-[var(--shadow-card-hover)]"
-          aria-hidden="true"
-        >
-          <div
-            class="flex items-center gap-space-sm border-b border-outline-variant/50 bg-surface-container px-space-md py-space-sm"
-          >
-            <div
-              class="flex h-9 w-9 items-center justify-center rounded-full bg-accent/15 text-accent"
+          <div class="flex items-center gap-3 border-b border-outline-variant px-4 py-3">
+            <span
+              class="flex h-9 w-9 items-center justify-center rounded-full bg-[#25d366] text-[#0b0b0d]"
             >
-              <span class="material-symbols-outlined text-[18px]">smart_toy</span>
-            </div>
-            <div class="flex flex-col">
+              <app-whatsapp-icon [size]="20" />
+            </span>
+            <span class="flex flex-col leading-tight">
               <span class="font-body-md text-body-md font-semibold text-primary">
                 {{ i18n.copy().hero.chat.name }}
               </span>
-              <span
-                class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant"
-              >
-                <span class="h-1.5 w-1.5 rounded-full bg-[#25D366]"></span>
-                {{ i18n.copy().hero.chat.status }}
+              <span class="font-body-sm text-body-sm text-on-surface-variant">
+                {{ i18n.copy().hero.chat.demo.channel }} · {{ i18n.copy().hero.chat.status }}
               </span>
-            </div>
-            <span class="material-symbols-outlined ml-auto text-on-surface-variant">more_vert</span>
+            </span>
           </div>
-
-          <div
-            class="flex min-h-[340px] flex-col justify-end gap-space-sm bg-surface-container-lowest p-space-md pb-16"
-          >
+          <div class="flex h-[320px] flex-col justify-end gap-2 overflow-hidden p-4">
             @for (message of visibleMessages(); track $index) {
               <p
-                class="max-w-[85%] rounded-2xl px-space-md py-space-sm font-body-md text-body-md motion-safe:animate-pop"
+                class="max-w-[88%] rounded-2xl px-3.5 py-2 font-body-md text-[14px] leading-5 motion-safe:animate-pop"
                 [class]="
                   message.from === 'client'
                     ? 'self-start rounded-tl-sm bg-surface-container-high text-on-surface'
-                    : 'self-end rounded-tr-sm bg-gradient-to-br from-brand-from to-brand-to text-white'
+                    : 'btn-brand self-end rounded-tr-sm'
                 "
               >
                 {{ message.text }}
@@ -118,11 +87,11 @@
             }
             @if (typing()) {
               <span
-                class="flex gap-1 self-end rounded-2xl rounded-tr-sm bg-accent/15 px-space-md py-3 motion-safe:animate-pop"
+                class="flex gap-1 self-end rounded-2xl rounded-tr-sm bg-surface-container-high px-4 py-3"
               >
                 @for (dot of [0, 1, 2]; track dot) {
                   <span
-                    class="h-2 w-2 rounded-full bg-accent motion-safe:animate-bounce"
+                    class="h-1.5 w-1.5 rounded-full bg-on-surface-variant motion-safe:animate-bounce"
                     [style.animation-delay.ms]="dot * 150"
                   ></span>
                 }
@@ -131,48 +100,66 @@
           </div>
         </div>
 
-        @if (finished()) {
-          <div
-            class="absolute -bottom-6 left-4 flex items-center gap-space-sm rounded-lg border border-outline-variant/50 bg-surface-container px-space-md py-space-sm shadow-xl motion-safe:animate-pop sm:-left-6"
-            aria-hidden="true"
-          >
-            <div
-              class="flex h-9 w-9 shrink-0 items-center justify-center rounded bg-accent/15 text-accent"
-            >
-              <span class="material-symbols-outlined text-[18px]">point_of_sale</span>
-            </div>
-            <div>
-              <p class="font-body-sm text-body-sm font-semibold text-primary">
-                {{ i18n.copy().hero.chat.notificationTitle }}
-              </p>
-              <p class="font-body-sm text-body-sm text-on-surface-variant">
-                {{ i18n.copy().hero.chat.notificationBody }}
-              </p>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
-  </div>
+        <div class="flex flex-col items-center gap-1 text-center text-accent sm:w-24 sm:shrink-0">
+          <span class="sm:hidden"><span class="material-symbols-outlined rotate-90 text-[22px]">sync_alt</span></span>
+          <svg class="hidden h-3 w-full sm:block" viewBox="0 0 80 12" fill="none">
+            <line
+              x1="0"
+              y1="6"
+              x2="80"
+              y2="6"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-dasharray="4 4"
+              [class.motion-safe:animate-flow]="!finished()"
+            />
+          </svg>
+          <span class="font-body-sm text-[12px] leading-4 font-semibold text-on-surface-variant">
+            {{ i18n.copy().hero.chat.demo.assistant }}
+          </span>
+        </div>
 
-  <div
-    class="relative border-y border-outline-variant/60 bg-surface-container-low/60 py-space-md backdrop-blur [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"
-    aria-hidden="true"
-  >
-    <ul
-      class="flex w-max gap-space-xl motion-safe:animate-marquee hover:[animation-play-state:paused]"
-    >
-      @for (item of marquee(); track $index) {
-        <li
-          class="flex items-center gap-space-sm font-headline-sm text-body-lg font-semibold whitespace-nowrap text-on-surface-variant"
+        <div
+          class="w-full rounded-2xl border border-outline-variant bg-surface-container-low p-4 sm:w-[240px] sm:shrink-0"
         >
-          <span class="material-symbols-outlined text-accent">{{ item.icon }}</span>
-          {{ item.title }}
-          <span
-            class="ml-space-lg h-1.5 w-1.5 rounded-full bg-gradient-to-br from-brand-from to-brand-to"
-          ></span>
-        </li>
-      }
-    </ul>
+          <p
+            class="mb-4 flex items-center gap-2 font-body-md text-body-md font-semibold text-primary"
+          >
+            <span class="material-symbols-outlined text-[20px] text-accent">point_of_sale</span>
+            {{ i18n.copy().hero.chat.demo.system }}
+          </p>
+          <p class="mb-1 font-body-sm text-body-sm text-on-surface-variant">
+            {{ i18n.copy().hero.chat.demo.item }}
+          </p>
+          <p class="mb-4 flex items-baseline gap-2">
+            <span
+              class="font-display text-[2.5rem] leading-none font-semibold text-primary tabular-nums"
+            >
+              {{ stock() }}
+            </span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">
+              {{ i18n.copy().hero.chat.demo.unit }} · {{ i18n.copy().hero.chat.demo.stock }}
+            </span>
+          </p>
+          <div class="min-h-[3.25rem]">
+            @if (finished()) {
+              <div class="border-t border-outline-variant pt-3 motion-safe:animate-pop">
+                <p
+                  class="flex items-center gap-1.5 font-body-sm text-body-sm font-semibold text-primary"
+                >
+                  <span class="material-symbols-outlined text-[16px] text-group-manage"
+                    >check_circle</span
+                  >
+                  {{ i18n.copy().hero.chat.demo.held }}
+                </p>
+                <p class="font-body-sm text-[12px] leading-4 text-on-surface-variant">
+                  {{ i18n.copy().hero.chat.notificationBody }}
+                </p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </figure>
   </div>
 </section>

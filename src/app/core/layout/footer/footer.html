@@ -1,70 +1,23 @@
-<footer
-  class="relative w-full border-t border-outline-variant bg-surface-container-lowest/70 backdrop-blur"
->
+<footer class="relative w-full border-t border-outline-variant bg-surface">
   <div
-    class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-to to-transparent"
-    aria-hidden="true"
-  ></div>
-  <div
-    class="mx-auto max-w-[1440px] px-margin-mobile pt-space-xl pb-24 md:px-margin-tablet lg:px-margin lg:pb-space-lg"
+    class="mx-auto max-w-[1440px] px-margin-mobile pt-12 pb-28 md:px-margin-tablet lg:px-margin lg:pt-14 lg:pb-10"
   >
-    <div appReveal class="mb-space-xl grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-12">
-      <div class="flex flex-col items-start sm:col-span-2 lg:col-span-4">
-        <a class="mb-space-md inline-block" routerLink="/" fragment="inicio">
-          <app-brand-logo variant="horizontal" imgClass="h-12 w-auto max-w-[280px]" />
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
+      <div class="flex flex-col items-start md:col-span-5">
+        <a class="mb-4 inline-block" routerLink="/" fragment="inicio">
+          <app-brand-logo variant="horizontal" imgClass="h-10 w-auto max-w-[240px]" />
         </a>
-        <p class="mb-space-lg max-w-sm font-body-sm text-body-sm text-on-surface-variant">
+        <p class="max-w-sm font-body-sm text-body-sm text-on-surface-variant">
           {{ i18n.copy().footer.blurb }}
         </p>
-        <a
-          class="inline-flex items-center gap-space-xs rounded btn-brand px-space-md py-space-sm font-body-md text-body-md font-semibold"
-          [href]="i18n.copy().whatsapp.href"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span class="material-symbols-outlined text-[18px]">chat</span>
-          {{ i18n.copy().footer.proposal }}
-        </a>
       </div>
 
-      <div class="flex flex-col lg:col-span-3">
-        <span class="mb-space-md font-body-md text-body-md font-semibold text-primary">
-          {{ i18n.copy().footer.solutions }}
-        </span>
-        <ul class="space-y-space-sm">
-          @for (service of i18n.copy().services.items; track service.title) {
-            <li>
-              @if (service.page) {
-                <a
-                  class="font-body-sm text-body-sm text-on-surface-variant transition-colors hover:text-accent"
-                  [routerLink]="['/', pagePaths[service.page]]"
-                >
-                  {{ service.title }}
-                </a>
-              } @else {
-                <a
-                  class="font-body-sm text-body-sm text-on-surface-variant transition-colors hover:text-accent"
-                  [href]="service.href"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {{ service.title }}
-                </a>
-              }
-            </li>
-          }
-        </ul>
-      </div>
-
-      <div class="flex flex-col lg:col-span-2">
-        <span class="mb-space-md font-body-md text-body-md font-semibold text-primary">
-          {{ i18n.copy().footer.explore }}
-        </span>
-        <ul class="space-y-space-sm">
+      <nav class="md:col-span-4" [attr.aria-label]="i18n.copy().footer.explore">
+        <ul class="grid grid-cols-2 gap-x-6 gap-y-1">
           @for (link of i18n.copy().nav; track link.fragment) {
             <li>
               <a
-                class="font-body-sm text-body-sm text-on-surface-variant transition-colors hover:text-accent"
+                class="inline-flex min-h-9 items-center font-body-sm text-body-sm text-on-surface-variant transition-colors hover:text-primary"
                 routerLink="/"
                 [fragment]="link.fragment"
               >
@@ -73,35 +26,30 @@
             </li>
           }
         </ul>
-      </div>
+      </nav>
 
-      <div class="flex flex-col lg:col-span-3">
-        <span class="mb-space-md font-body-md text-body-md font-semibold text-primary">
-          {{ i18n.copy().footer.contact }}
-        </span>
-        <div class="space-y-space-sm text-on-surface-variant">
-          <a
-            class="flex items-center gap-space-xs font-body-sm text-body-sm transition-colors hover:text-accent"
-            [href]="i18n.copy().whatsapp.href"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            WhatsApp · {{ i18n.copy().whatsapp.phone }}
-          </a>
-          <a
-            class="flex items-center gap-space-xs font-body-sm text-body-sm transition-colors hover:text-accent"
-            href="mailto:astra.dev.tech@gmail.com"
-          >
-            astra.dev.tech&#64;gmail.com
-          </a>
-        </div>
+      <div class="flex flex-col items-start gap-1 md:col-span-3">
+        <a
+          class="inline-flex min-h-9 items-center gap-2 font-body-sm text-body-sm text-on-surface-variant transition-colors hover:text-primary"
+          [href]="i18n.copy().whatsapp.href"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <app-whatsapp-icon [size]="16" />
+          {{ i18n.copy().whatsapp.phone }}
+        </a>
+        <a
+          class="inline-flex min-h-9 items-center gap-2 font-body-sm text-body-sm text-on-surface-variant transition-colors hover:text-primary"
+          href="mailto:astra.dev.tech@gmail.com"
+        >
+          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">mail</span>
+          astra.dev.tech&#64;gmail.com
+        </a>
       </div>
     </div>
 
-    <div class="border-t border-outline-variant pt-space-md text-center sm:text-left">
-      <span class="font-label-sm text-label-sm text-outline">
-        © {{ year }} Astra Dev. {{ i18n.copy().footer.rights }}
-      </span>
-    </div>
+    <p class="mt-10 border-t border-outline-variant pt-6 font-body-sm text-body-sm text-outline">
+      © {{ year }} Astra Dev. {{ i18n.copy().footer.rights }}
+    </p>
   </div>
 </footer>
