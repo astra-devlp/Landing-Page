@@ -55,6 +55,8 @@ export interface AppCopy {
   nav: NavLink[];
   header: {
     quote: string;
+    login: string;
+    loginHref: string;
     openMenu: string;
     language: string;
     theme: string;

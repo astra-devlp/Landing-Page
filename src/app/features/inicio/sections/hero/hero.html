@@ -85,7 +85,19 @@
                 {{ message.text }}
               </p>
             }
-            @if (typing()) {
+            @if (draft(); as live) {
+              <p
+                class="max-w-[88%] rounded-2xl px-3.5 py-2 font-body-md text-[14px] leading-5"
+                [class]="
+                  live.from === 'client'
+                    ? 'self-start rounded-tl-sm bg-surface-container-high text-on-surface'
+                    : 'btn-brand self-end rounded-tr-sm'
+                "
+              >
+                {{ live.text }}<span class="typing-caret" aria-hidden="true"></span>
+              </p>
+            }
+            @if (thinking()) {
               <span
                 class="flex gap-1 self-end rounded-2xl rounded-tr-sm bg-surface-container-high px-4 py-3"
               >

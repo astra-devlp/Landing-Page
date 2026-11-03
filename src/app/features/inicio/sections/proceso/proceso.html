@@ -7,7 +7,65 @@
       </p>
     </div>
 
-    <ol class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+    @let steps = i18n.copy().process.steps;
+    <div
+      class="hidden lg:block"
+      appScrollScene
+      sceneMode="pin"
+      #story="scrollScene"
+      [style.height]="storyHeight(steps.length)"
+    >
+      @let active = activeStep(story.progress(), steps.length);
+      <div class="sticky top-20 grid h-[calc(100vh-5rem)] grid-cols-12 items-center gap-8">
+        <ol class="col-span-5 flex flex-col gap-2">
+          @for (step of steps; track step.title; let i = $index) {
+            <li
+              class="relative border-t-2 border-outline-variant py-5 transition-colors duration-500"
+              [class.text-primary]="i === active"
+              [class.text-outline]="i !== active"
+              [attr.aria-current]="i === active ? 'step' : null"
+            >
+              <span
+                class="absolute -top-0.5 left-0 h-0.5 w-full origin-left bg-accent"
+                [style.transform]="'scaleX(' + stepFill(story.progress(), steps.length, i) + ')'"
+                aria-hidden="true"
+              ></span>
+              <span class="flex items-baseline gap-4 font-display text-[1.375rem] font-semibold">
+                <span class="text-body-md tabular-nums">0{{ i + 1 }}</span>
+                {{ step.title }}
+              </span>
+            </li>
+          }
+        </ol>
+
+        <div class="relative col-span-6 col-start-7 h-[22rem]">
+          @for (step of steps; track step.title; let i = $index) {
+            <article
+              class="card-static absolute inset-0 flex flex-col justify-between p-space-xl will-change-transform"
+              [style]="cardStyle(story.progress(), steps.length, i)"
+              [attr.aria-hidden]="i !== active"
+            >
+              <span
+                class="font-display text-[6rem] leading-none font-semibold tracking-tight text-accent"
+                aria-hidden="true"
+              >
+                0{{ i + 1 }}
+              </span>
+              <div>
+                <h3 class="mb-3 font-display text-[1.75rem] leading-snug font-semibold text-primary">
+                  {{ step.title }}
+                </h3>
+                <p class="font-body-lg text-body-lg text-on-surface-variant">
+                  {{ step.description }}
+                </p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </div>
+
+    <ol class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:hidden">
       @for (step of i18n.copy().process.steps; track step.title; let i = $index) {
         <li class="relative border-t-2 border-outline-variant pt-6">
           <span
