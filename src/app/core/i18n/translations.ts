@@ -14,13 +14,15 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
     ],
     header: {
       quote: 'Cotizar',
+      login: 'Iniciar sesión',
+      loginHref: 'https://sistema-de-inventario-front.netlify.app',
       openMenu: 'Abrir menú',
       language: 'Cambiar idioma',
       theme: 'Cambiar tema',
     },
     whatsapp: {
       href: whatsappUrl('Hola Astra Dev, quiero cotizar un proyecto.'),
-      phone: '314 828 1480',
+      phone: '313 560 0641',
     },
     floating: {
       label: 'Cotizar por WhatsApp',
@@ -549,7 +551,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'chat',
           label: 'WhatsApp',
-          value: '314 828 1480',
+          value: '313 560 0641',
           href: whatsappUrl('Hola Astra Dev, quiero cotizar un proyecto.'),
         },
         {
@@ -935,13 +937,15 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
     ],
     header: {
       quote: 'Get a quote',
+      login: 'Sign in',
+      loginHref: 'https://sistema-de-inventario-front.netlify.app',
       openMenu: 'Open menu',
       language: 'Switch language',
       theme: 'Switch theme',
     },
     whatsapp: {
       href: whatsappUrl('Hi Astra Dev, I would like a quote for a project.'),
-      phone: '314 828 1480',
+      phone: '313 560 0641',
     },
     floating: {
       label: 'Quote on WhatsApp',
@@ -1468,7 +1472,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'chat',
           label: 'WhatsApp',
-          value: '314 828 1480',
+          value: '313 560 0641',
           href: whatsappUrl('Hi Astra Dev, I would like a quote for a project.'),
         },
         {
@@ -1846,13 +1850,15 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
     ],
     header: {
       quote: 'Orçamento',
+      login: 'Iniciar sessão',
+      loginHref: 'https://sistema-de-inventario-front.netlify.app',
       openMenu: 'Abrir menu',
       language: 'Mudar idioma',
       theme: 'Mudar tema',
     },
     whatsapp: {
       href: whatsappUrl('Olá Astra Dev, quero um orçamento para um projeto.'),
-      phone: '314 828 1480',
+      phone: '313 560 0641',
     },
     floating: {
       label: 'Orçamento pelo WhatsApp',
@@ -2383,7 +2389,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'chat',
           label: 'WhatsApp',
-          value: '314 828 1480',
+          value: '313 560 0641',
           href: whatsappUrl('Olá Astra Dev, quero um orçamento para um projeto.'),
         },
         {

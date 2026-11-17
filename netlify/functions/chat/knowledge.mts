@@ -8,9 +8,21 @@
  */
 import type { AppCopy } from '../../../src/app/core/i18n/i18n.models';
 import { TRANSLATIONS } from '../../../src/app/core/i18n/translations';
-import { TECH_STACK } from '../../../src/app/features/inicio/data/inicio.data';
 
-export const WHATSAPP_URL = 'https://wa.me/573148281480';
+/** Shown only if someone asks what the team builds with. The public page no longer lists these. */
+const TECH_STACK = [
+  'Python / FastAPI',
+  'Angular',
+  'TypeScript',
+  'Go',
+  'Docker & K8s',
+  'AWS',
+  'PostgreSQL',
+  'LangChain',
+  'PyTorch',
+];
+
+export const WHATSAPP_URL = 'https://wa.me/573135600641';
 
 const PAGE_LANGUAGES: Record<string, string> = {
   es: 'español',

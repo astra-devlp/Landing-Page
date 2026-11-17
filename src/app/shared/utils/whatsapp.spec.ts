@@ -8,12 +8,12 @@ const template = {
 
 describe('whatsappUrl', () => {
   it('returns the plain chat link without a message', () => {
-    expect(whatsappUrl()).toBe('https://wa.me/573148281480');
+    expect(whatsappUrl()).toBe('https://wa.me/573135600641');
   });
 
   it('encodes the prefilled message', () => {
     expect(whatsappUrl('Hola, ¿qué tal?')).toBe(
-      'https://wa.me/573148281480?text=Hola%2C%20%C2%BFqu%C3%A9%20tal%3F',
+      'https://wa.me/573135600641?text=Hola%2C%20%C2%BFqu%C3%A9%20tal%3F',
     );
   });
 });
