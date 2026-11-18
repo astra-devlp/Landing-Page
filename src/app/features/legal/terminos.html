@@ -1,0 +1,187 @@
+<section class="w-full py-16 lg:py-24">
+  <div class="mx-auto max-w-3xl px-margin-mobile md:px-margin-tablet">
+    <span class="eyebrow mb-4">{{ i18n.copy().legal.policyEyebrow }}</span>
+    <h1 class="section-title mb-6">Términos y Condiciones</h1>
+    <p class="section-lede">
+      Las reglas para usar este sitio y para contratar nuestros servicios de software.
+    </p>
+    <p class="mt-4 font-body-sm text-body-sm text-outline">Última actualización: {{ updated }}</p>
+
+    @if (i18n.lang() !== 'es') {
+      <p
+        class="mt-6 rounded-lg border border-outline-variant bg-surface-container-low p-4 font-body-sm text-body-sm text-on-surface-variant"
+      >
+        {{ i18n.copy().legal.spanishOnly }}
+      </p>
+    }
+
+    <article class="legal">
+      <h2>1. Quiénes somos</h2>
+      <p>
+        {{ controller.brand }} es una marca de desarrollo de software operada por
+        {{ controller.holder }}, con domicilio en {{ controller.city }}, {{ controller.country }}.
+        Puedes contactarnos en <a [href]="'mailto:' + controller.email">{{ controller.email }}</a> o
+        al WhatsApp {{ controller.phone }}.
+      </p>
+
+      <h2>2. Aceptación</h2>
+      <p>
+        Al usar el sitio {{ controller.website }} aceptas estos términos. Si contratas un servicio,
+        también aplican las condiciones de la propuesta o cotización que aceptes; si algo de la
+        propuesta es distinto a estos términos, prevalece la propuesta.
+      </p>
+
+      <h2>3. Uso del sitio</h2>
+      <ul>
+        <li>
+          La información del sitio es general y puede cambiar sin previo aviso. No es una oferta
+          comercial vinculante.
+        </li>
+        <li>
+          Los valores del cotizador y de la calculadora son estimaciones orientativas. El precio
+          final es el que aparece en la propuesta escrita que te enviamos.
+        </li>
+        <li>
+          No puedes usar el sitio para actividades ilegales, intentar acceder sin autorización a sus
+          sistemas, sobrecargarlo ni copiar su contenido para fines comerciales.
+        </li>
+      </ul>
+
+      <h2>4. Asistente virtual</h2>
+      <p>
+        El asistente del sitio responde de forma automática con inteligencia artificial. Sus
+        respuestas son informativas, pueden contener errores y no constituyen una oferta, un precio
+        ni un compromiso de {{ controller.brand }}. Para cualquier decisión, confirma con nuestro
+        equipo. No escribas en el asistente datos personales sensibles.
+      </p>
+
+      <h2>5. Contratación de servicios</h2>
+      <ol>
+        <li>
+          Cada proyecto se define en una propuesta o cotización escrita con su alcance, entregables,
+          precio, forma de pago y plazos estimados.
+        </li>
+        <li>
+          El contrato se perfecciona cuando aceptas la propuesta por escrito (correo o WhatsApp) y,
+          si la propuesta lo indica, pagas el anticipo.
+        </li>
+        <li>
+          Los cambios de alcance que pidas después de aceptar la propuesta se cotizan aparte y
+          pueden modificar el precio y los plazos.
+        </li>
+        <li>
+          Los plazos empiezan a contar cuando recibimos el anticipo y la información, contenidos y
+          accesos necesarios. Las demoras en esa entrega mueven los plazos en la misma medida.
+        </li>
+      </ol>
+
+      <h2>6. Pagos</h2>
+      <p>
+        Los pagos se hacen en pesos colombianos por los medios indicados en la propuesta. Si un pago
+        se retrasa, podemos pausar el trabajo o el servicio hasta que se ponga al día, avisándote
+        con anticipación.
+      </p>
+
+      <h2>7. Tus responsabilidades como cliente</h2>
+      <ul>
+        <li>Entregarnos información veraz y completa, y responder a tiempo las revisiones.</li>
+        <li>
+          Tener los derechos de los textos, imágenes, logos y demás contenidos que nos entregues
+          para el proyecto.
+        </li>
+        <li>
+          Usar el software de acuerdo con la ley, incluida la de protección de datos de tus propios
+          clientes.
+        </li>
+        <li>Cuidar las contraseñas y accesos que te entreguemos.</li>
+      </ul>
+
+      <h2>8. Propiedad intelectual</h2>
+      <ul>
+        <li>
+          La marca {{ controller.brand }}, el diseño y los contenidos de este sitio nos pertenecen.
+        </li>
+        <li>
+          En los desarrollos a la medida, una vez pagado el valor total, recibes los derechos de uso
+          y explotación del desarrollo hecho para ti, en los términos de la propuesta.
+        </li>
+        <li>
+          Conservamos la propiedad de las herramientas, componentes y código propio que ya existían
+          antes del proyecto o que reutilizamos en otros; te damos una licencia de uso para que
+          funcionen dentro de tu software. Los componentes de código abierto mantienen sus propias
+          licencias.
+        </li>
+        <li>
+          Los servicios por suscripción (por ejemplo, sistemas en la nube o bots) se entregan como
+          licencia de uso mientras la suscripción esté activa.
+        </li>
+        <li>
+          Podemos mostrar el proyecto en nuestro portafolio, salvo que nos pidas por escrito que no
+          lo hagamos.
+        </li>
+      </ul>
+
+      <h2>9. Servicios por suscripción y de terceros</h2>
+      <ul>
+        <li>
+          Las suscripciones se cobran por el periodo indicado en la propuesta. Puedes cancelarlas
+          cuando quieras avisándonos antes de la siguiente fecha de cobro; no hay permanencia mínima
+          salvo que la propuesta diga otra cosa.
+        </li>
+        <li>
+          Hacemos lo razonable para que los servicios estén disponibles, pero pueden tener
+          interrupciones por mantenimiento o fallas de proveedores.
+        </li>
+        <li>
+          Algunos servicios dependen de terceros (alojamiento, dominios, WhatsApp, pasarelas de
+          pago, modelos de inteligencia artificial). Sus costos, condiciones y cambios no dependen
+          de nosotros y te los informamos en la propuesta.
+        </li>
+      </ul>
+
+      <h2>10. Garantía</h2>
+      <p>
+        Corregimos sin costo los errores atribuibles a nuestro trabajo que nos reportes durante el
+        periodo de garantía indicado en la propuesta. La garantía no cubre cambios hechos por ti o
+        por terceros, mal uso, nuevas funciones, ni fallas causadas por cambios en servicios de
+        terceros. Si eres consumidor, también tienes la garantía legal que establece la Ley 1480 de
+        2011 (Estatuto del Consumidor).
+      </p>
+
+      <h2>11. Confidencialidad</h2>
+      <p>
+        Tratamos como confidencial la información de tu negocio que conozcamos durante el proyecto y
+        solo la usamos para prestarte el servicio.
+      </p>
+
+      <h2>12. Responsabilidad</h2>
+      <p>
+        Respondemos por los daños directos causados por nuestro incumplimiento, hasta el valor
+        pagado por el servicio en cuestión, salvo en los casos en que la ley no permita limitar esa
+        responsabilidad. No respondemos por pérdidas causadas por fuerza mayor, por servicios de
+        terceros o por el uso indebido del software.
+      </p>
+
+      <h2>13. Datos personales y cookies</h2>
+      <ul>
+        <li><a [routerLink]="paths.policy">Política de Tratamiento de Datos Personales</a>.</li>
+        <li><a [routerLink]="paths.cookies">Política de Cookies</a>.</li>
+      </ul>
+
+      <h2>14. Peticiones, quejas y reclamos</h2>
+      <p>
+        Puedes enviarnos cualquier petición, queja o reclamo a
+        <a [href]="'mailto:' + controller.email">{{ controller.email }}</a> o al WhatsApp
+        {{ controller.phone }}. Respondemos en máximo 15 días hábiles. Si eres consumidor, también
+        puedes acudir a la Superintendencia de Industria y Comercio.
+      </p>
+
+      <h2>15. Ley aplicable y cambios</h2>
+      <p>
+        Estos términos se rigen por las leyes de la República de Colombia. Podemos actualizarlos; la
+        versión vigente es la publicada en esta página con su fecha de actualización. Los cambios no
+        afectan las propuestas ya aceptadas.
+      </p>
+    </article>
+  </div>
+</section>

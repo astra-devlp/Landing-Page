@@ -269,4 +269,24 @@ export interface AppCopy {
     rights: string;
     proposal: string;
   };
+  legal: {
+    policyLink: string;
+    requestsLink: string;
+    termsLink: string;
+    cookiesLink: string;
+    cookieSettings: string;
+    cookieTitle: string;
+    cookieBody: string;
+    cookieMore: string;
+    cookieAccept: string;
+    cookieReject: string;
+    policyEyebrow: string;
+    requestsEyebrow: string;
+    /** Shown on the legal pages when the site is not in Spanish. */
+    spanishOnly: string;
+    /** Contact form consent: text before and after the policy link. */
+    consentBefore: string;
+    consentLink: string;
+    consentAfter: string;
+  };
 }

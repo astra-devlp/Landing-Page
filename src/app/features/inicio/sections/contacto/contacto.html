@@ -167,6 +167,22 @@
               ></textarea>
             </div>
 
+            <label class="flex cursor-pointer items-start gap-3">
+              <input
+                class="mt-1 size-4 shrink-0 accent-[var(--color-brand-solid)]"
+                type="checkbox"
+                name="consent"
+                required
+              />
+              <span class="font-body-sm text-body-sm text-on-surface-variant">
+                {{ i18n.copy().legal.consentBefore
+                }}<a class="text-accent underline underline-offset-2" [routerLink]="policyPath">{{
+                  i18n.copy().legal.consentLink
+                }}</a
+                >{{ i18n.copy().legal.consentAfter }} *
+              </span>
+            </label>
+
             <button
               class="btn-brand inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg px-6 py-3 font-body-md text-body-md font-semibold"
               type="submit"

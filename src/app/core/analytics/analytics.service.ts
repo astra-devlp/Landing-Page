@@ -20,10 +20,14 @@ declare global {
 export class AnalyticsService {
   private readonly document = inject(DOCUMENT);
 
+  private initialized = false;
+
+  /** Loads Google Analytics once. Call only after the visitor accepts analytics cookies. */
   init(): void {
-    if (!GA_MEASUREMENT_ID) {
+    if (!GA_MEASUREMENT_ID || this.initialized) {
       return;
     }
+    this.initialized = true;
 
     const window = this.document.defaultView!;
     window.dataLayer = window.dataLayer ?? [];

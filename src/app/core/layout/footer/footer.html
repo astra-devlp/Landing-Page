@@ -48,8 +48,27 @@
       </div>
     </div>
 
-    <p class="mt-10 border-t border-outline-variant pt-6 font-body-sm text-body-sm text-outline">
-      © {{ year }} Astra Dev. {{ i18n.copy().footer.rights }}
-    </p>
+    <div
+      class="mt-10 flex flex-col gap-3 border-t border-outline-variant pt-6 font-body-sm text-body-sm text-outline md:flex-row md:items-center md:justify-between"
+    >
+      <p>© {{ year }} Astra Dev. {{ i18n.copy().footer.rights }}</p>
+      <nav class="flex flex-wrap gap-x-5 gap-y-1" aria-label="Legal">
+        @for (link of legalLinks(); track link.path) {
+          <a
+            class="inline-flex min-h-9 items-center transition-colors hover:text-primary"
+            [routerLink]="link.path"
+          >
+            {{ link.label }}
+          </a>
+        }
+        <button
+          class="inline-flex min-h-9 cursor-pointer items-center transition-colors hover:text-primary"
+          type="button"
+          (click)="consent.reopen()"
+        >
+          {{ i18n.copy().legal.cookieSettings }}
+        </button>
+      </nav>
+    </div>
   </div>
 </footer>

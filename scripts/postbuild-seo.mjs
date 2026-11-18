@@ -20,7 +20,8 @@ if (!siteUrl) {
   console.warn('[postbuild-seo] SITE_URL/URL not set: links stay relative.');
 }
 
-const { TRANSLATIONS, SERVICE_PAGE_PATHS, whatsappUrl } = await loadAppData();
+const { TRANSLATIONS, SERVICE_PAGE_PATHS, LEGAL_PATHS, LEGAL_SEO, whatsappUrl } =
+  await loadAppData();
 const copy = TRANSLATIONS.es;
 const today = new Date().toISOString().slice(0, 10);
 const abs = (path = '') => `${SITE_URL_TOKEN}/${path}`;
@@ -116,10 +117,23 @@ for (const [key, path] of Object.entries(SERVICE_PAGE_PATHS)) {
   });
 }
 
-await writeFile(`${OUT_DIR}/sitemap.xml`, sitemap(['', ...Object.values(SERVICE_PAGE_PATHS)]));
+// Legal pages: own title and description so they are indexed correctly.
+for (const [key, path] of Object.entries(LEGAL_PATHS)) {
+  const { title, description } = LEGAL_SEO[key];
+  const url = abs(path);
+  await writePage(`${path}/index.html`, index, {
+    title,
+    description,
+    url,
+    graph: [organization, website, webPage(url, title, description)],
+  });
+}
+
+const pagePaths = [...Object.values(SERVICE_PAGE_PATHS), ...Object.values(LEGAL_PATHS)];
+await writeFile(`${OUT_DIR}/sitemap.xml`, sitemap(['', ...pagePaths]));
 
 const files = ['index.html', 'robots.txt', 'sitemap.xml'].concat(
-  Object.values(SERVICE_PAGE_PATHS).map((path) => `${path}/index.html`),
+  pagePaths.map((path) => `${path}/index.html`),
 );
 for (const file of files) {
   const target = `${OUT_DIR}/${file}`;
@@ -138,6 +152,7 @@ async function loadAppData() {
       contents: [
         "export { TRANSLATIONS } from './src/app/core/i18n/translations';",
         "export { SERVICE_PAGE_PATHS } from './src/app/shared/data/service-pages';",
+        "export { LEGAL_PATHS, LEGAL_SEO } from './src/app/shared/data/legal';",
         "export { whatsappUrl } from './src/app/shared/utils/whatsapp';",
       ].join('\n'),
       resolveDir: process.cwd(),

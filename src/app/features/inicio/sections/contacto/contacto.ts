@@ -1,5 +1,7 @@
 import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { Component, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { LEGAL_PATHS } from '../../../../shared/data/legal';
 import { AnalyticsService } from '../../../../core/analytics/analytics.service';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 import { ChatService } from '../../../../core/layout/chat-widget/chat.service';
@@ -7,7 +9,7 @@ import { buildQuoteMessage, whatsappUrl } from '../../../../shared/utils/whatsap
 
 @Component({
   selector: 'app-contacto',
-  imports: [WhatsappIcon],
+  imports: [WhatsappIcon, RouterLink],
   templateUrl: './contacto.html',
   styles: ``,
 })
@@ -15,6 +17,7 @@ export class Contacto {
   protected readonly i18n = inject(I18nService);
   protected readonly chat = inject(ChatService);
   protected readonly formSent = signal(false);
+  protected readonly policyPath = `/${LEGAL_PATHS.policy}`;
   private readonly analytics = inject(AnalyticsService);
 
   protected readonly solutionIcons: Record<string, string> = {

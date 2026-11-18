@@ -1,0 +1,118 @@
+<section class="w-full py-16 lg:py-24">
+  <div class="mx-auto max-w-3xl px-margin-mobile md:px-margin-tablet">
+    <span class="eyebrow mb-4">{{ i18n.copy().legal.policyEyebrow }}</span>
+    <h1 class="section-title mb-6">Política de Cookies</h1>
+    <p class="section-lede">
+      Qué guardamos en tu navegador, para qué lo usamos y cómo puedes cambiar tu decisión.
+    </p>
+    <p class="mt-4 font-body-sm text-body-sm text-outline">Última actualización: {{ updated }}</p>
+
+    @if (i18n.lang() !== 'es') {
+      <p
+        class="mt-6 rounded-lg border border-outline-variant bg-surface-container-low p-4 font-body-sm text-body-sm text-on-surface-variant"
+      >
+        {{ i18n.copy().legal.spanishOnly }}
+      </p>
+    }
+
+    <div
+      class="mt-8 flex flex-col gap-3 rounded-2xl border border-outline-variant bg-surface-container-low p-6 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p class="font-body-md text-body-md text-on-surface">
+        Cookies de analítica:
+        <strong class="text-primary">{{
+          consent.decision() === null
+            ? 'sin decidir'
+            : consent.analyticsAllowed()
+              ? 'aceptadas'
+              : 'rechazadas'
+        }}</strong>
+      </p>
+      <button
+        class="btn-brand inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg px-5 py-2.5 font-body-md text-body-md font-semibold"
+        type="button"
+        (click)="consent.reopen()"
+      >
+        Cambiar mi decisión
+      </button>
+    </div>
+
+    <article class="legal">
+      <h2>1. Qué son las cookies</h2>
+      <p>
+        Las cookies y el almacenamiento local son pequeños archivos o datos que un sitio guarda en
+        tu navegador para recordar información entre visitas, como tu idioma o tus preferencias.
+      </p>
+
+      <h2>2. Almacenamiento necesario</h2>
+      <p>
+        Son necesarios para que el sitio funcione y recuerde lo que elegiste. No sirven para
+        identificarte ni para mostrarte publicidad, y se guardan solo en tu navegador.
+      </p>
+      <ng-container *ngTemplateOutlet="table; context: { $implicit: necessary }"></ng-container>
+
+      <h2>3. Cookies de analítica (opcionales)</h2>
+      <p>
+        Solo se activan si eliges <strong>Aceptar todas</strong>. Nos dicen cuántas personas visitan
+        el sitio y qué secciones usan, de forma agregada, para mejorarlo. Si eliges
+        <strong>Solo las necesarias</strong>, no se carga ningún script de analítica.
+      </p>
+      <ng-container *ngTemplateOutlet="table; context: { $implicit: analytics }"></ng-container>
+
+      <h2>4. Servicios de terceros</h2>
+      <ul>
+        <li>
+          <strong>Google Fonts:</strong> el sitio carga sus tipografías desde servidores de Google,
+          que reciben tu dirección IP para entregarlas.
+        </li>
+        <li>
+          <strong>Netlify:</strong> aloja el sitio y registra datos técnicos de las visitas, como la
+          dirección IP, por seguridad.
+        </li>
+        <li>
+          <strong>WhatsApp:</strong> al abrir un enlace de WhatsApp sales de nuestro sitio y aplican
+          las políticas de Meta.
+        </li>
+      </ul>
+
+      <h2>5. Cómo cambiar tu decisión</h2>
+      <p>
+        Puedes cambiarla cuando quieras con el botón <strong>Cambiar mi decisión</strong> de esta
+        página o con <strong>Configurar cookies</strong> en el pie de página. También puedes borrar
+        o bloquear las cookies desde la configuración de tu navegador; si bloqueas el almacenamiento
+        necesario, el sitio no recordará tus preferencias.
+      </p>
+
+      <h2>6. Más información</h2>
+      <p>
+        Los datos personales que se obtengan por medio de cookies se tratan según nuestra
+        <a [routerLink]="policyPath">Política de Tratamiento de Datos Personales</a>.
+      </p>
+    </article>
+  </div>
+</section>
+
+<ng-template #table let-items>
+  <div class="mt-4 overflow-x-auto rounded-xl border border-outline-variant">
+    <table class="w-full min-w-[560px] text-left font-body-sm text-body-sm">
+      <thead class="bg-surface-container-low text-on-surface">
+        <tr>
+          <th class="px-4 py-3 font-semibold">Nombre</th>
+          <th class="px-4 py-3 font-semibold">De quién</th>
+          <th class="px-4 py-3 font-semibold">Para qué</th>
+          <th class="px-4 py-3 font-semibold">Duración</th>
+        </tr>
+      </thead>
+      <tbody class="text-on-surface-variant">
+        @for (item of items; track item.name) {
+          <tr class="border-t border-outline-variant">
+            <td class="px-4 py-3 font-mono text-[13px] text-on-surface">{{ item.name }}</td>
+            <td class="px-4 py-3">{{ item.provider }}</td>
+            <td class="px-4 py-3">{{ item.purpose }}</td>
+            <td class="px-4 py-3">{{ item.duration }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</ng-template>

@@ -1,0 +1,229 @@
+<section class="w-full py-16 lg:py-24">
+  <div class="mx-auto max-w-3xl px-margin-mobile md:px-margin-tablet">
+    <span class="eyebrow mb-4">{{ i18n.copy().legal.policyEyebrow }}</span>
+    <h1 class="section-title mb-6">Política de Tratamiento de Datos Personales</h1>
+    <p class="section-lede">
+      Aquí te contamos qué datos tuyos usamos, para qué, y cómo puedes consultarlos, corregirlos o
+      pedir que los borremos.
+    </p>
+    <p class="mt-4 font-body-sm text-body-sm text-outline">Última actualización: {{ updated }}</p>
+
+    @if (i18n.lang() !== 'es') {
+      <p
+        class="mt-6 rounded-lg border border-outline-variant bg-surface-container-low p-4 font-body-sm text-body-sm text-on-surface-variant"
+      >
+        {{ i18n.copy().legal.spanishOnly }}
+      </p>
+    }
+
+    <div
+      class="mt-8 flex flex-col gap-3 rounded-2xl border border-outline-variant bg-surface-container-low p-6 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p class="font-body-md text-body-md text-on-surface">
+        ¿Tienes una solicitud sobre tus datos personales?
+      </p>
+      <a
+        class="btn-brand inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg px-5 py-2.5 font-body-md text-body-md font-semibold"
+        [routerLink]="requestsPath"
+      >
+        Hacer una solicitud
+      </a>
+    </div>
+
+    <article class="legal">
+      <h2>1. Quién es el responsable de tus datos</h2>
+      <p>
+        {{ controller.brand }} es una marca de desarrollo de software operada por personas naturales
+        en Colombia. Como responsables del tratamiento de tus datos:
+      </p>
+      <dl>
+        <dt>Responsable</dt>
+        <dd>{{ controller.holder }}, que opera la marca {{ controller.brand }}</dd>
+        <dt>Domicilio</dt>
+        <dd>{{ controller.city }}, {{ controller.country }}</dd>
+        <dt>Correo</dt>
+        <dd>
+          <a [href]="'mailto:' + controller.email">{{ controller.email }}</a>
+        </dd>
+        <dt>WhatsApp</dt>
+        <dd>
+          <a [href]="whatsappHref" target="_blank" rel="noopener noreferrer">{{
+            controller.phone
+          }}</a>
+        </dd>
+        <dt>Sitio web</dt>
+        <dd>{{ controller.website }}</dd>
+      </dl>
+
+      <h2>2. Marco legal</h2>
+      <p>
+        Esta política cumple la Ley Estatutaria 1581 de 2012 de protección de datos personales, el
+        Decreto 1377 de 2013 (compilado en el Decreto 1074 de 2015) y, para los mensajes
+        comerciales, la Ley 2300 de 2023. La autoridad que vigila su cumplimiento es la
+        Superintendencia de Industria y Comercio (SIC).
+      </p>
+
+      <h2>3. Qué datos recolectamos</h2>
+      <ul>
+        <li>
+          <strong>Datos que tú nos das</strong> cuando nos escribes por el formulario, WhatsApp,
+          correo o el asistente del sitio: nombre, negocio, teléfono, correo y lo que nos cuentes de
+          tu proyecto.
+        </li>
+        <li>
+          <strong>Datos de contacto de negocios</strong> que los propios negocios publican en
+          directorios abiertos como Google Maps: nombre del negocio, dirección, teléfono, sitio web
+          y categoría. Los usamos para identificar negocios a los que nuestras soluciones les pueden
+          servir.
+        </li>
+        <li>
+          <strong>Datos de clientes</strong> necesarios para prestar el servicio contratado y
+          facturarlo.
+        </li>
+        <li>
+          <strong>Preferencias de navegación</strong> que se guardan solo en tu navegador, como el
+          idioma y el tema claro u oscuro.
+        </li>
+      </ul>
+      <p>
+        No pedimos datos sensibles (salud, origen étnico, creencias, datos biométricos, etc.) ni
+        datos de niños, niñas o adolescentes. Si nos los envías por error, los borramos.
+      </p>
+
+      <h2>4. Para qué usamos tus datos</h2>
+      <ol>
+        <li>
+          Responder tus preguntas, enviarte cotizaciones y agendar reuniones o demostraciones.
+        </li>
+        <li>Prestar los servicios que contrates, darte soporte y facturar.</li>
+        <li>
+          Contactar negocios para ofrecerles nuestros servicios de software (páginas web, sistemas
+          POS, ERP, CRM e inteligencia artificial), según las reglas de la sección 6.
+        </li>
+        <li>Mejorar nuestro sitio web y nuestros servicios.</li>
+        <li>Cumplir obligaciones legales, contables y tributarias.</li>
+      </ol>
+      <p>
+        No vendemos, alquilamos ni compartimos tus datos con terceros para que te hagan publicidad.
+      </p>
+
+      <h2>5. Tu autorización</h2>
+      <p>
+        Usamos tus datos personales con tu autorización previa, expresa e informada. La das, por
+        ejemplo, al marcar la casilla del formulario de contacto, al escribirnos tú primero o al
+        decirnos que sí cuando te preguntamos si podemos enviarte información. Guardamos prueba de
+        cuándo y por qué medio nos diste esa autorización. Puedes retirarla cuando quieras.
+      </p>
+
+      <h2>6. Mensajes comerciales</h2>
+      <p>Cuando contactamos a un negocio para ofrecerle nuestros servicios:</p>
+      <ul>
+        <li>
+          Lo hacemos uno a uno, nunca con envíos masivos, y el primer mensaje te pregunta si quieres
+          recibir información.
+        </li>
+        <li>
+          Solo escribimos de lunes a viernes de 7:00 a. m. a 7:00 p. m. y los sábados de 8:00 a. m.
+          a 3:00 p. m. Nunca domingos ni festivos.
+        </li>
+        <li>Contactamos como máximo una vez por semana y por un solo canal.</li>
+        <li>
+          Antes de escribir revisamos que el número no esté inscrito en el Registro de Números
+          Excluidos (RNE) de la Comisión de Regulación de Comunicaciones.
+        </li>
+        <li>
+          Si nos respondes <strong>NO</strong> o nos pides que no te escribamos, te agregamos a
+          nuestra lista de exclusión y no te volvemos a contactar.
+        </li>
+      </ul>
+
+      <h2>7. Con quién compartimos tus datos</h2>
+      <p>
+        Para operar usamos proveedores que pueden tratar tus datos por cuenta nuestra (encargados),
+        algunos con servidores fuera de Colombia: Netlify (alojamiento del sitio), WhatsApp de Meta
+        y Gmail de Google (mensajería y correo) y proveedores de modelos de inteligencia artificial
+        que generan las respuestas del asistente del sitio. Los mensajes que escribes en ese
+        asistente se envían a esos proveedores para responderte y nosotros no los guardamos; por eso
+        te pedimos no escribir en él datos personales sensibles. Al aceptar esta política autorizas
+        esta transmisión de datos a otros países.
+      </p>
+      <p>También entregaremos datos a autoridades cuando una ley o una orden judicial lo exija.</p>
+
+      <h2>8. Tus derechos</h2>
+      <p>Como titular de tus datos tienes derecho a:</p>
+      <ul>
+        <li>Conocer, actualizar y corregir tus datos.</li>
+        <li>Pedir prueba de la autorización que nos diste.</li>
+        <li>Saber para qué hemos usado tus datos.</li>
+        <li>
+          Retirar tu autorización y pedir que borremos tus datos, salvo que una ley o un contrato
+          vigente nos obligue a conservarlos.
+        </li>
+        <li>Consultar gratis tus datos personales.</li>
+        <li>
+          Presentar quejas ante la Superintendencia de Industria y Comercio, después de hacer tu
+          solicitud con nosotros.
+        </li>
+      </ul>
+
+      <h2>9. Cómo hacer una solicitud</h2>
+      <p>Puedes enviarnos tu solicitud por cualquiera de estos canales:</p>
+      <ul>
+        <li>El formulario de <a [routerLink]="requestsPath">solicitudes sobre tus datos</a>.</li>
+        <li>
+          Correo a <a [href]="'mailto:' + controller.email">{{ controller.email }}</a
+          >.
+        </li>
+        <li>
+          WhatsApp al
+          <a [href]="whatsappHref" target="_blank" rel="noopener noreferrer">{{
+            controller.phone
+          }}</a
+          >.
+        </li>
+      </ul>
+      <p>
+        Indica tu nombre, el número o correo con el que te contactamos y qué necesitas. Podemos
+        pedirte información para confirmar que eres el titular de los datos.
+      </p>
+      <h3>Tiempos de respuesta</h3>
+      <ul>
+        <li>
+          <strong>Consultas</strong> (saber qué datos tenemos): respondemos en máximo 10 días
+          hábiles. Si necesitamos más tiempo te avisamos, y en ningún caso pasarán más de 5 días
+          hábiles adicionales.
+        </li>
+        <li>
+          <strong>Reclamos</strong> (corregir, borrar, retirar la autorización o una queja):
+          respondemos en máximo 15 días hábiles, prorrogables hasta 8 días hábiles más con aviso. Si
+          falta información te la pedimos dentro de los 5 días siguientes; si no la recibimos en 2
+          meses, entenderemos que desististe de la solicitud.
+        </li>
+        <li><strong>No recibir más mensajes</strong>: dejamos de contactarte de inmediato.</li>
+      </ul>
+
+      <h2>10. Cuánto tiempo guardamos tus datos</h2>
+      <p>
+        Guardamos tus datos solo mientras sean necesarios para la finalidad por la que los
+        recolectamos, o el tiempo que exija la ley (por ejemplo, la información contable y de
+        facturación). Los datos de negocios que contactamos y no responden o no están interesados se
+        borran en un plazo máximo de 6 meses. Conservamos únicamente el número de quienes pidieron
+        no ser contactados, con el fin de no volver a escribirles.
+      </p>
+
+      <h2>11. Seguridad</h2>
+      <p>
+        Protegemos tus datos con medidas razonables: acceso limitado a las personas que los
+        necesitan, cuentas protegidas con contraseña y verificación en dos pasos, y conexiones
+        cifradas. Si ocurre un incidente que afecte tus datos, lo informaremos a la SIC y a las
+        personas afectadas.
+      </p>
+
+      <h2>12. Vigencia y cambios</h2>
+      <p>
+        Esta política rige desde el {{ updated }}. Si la cambiamos de forma importante, publicaremos
+        la nueva versión en esta misma página con su fecha de actualización.
+      </p>
+    </article>
+  </div>
+</section>
