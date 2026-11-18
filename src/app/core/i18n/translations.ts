@@ -15,7 +15,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
     header: {
       quote: 'Cotizar',
       login: 'Iniciar sesión',
-      loginHref: 'https://sistema-de-inventario-front.netlify.app',
+      loginHref: 'https://stock.astradevlp.com/login',
       openMenu: 'Abrir menú',
       language: 'Cambiar idioma',
       theme: 'Cambiar tema',
@@ -938,7 +938,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
     header: {
       quote: 'Get a quote',
       login: 'Sign in',
-      loginHref: 'https://sistema-de-inventario-front.netlify.app',
+      loginHref: 'https://stock.astradevlp.com/login',
       openMenu: 'Open menu',
       language: 'Switch language',
       theme: 'Switch theme',
@@ -1851,7 +1851,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
     header: {
       quote: 'Orçamento',
       login: 'Iniciar sessão',
-      loginHref: 'https://sistema-de-inventario-front.netlify.app',
+      loginHref: 'https://stock.astradevlp.com/login',
       openMenu: 'Abrir menu',
       language: 'Mudar idioma',
       theme: 'Mudar tema',
