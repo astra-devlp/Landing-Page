@@ -33,6 +33,8 @@ export interface AiCapability {
 export interface ProcessStep {
   title: string;
   description: string;
+  /** What the client walks away with from this step. */
+  deliverable: string;
 }
 
 export interface AboutPillar {

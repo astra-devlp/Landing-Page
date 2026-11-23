@@ -1,0 +1,37 @@
+<section
+  class="relative w-full overflow-hidden border-y border-outline-variant bg-surface-container-lowest py-8"
+  aria-label="AstraDev"
+>
+  <div class="mask-fade-x group flex flex-col gap-4">
+    <div
+      class="flex w-max gap-4 motion-safe:animate-marquee group-hover:[animation-play-state:paused]"
+      style="--marquee-duration: 45s"
+    >
+      @for (item of solutions(); track $index; let i = $index) {
+        <span
+          class="inline-flex shrink-0 items-center gap-3 rounded-full border border-outline-variant bg-surface-container-low px-5 py-3 font-display text-[1.05rem] font-semibold whitespace-nowrap text-primary"
+          [attr.aria-hidden]="i >= solutions().length / 2"
+        >
+          <span class="material-symbols-outlined text-[22px] text-accent" aria-hidden="true">{{
+            item.icon
+          }}</span>
+          {{ item.label }}
+        </span>
+      }
+    </div>
+    <div
+      class="flex w-max gap-4 motion-safe:animate-marquee-reverse group-hover:[animation-play-state:paused]"
+      style="--marquee-duration: 55s"
+    >
+      @for (label of features(); track $index; let i = $index) {
+        <span
+          class="inline-flex shrink-0 items-center gap-2 px-3 py-1 font-body-md text-body-md whitespace-nowrap text-on-surface-variant"
+          [attr.aria-hidden]="i >= features().length / 2"
+        >
+          <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+          {{ label }}
+        </span>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,112 @@
+@let copy = i18n.copy().showcase;
+<section id="productos" class="relative w-full overflow-hidden border-t border-outline-variant py-20 lg:py-28">
+  <div class="pointer-events-none absolute inset-x-0 top-1/3 -z-10 mx-auto h-[28rem] max-w-5xl rounded-full bg-brand-solid/15 blur-[140px]" aria-hidden="true"></div>
+
+  <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div class="mb-12 flex flex-col gap-6 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="mb-4 font-body-md text-body-md font-semibold text-accent">{{ copy.eyebrow }}</p>
+        <h2 class="section-title max-w-[18ch]">{{ copy.title }}</h2>
+        <p class="section-lede mt-5">{{ copy.intro }}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button
+          type="button"
+          class="flex h-12 w-12 items-center justify-center rounded-full border border-outline-variant text-primary transition hover:border-accent hover:bg-surface-container"
+          (click)="prev()"
+          [attr.aria-label]="copy.prev"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+        </button>
+        <button
+          type="button"
+          class="flex h-12 w-12 items-center justify-center rounded-full border border-outline-variant text-primary transition hover:border-accent hover:bg-surface-container"
+          (click)="next()"
+          [attr.aria-label]="copy.next"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="relative h-[260px] touch-pan-y outline-none select-none [perspective:1600px] sm:h-[380px] lg:h-[540px]"
+      role="region"
+      aria-roledescription="carousel"
+      [attr.aria-label]="copy.title"
+      tabindex="0"
+      (mouseenter)="setPaused(true)"
+      (mouseleave)="setPaused(false)"
+      (focusin)="setPaused(true)"
+      (focusout)="setPaused(false)"
+      (pointerdown)="pointerDown($event)"
+      (pointerup)="pointerUp($event)"
+      (keydown.arrowleft)="prev()"
+      (keydown.arrowright)="next()"
+    >
+      @for (slide of slides(); track slide.title; let i = $index) {
+        <article
+          class="absolute top-0 left-1/2 h-full w-[84%] overflow-hidden rounded-3xl border border-outline-variant shadow-2xl shadow-black/40 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:w-[62%]"
+          [class]="images[i].fit === 'contain' ? 'bg-[#e9edf2]' : 'bg-surface-container'"
+          [style]="slideStyle(i)"
+          [attr.aria-hidden]="offset(i) !== 0"
+          (click)="offset(i) !== 0 && go(i)"
+        >
+          <img
+            class="h-full w-full"
+            [class]="images[i].fit === 'contain' ? 'object-contain p-4' : 'object-cover'"
+            [src]="images[i].src"
+            [alt]="slide.title"
+            draggable="false"
+            [attr.loading]="i < 2 ? 'eager' : 'lazy'"
+          />
+          <div
+            class="absolute inset-x-0 bottom-0 flex flex-col items-start gap-1 bg-gradient-to-t from-black/85 via-black/50 to-transparent p-5 pt-16 text-white transition-opacity duration-500 sm:p-8 sm:pt-24"
+            [class.opacity-0]="offset(i) !== 0"
+          >
+            <span
+              class="mb-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-[12px] font-semibold tracking-wide uppercase backdrop-blur"
+              >{{ slide.tag }}</span
+            >
+            <h3 class="font-display text-[1.35rem] leading-tight font-semibold sm:text-[2rem]">
+              {{ slide.title }}
+            </h3>
+            <p class="hidden max-w-[36rem] text-[15px] text-white/80 sm:block">{{ slide.description }}</p>
+          </div>
+        </article>
+      }
+    </div>
+
+    <div class="mt-10 flex flex-col items-center gap-8 sm:flex-row sm:justify-between">
+      <div class="flex items-center gap-2">
+        @for (slide of slides(); track slide.title; let i = $index) {
+          <button
+            type="button"
+            class="relative h-2 overflow-hidden rounded-full bg-outline-variant transition-all duration-500"
+            [class]="i === index() ? 'w-12' : 'w-2 hover:bg-outline'"
+            (click)="go(i)"
+            [attr.aria-label]="copy.goTo + ' ' + (i + 1) + ': ' + slide.title"
+            [attr.aria-current]="i === index()"
+          >
+            @if (i === index()) {
+              <span
+                class="absolute inset-0 origin-left rounded-full bg-accent motion-safe:animate-grow"
+                [style.--grow-duration]="autoplayMs + 'ms'"
+                [style.animation-play-state]="paused() ? 'paused' : 'running'"
+              ></span>
+            }
+          </button>
+        }
+      </div>
+      <a
+        class="btn-brand inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-6 py-3 font-body-md text-body-md font-semibold"
+        [href]="i18n.copy().whatsapp.href"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <app-whatsapp-icon [size]="20" />
+        {{ copy.cta }}
+      </a>
+    </div>
+  </div>
+</section>

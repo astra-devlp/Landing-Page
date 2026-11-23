@@ -1,113 +1,109 @@
-<section id="proceso" class="w-full border-t border-outline-variant py-20 lg:py-28">
+@let process = i18n.copy().process;
+@let steps = process.steps;
+<section
+  id="proceso"
+  class="relative w-full overflow-hidden border-t border-outline-variant py-20 lg:py-28"
+>
+  <div
+    class="pointer-events-none absolute -bottom-40 left-1/2 -z-10 h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-group-automate/10 blur-[140px]"
+    aria-hidden="true"
+  ></div>
+
   <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
-    <div class="mb-14 grid grid-cols-1 items-end gap-6 lg:mb-20 lg:grid-cols-12">
-      <h2 class="section-title lg:col-span-7">{{ i18n.copy().process.title }}</h2>
-      <p class="section-lede lg:col-span-5 lg:justify-self-end">
-        {{ i18n.copy().process.intro }}
-      </p>
+    <div class="mb-14 grid grid-cols-1 items-end gap-6 lg:mb-20 lg:grid-cols-12" appReveal>
+      <div class="lg:col-span-7">
+        <p class="mb-4 font-body-md text-body-md font-semibold text-accent">
+          {{ process.eyebrow }}
+        </p>
+        <h2 class="section-title max-w-[20ch]">{{ process.title }}</h2>
+      </div>
+      <p class="section-lede lg:col-span-5 lg:justify-self-end">{{ process.intro }}</p>
     </div>
 
-    @let steps = i18n.copy().process.steps;
-    <div
-      class="hidden lg:block"
-      appScrollScene
-      sceneMode="pin"
-      #story="scrollScene"
-      [style.height]="storyHeight(steps.length)"
-    >
-      @let active = activeStep(story.progress(), steps.length);
-      <div class="sticky top-20 grid h-[calc(100vh-5rem)] grid-cols-12 items-center gap-8">
-        <ol class="col-span-5 flex flex-col gap-2">
-          @for (step of steps; track step.title; let i = $index) {
-            <li
-              class="relative border-t-2 border-outline-variant py-5 transition-colors duration-500"
-              [class.text-primary]="i === active"
-              [class.text-outline]="i !== active"
-              [attr.aria-current]="i === active ? 'step' : null"
-            >
+    <div #timeline class="relative">
+      <!-- Track: horizontal on desktop, vertical on mobile. Fills when the section scrolls in. -->
+      <div
+        class="absolute top-0 bottom-0 left-7 w-0.5 rounded-full bg-outline-variant lg:top-7 lg:right-[12.5%] lg:bottom-auto lg:left-[12.5%] lg:h-0.5 lg:w-auto"
+        aria-hidden="true"
+      >
+        <div
+          class="h-full w-full origin-top rounded-full bg-gradient-to-b from-brand-solid via-accent to-group-automate transition-transform ease-out lg:origin-left lg:bg-gradient-to-r"
+          [style.transition-duration.ms]="stepDelay * steps.length"
+          [class]="started() ? 'scale-100' : 'scale-y-0 lg:scale-y-100 lg:scale-x-0'"
+        ></div>
+      </div>
+
+      <ol class="relative grid grid-cols-1 gap-10 lg:grid-cols-4 lg:gap-8">
+        @for (step of steps; track step.title; let i = $index) {
+          <li class="group relative flex gap-6 lg:flex-col lg:items-center lg:gap-0 lg:text-center">
+            <!-- Node -->
+            <div class="relative z-10 shrink-0 lg:mb-8">
               <span
-                class="absolute -top-0.5 left-0 h-0.5 w-full origin-left bg-accent"
-                [style.transform]="'scaleX(' + stepFill(story.progress(), steps.length, i) + ')'"
+                class="absolute inset-0 rounded-full bg-accent/40 blur-md transition-opacity duration-700"
+                [class.opacity-0]="!started()"
+                [style.transition-delay.ms]="i * stepDelay"
                 aria-hidden="true"
               ></span>
-              <span class="flex items-baseline gap-4 font-display text-[1.375rem] font-semibold">
-                <span class="text-body-md tabular-nums">0{{ i + 1 }}</span>
-                {{ step.title }}
-              </span>
-            </li>
-          }
-        </ol>
-
-        <div class="relative col-span-6 col-start-7 h-[22rem]">
-          @for (step of steps; track step.title; let i = $index) {
-            <article
-              class="card-static absolute inset-0 flex flex-col justify-between p-space-xl will-change-transform"
-              [style]="cardStyle(story.progress(), steps.length, i)"
-              [attr.aria-hidden]="i !== active"
-            >
               <span
-                class="font-display text-[6rem] leading-none font-semibold tracking-tight text-accent"
+                class="relative flex h-14 w-14 items-center justify-center rounded-full border-2 transition-all duration-700"
+                [class]="
+                  started()
+                    ? 'border-transparent bg-gradient-to-br from-brand-solid to-group-automate text-white scale-100'
+                    : 'border-outline-variant bg-surface text-outline scale-90'
+                "
+                [style.transition-delay.ms]="i * stepDelay"
                 aria-hidden="true"
               >
-                0{{ i + 1 }}
+                <span class="material-symbols-outlined text-[26px]">{{ icons[i] }}</span>
               </span>
-              <div>
-                <h3 class="mb-3 font-display text-[1.75rem] leading-snug font-semibold text-primary">
+            </div>
+
+            <!-- Card -->
+            <div class="flex-1 lg:w-full" appReveal [revealDelay]="i * 120">
+              <div class="spotlight-card h-full p-6 lg:p-7" appSpotlight>
+                <p
+                  class="mb-3 font-body-sm text-body-sm font-semibold tracking-wide text-accent uppercase"
+                >
+                  {{ stepLabel[i18n.lang()] }} {{ i + 1 }}
+                </p>
+                <h3
+                  class="mb-3 font-display text-[1.375rem] leading-snug font-semibold text-primary"
+                >
                   {{ step.title }}
                 </h3>
-                <p class="font-body-lg text-body-lg text-on-surface-variant">
+                <p class="mb-5 font-body-md text-body-md text-on-surface-variant">
                   {{ step.description }}
                 </p>
+                <p
+                  class="inline-flex items-center gap-1.5 rounded-full border border-group-manage/40 bg-group-manage/10 px-3 py-1 font-body-sm text-body-sm font-semibold text-group-manage"
+                >
+                  <span class="material-symbols-outlined text-[16px]" aria-hidden="true"
+                    >check_circle</span
+                  >
+                  {{ step.deliverable }}
+                </p>
               </div>
-            </article>
-          }
-        </div>
-      </div>
-    </div>
-
-    <ol class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:hidden">
-      @for (step of i18n.copy().process.steps; track step.title; let i = $index) {
-        <li class="relative border-t-2 border-outline-variant pt-6">
-          <span
-            class="absolute -top-0.5 left-0 h-0.5 bg-accent"
-            [style.width.%]="((i + 1) / 4) * 100"
-            aria-hidden="true"
-          ></span>
-          <span
-            class="mb-6 block font-display text-[3.5rem] leading-none font-semibold tracking-tight text-outline"
-            aria-hidden="true"
-          >
-            {{ i + 1 }}
-          </span>
-          <h3 class="mb-3 font-display text-[1.375rem] leading-snug font-semibold text-primary">
-            {{ step.title }}
-          </h3>
-          <p class="font-body-md text-body-md text-on-surface-variant">{{ step.description }}</p>
-        </li>
-      }
-    </ol>
-
-    <div class="mt-14 flex flex-col gap-12 lg:mt-20 lg:flex-row lg:items-start lg:justify-between">
-      <ul class="grid max-w-3xl grid-cols-1 gap-8 sm:grid-cols-3">
-        @for (pillar of i18n.copy().about.pillars; track pillar.title) {
-          <li>
-            <p class="mb-1 font-body-md text-body-md font-semibold text-primary">
-              {{ pillar.title }}
-            </p>
-            <p class="font-body-sm text-body-sm text-on-surface-variant">
-              {{ pillar.description }}
-            </p>
+            </div>
           </li>
         }
-      </ul>
+      </ol>
+    </div>
+
+    <div
+      class="mt-14 flex flex-col items-start gap-5 rounded-2xl border border-outline-variant bg-surface-container-low p-6 sm:flex-row sm:items-center sm:justify-between lg:mt-20 lg:p-8"
+      appReveal
+    >
+      <p class="max-w-[40rem] font-display text-[1.25rem] leading-snug font-semibold text-primary">
+        {{ i18n.copy().finalCta.body }}
+      </p>
       <a
-        class="btn-brand inline-flex min-h-12 shrink-0 items-center justify-center gap-2 self-start rounded-lg px-6 py-3 font-body-md text-body-md font-semibold"
+        class="btn-brand btn-shine inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-lg px-6 py-3 font-body-md text-body-md font-semibold"
         [href]="i18n.copy().whatsapp.href"
         target="_blank"
         rel="noopener noreferrer"
       >
         <app-whatsapp-icon [size]="20" />
-        {{ i18n.copy().process.cta }}
+        {{ process.cta }}
       </a>
     </div>
   </div>

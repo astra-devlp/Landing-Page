@@ -4,6 +4,7 @@ import { I18nService } from '../../../../core/i18n/i18n.service';
 import { SERVICE_PAGE_PATHS } from '../../../../shared/data/service-pages';
 import { ServiceGroup } from '../../../../shared/models/site.models';
 import { Cotizador } from '../cotizador/cotizador';
+import { Reveal } from '../../../../shared/ui/reveal/reveal';
 
 /** Static class names per group so Tailwind can see them at build time. */
 const GROUP_STYLES: Record<ServiceGroup, { text: string; dot: string }> = {
@@ -14,7 +15,7 @@ const GROUP_STYLES: Record<ServiceGroup, { text: string; dot: string }> = {
 
 @Component({
   selector: 'app-servicios',
-  imports: [RouterLink, Cotizador],
+  imports: [RouterLink, Cotizador, Reveal],
   templateUrl: './servicios.html',
 })
 export class Servicios {

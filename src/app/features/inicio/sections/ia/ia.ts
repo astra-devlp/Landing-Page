@@ -1,3 +1,4 @@
+import { Reveal } from '../../../../shared/ui/reveal/reveal';
 import { Calculadora } from '../calculadora/calculadora';
 import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 import { afterNextRender, Component, computed, DestroyRef, inject, signal } from '@angular/core';
@@ -8,7 +9,7 @@ const ROTATE_MS = 7000;
 
 @Component({
   selector: 'app-ia',
-  imports: [WhatsappIcon, Calculadora],
+  imports: [WhatsappIcon, Calculadora, Reveal],
   templateUrl: './ia.html',
 })
 export class Ia {

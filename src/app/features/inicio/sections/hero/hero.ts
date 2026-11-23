@@ -9,6 +9,7 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Spotlight } from '../../../../shared/ui/spotlight/spotlight';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 
 const CLIENT_PAUSE_MS = 900;
@@ -18,12 +19,12 @@ const TYPE_TICK_MS = 22;
 
 @Component({
   selector: 'app-hero',
-  imports: [WhatsappIcon, RouterLink],
+  imports: [WhatsappIcon, RouterLink, Spotlight],
   templateUrl: './hero.html',
 })
 export class Hero {
   protected readonly i18n = inject(I18nService);
-  protected readonly trustIcons = ['forum', 'layers', 'support_agent'];
+  protected readonly trustIcons = ['request_quote', 'layers', 'support_agent'];
 
   /** How many finished chat messages are visible. */
   protected readonly shown = signal(0);

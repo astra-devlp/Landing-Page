@@ -138,6 +138,7 @@ export interface AppCopy {
     rateLimited: string;
   };
   hero: {
+    eyebrow: string;
     title: string;
     highlight: string;
     body: string;
@@ -197,6 +198,19 @@ export interface AppCopy {
     demoBusiness: string;
     demos: { label: string; icon: string; messages: ChatMessage[] }[];
   };
+  marquee: {
+    features: string[];
+  };
+  showcase: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    prev: string;
+    next: string;
+    goTo: string;
+    cta: string;
+    slides: { tag: string; title: string; description: string }[];
+  };
   process: {
     eyebrow: string;
     title: string;
@@ -208,6 +222,7 @@ export interface AppCopy {
     eyebrow: string;
     title: string;
     body: string;
+    cta: string;
     stack: string;
     pillars: AboutPillar[];
   };

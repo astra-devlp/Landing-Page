@@ -1,133 +1,35 @@
-<section id="proyectos" class="w-full py-20 lg:py-28">
+@let copy = i18n.copy().projects;
+<section id="proyectos" class="w-full border-t border-outline-variant py-16 lg:py-20">
   <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
-    <div class="mb-14 grid grid-cols-1 items-end gap-6 lg:mb-20 lg:grid-cols-12">
-      <h2 class="section-title lg:col-span-7">{{ i18n.copy().projects.title }}</h2>
-      <p class="section-lede lg:col-span-5 lg:justify-self-end">
-        {{ i18n.copy().projects.note }}
-      </p>
+    <div class="mb-10 flex flex-col gap-3 lg:mb-12 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+      <div>
+        <p class="mb-3 font-body-md text-body-md font-semibold text-accent">{{ copy.eyebrow }}</p>
+        <h2 class="font-display text-[1.75rem] leading-tight font-semibold tracking-tight text-primary lg:text-[2.25rem]">
+          {{ copy.title }}
+        </h2>
+      </div>
+      <p class="max-w-[30rem] font-body-md text-body-md text-on-surface-variant">{{ copy.note }}</p>
     </div>
 
-    <div class="flex flex-col">
-      @for (project of featured(); track project.title; let i = $index) {
-        <article
-          class="grid grid-cols-1 items-center gap-8 border-t border-outline-variant py-12 lg:grid-cols-12 lg:gap-16 lg:py-16"
-        >
+    <ul class="flex flex-wrap items-center gap-4 sm:gap-6">
+      @for (client of clients; track client.href) {
+        <li>
           <a
-            class="relative block overflow-hidden rounded-2xl lg:col-span-7"
-            [class.lg:order-2]="i % 2 === 1"
-            [class]="project.imageFit === 'contain' ? 'bg-[#e9edf2]' : 'bg-surface-container'"
-            [href]="project.liveUrl ?? project.href"
+            class="group flex h-24 w-44 items-center justify-center rounded-2xl border border-outline-variant bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:border-accent sm:h-28 sm:w-52"
+            [href]="client.href"
             target="_blank"
             rel="noopener noreferrer"
-            [attr.aria-label]="(project.liveUrl ? i18n.copy().projects.live : i18n.copy().projects.spec) + ': ' + project.title"
+            [title]="client.name"
           >
             <img
-              [alt]="project.imageAlt"
-              class="block aspect-[5/4] w-full"
-              [class]="project.imageFit === 'contain' ? 'object-contain' : 'object-cover'"
-              [src]="project.image"
+              class="max-h-full w-auto object-contain"
+              [src]="client.logo"
+              [alt]="client.name"
               loading="lazy"
             />
           </a>
-
-          <div class="flex flex-col items-start lg:col-span-5" [class.lg:order-1]="i % 2 === 1">
-            <p class="mb-4 flex items-center gap-2 font-body-md text-body-md font-semibold text-accent">
-              <span class="material-symbols-outlined text-[20px]" aria-hidden="true">{{
-                project.kind === 'client' ? 'verified' : 'rocket_launch'
-              }}</span>
-              {{
-                project.kind === 'client'
-                  ? i18n.copy().projects.clientBadge
-                  : i18n.copy().projects.productBadge
-              }}
-              <span class="font-normal text-on-surface-variant">· {{ project.sector }}</span>
-            </p>
-            <h3
-              class="mb-4 font-display text-[1.75rem] leading-tight font-semibold tracking-tight text-primary lg:text-[2.25rem]"
-            >
-              {{ project.title }}
-            </h3>
-            <p class="mb-6 font-body-md text-body-md text-on-surface-variant">
-              {{ project.description }}
-            </p>
-            <ul class="mb-8 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
-              @for (feature of project.features; track feature) {
-                <li class="flex items-start gap-2 font-body-sm text-body-sm text-on-surface">
-                  <span
-                    class="material-symbols-outlined mt-px text-[16px] text-accent"
-                    aria-hidden="true"
-                    >check</span
-                  >
-                  {{ feature }}
-                </li>
-              }
-            </ul>
-            <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
-              <a
-                class="btn-brand inline-flex min-h-11 items-center gap-2 rounded-lg px-5 py-2.5 font-body-md text-body-md font-semibold"
-                [href]="project.href"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {{ i18n.copy().projects.spec }}
-              </a>
-              @if (project.liveUrl) {
-                <a
-                  class="inline-flex min-h-11 items-center gap-1 font-body-md text-body-md font-semibold text-on-surface link-quiet"
-                  [href]="project.liveUrl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {{ i18n.copy().projects.live }}
-                  <span class="material-symbols-outlined text-[16px]" aria-hidden="true"
-                    >open_in_new</span
-                  >
-                </a>
-              }
-            </div>
-          </div>
-        </article>
+        </li>
       }
-
-      <div
-        class="grid grid-cols-1 gap-12 border-t border-outline-variant pt-12 md:grid-cols-2 lg:gap-16 lg:pt-16"
-      >
-        @for (project of offers(); track project.title) {
-          <article class="flex flex-col items-start">
-            <img
-              [alt]="project.imageAlt"
-              class="mb-6 aspect-[16/10] w-full rounded-2xl bg-surface-container"
-              [class]="imageClass(project)"
-              [src]="project.image"
-              loading="lazy"
-            />
-            <p class="mb-3 font-body-md text-body-md text-on-surface-variant">
-              <span class="font-semibold text-accent">{{ i18n.copy().projects.offerBadge }}</span>
-              · {{ project.sector }}
-            </p>
-            <h3
-              class="mb-3 font-display text-[1.5rem] leading-tight font-semibold tracking-tight text-primary"
-            >
-              {{ project.title }}
-            </h3>
-            <p class="mb-6 max-w-[34rem] font-body-md text-body-md text-on-surface-variant">
-              {{ project.description }}
-            </p>
-            <a
-              class="mt-auto inline-flex min-h-11 items-center gap-1 font-body-md text-body-md font-semibold text-on-surface link-quiet"
-              [href]="project.href"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {{ i18n.copy().projects.spec }}
-              <span class="material-symbols-outlined text-[16px]" aria-hidden="true"
-                >arrow_forward</span
-              >
-              <span class="sr-only">{{ project.title }}</span>
-            </a>
-          </article>
-        }
-      </div>
-    </div>
+    </ul>
   </div>
 </section>

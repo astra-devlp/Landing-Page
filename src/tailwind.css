@@ -410,3 +410,175 @@ html.light {
     background-color: var(--color-accent);
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Motion layer for the home page: aurora, marquee, shimmer, spotlight */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-marquee-reverse: marquee var(--marquee-duration, 40s) linear infinite reverse;
+  --animate-aurora: aurora 18s ease-in-out infinite alternate;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 6s linear infinite;
+  --animate-grow: grow var(--grow-duration, 5s) linear both;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes aurora {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(6%, -8%, 0) scale(1.15);
+    }
+    100% {
+      transform: translate3d(-6%, 6%, 0) scale(0.95);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes shimmer {
+    to {
+      background-position: 200% center;
+    }
+  }
+
+  @keyframes grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
+
+/* Faint technical grid, faded out towards the edges. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--color-outline-variant) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-outline-variant) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+}
+
+/* Soft light that follows the pointer (--mx / --my set by appSpotlight). */
+@utility bg-spotlight {
+  background: radial-gradient(
+    600px circle at var(--mx, 50%) var(--my, 30%),
+    color-mix(in srgb, var(--color-accent) 14%, transparent),
+    transparent 60%
+  );
+}
+
+/* Animated multi-colour text for the hero highlight. */
+@utility text-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-group-automate),
+    var(--color-group-manage),
+    var(--color-accent)
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: var(--animate-shimmer);
+}
+
+/* Fades the ends of a horizontal marquee. */
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* Card whose border and surface light up around the pointer. */
+@utility spotlight-card {
+  position: relative;
+  isolation: isolate;
+  border-radius: 1rem;
+  border: 1px solid var(--color-outline-variant);
+  background-color: var(--color-surface);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--color-accent) 16%, transparent),
+      transparent 55%
+    );
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-outline-variant));
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Light sweep across the main call to action. */
+@utility btn-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transform: translateX(-120%) skewX(-20deg);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.35), transparent);
+    animation: shine 3.6s ease-in-out infinite;
+  }
+}
+
+@keyframes shine {
+  0%,
+  55% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-20deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .animate-aurora,
+  .animate-float,
+  .text-shimmer,
+  .btn-shine::after {
+    animation: none !important;
+  }
+}

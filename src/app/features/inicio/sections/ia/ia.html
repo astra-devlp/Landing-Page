@@ -6,8 +6,8 @@
         <p class="section-lede mb-12">{{ i18n.copy().ia.intro }}</p>
 
         <ul class="mb-12 grid w-full grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
-          @for (item of i18n.copy().ia.items; track item.title) {
-            <li class="flex items-start gap-4">
+          @for (item of i18n.copy().ia.items; track item.title; let i = $index) {
+            <li class="flex items-start gap-4" appReveal [revealDelay]="i * 80">
               <span
                 class="material-symbols-outlined mt-0.5 text-[26px] text-accent"
                 aria-hidden="true"

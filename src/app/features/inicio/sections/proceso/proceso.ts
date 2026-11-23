@@ -1,41 +1,51 @@
-import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
-import { Component, inject } from '@angular/core';
+import { afterNextRender, Component, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { I18nService } from '../../../../core/i18n/i18n.service';
-import { ScrollScene } from '../../../../shared/ui/scroll-scene/scroll-scene';
+import { Spotlight } from '../../../../shared/ui/spotlight/spotlight';
+import { Reveal } from '../../../../shared/ui/reveal/reveal';
+import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 
-const VH_PER_STEP = 28;
+/** Delay between one step lighting up and the next, in ms. */
+const STEP_DELAY_MS = 380;
 
+/**
+ * "How we work": the four steps side by side on one timeline, all visible at
+ * once. The line fills and the steps light up in order when it scrolls in.
+ */
 @Component({
   selector: 'app-proceso',
-  imports: [WhatsappIcon, ScrollScene],
+  imports: [WhatsappIcon, Reveal, Spotlight],
   templateUrl: './proceso.html',
 })
 export class Proceso {
   protected readonly i18n = inject(I18nService);
+  protected readonly icons = ['forum', 'request_quote', 'construction', 'rocket_launch'];
+  protected readonly stepDelay = STEP_DELAY_MS;
+  protected readonly stepLabel: Record<string, string> = { es: 'Paso', en: 'Step', pt: 'Passo' };
 
-  protected storyHeight(steps: number): string {
-    return `${steps * VH_PER_STEP + 100}vh`;
-  }
+  /** True once the timeline has entered the viewport. */
+  protected readonly started = signal(false);
 
-  protected activeStep(progress: number, steps: number): number {
-    return Math.min(steps - 1, Math.floor(progress * steps));
-  }
+  private readonly timeline = viewChild.required<ElementRef<HTMLElement>>('timeline');
 
-  protected stepFill(progress: number, steps: number, index: number): number {
-    return Math.min(1, Math.max(0, progress * steps - index));
-  }
-
-  protected cardStyle(progress: number, steps: number, index: number): Record<string, string> {
-    const dist = progress * steps - (index + 0.5);
-    const opacity = Math.min(1, Math.max(0, 1 - Math.abs(dist) * 1.15));
-    const y = dist * 56;
-    const scale = 0.92 + opacity * 0.08;
-    const blur = (1 - opacity) * 8;
-    return {
-      opacity: opacity.toFixed(3),
-      transform: `translateY(${y.toFixed(1)}px) scale(${scale.toFixed(3)})`,
-      filter: blur > 0.2 ? `blur(${blur.toFixed(1)}px)` : 'none',
-      pointerEvents: opacity > 0.55 ? 'auto' : 'none',
-    };
+  constructor() {
+    const destroyRef = inject(DestroyRef);
+    afterNextRender(() => {
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced || typeof IntersectionObserver !== 'function') {
+        this.started.set(true);
+        return;
+      }
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) {
+            this.started.set(true);
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.25 },
+      );
+      observer.observe(this.timeline().nativeElement);
+      destroyRef.onDestroy(() => observer.disconnect());
+    });
   }
 }

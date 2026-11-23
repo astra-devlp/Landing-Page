@@ -1,0 +1,52 @@
+@let about = i18n.copy().about;
+<section id="empresa" class="w-full border-t border-outline-variant bg-surface-container-low py-20 lg:py-28">
+  <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
+    <div class="mb-14 grid grid-cols-1 items-end gap-6 lg:mb-20 lg:grid-cols-12">
+      <div class="lg:col-span-7" appReveal>
+        <p class="mb-4 font-body-md text-body-md font-semibold text-accent">{{ about.eyebrow }}</p>
+        <h2 class="section-title max-w-[20ch]">{{ about.title }}</h2>
+      </div>
+      <p class="section-lede lg:col-span-5 lg:justify-self-end">{{ about.body }}</p>
+    </div>
+
+    <ul class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      @for (pillar of about.pillars; track pillar.title; let i = $index) {
+        <li appReveal [revealDelay]="i * 90">
+          <div class="spotlight-card h-full p-7" appSpotlight>
+          <span
+            class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-solid to-group-automate text-white shadow-lg shadow-brand-solid/30"
+            aria-hidden="true"
+          >
+            <span class="material-symbols-outlined text-[26px]">{{ pillar.icon }}</span>
+          </span>
+          <h3 class="mb-2 font-display text-[1.25rem] leading-snug font-semibold text-primary">
+            {{ pillar.title }}
+          </h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">{{ pillar.description }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+
+    <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+      <a
+        class="btn-brand inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-6 py-3 font-body-md text-body-md font-semibold"
+        [href]="i18n.copy().whatsapp.href"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <app-whatsapp-icon [size]="20" />
+        {{ about.cta }}
+      </a>
+      <a
+        class="inline-flex min-h-12 items-center justify-center gap-2 font-body-md text-body-md font-semibold text-on-surface link-quiet"
+        [href]="i18n.copy().header.loginHref"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">login</span>
+        {{ i18n.copy().header.login }}
+      </a>
+    </div>
+  </div>
+</section>

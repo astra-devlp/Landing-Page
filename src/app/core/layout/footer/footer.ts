@@ -1,6 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ConsentService } from '../../consent/consent.service';
 import { I18nService } from '../../i18n/i18n.service';
 import { LEGAL_PATHS } from '../../../shared/data/legal';
 import { BrandLogo } from '../../../shared/ui/brand-logo/brand-logo';
@@ -13,7 +12,6 @@ import { WhatsappIcon } from '../../../shared/ui/whatsapp-icon/whatsapp-icon';
 })
 export class Footer {
   protected readonly i18n = inject(I18nService);
-  protected readonly consent = inject(ConsentService);
   protected readonly year = new Date().getFullYear();
   protected readonly legalLinks = computed(() => {
     const copy = this.i18n.copy().legal;
