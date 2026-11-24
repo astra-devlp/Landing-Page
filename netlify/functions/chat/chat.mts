@@ -8,7 +8,10 @@
  *   LLM_API_KEY   required. OpenRouter key (or any OpenAI-compatible provider's key).
  *   LLM_BASE_URL  required. OpenAI-compatible base URL.
  *
- * Free models are tried fastest first. The first one that returns text wins.
+ * Free models are tried in order; the first one that returns text wins. The
+ * free line-up on OpenRouter changes often (models disappear or stop being
+ * free), so the list ends with OpenRouter's own free router, which picks
+ * whichever free model is available.
  */
 import { systemPrompt, WHATSAPP_URL } from './knowledge.mts';
 
@@ -16,17 +19,33 @@ const MAX_MESSAGES = 12;
 const MAX_CHARS = 1000;
 const RATE_LIMIT = 15;
 const RATE_WINDOW_MS = 5 * 60 * 1000;
-/** Stay under Netlify's gateway limit. A slow model must not consume the whole request. */
-const ATTEMPT_MS = 8_000;
-/** Fastest free models that returned text first, then slower or rate-limited fallbacks. */
+/**
+ * Free models take 5 to 11 s end to end (measured 2026-11-24), so each one gets
+ * room to finish. A model that hangs is still cut off so the next can try.
+ */
+const ATTEMPT_MS = 20_000;
+/** Whole request: under `netlify dev`'s 30 s local limit, so it behaves the same as production (60 s). */
+const DEADLINE_MS = 28_000;
+/** Below this there is no point starting another model. */
+const MIN_ATTEMPT_MS = 5_000;
+/**
+ * Room for reasoning models: they spend tokens thinking before they answer and
+ * return an empty reply when the budget runs out first. The prompt keeps the
+ * visible answer to a few sentences.
+ */
+const MAX_TOKENS = 1_200;
+/**
+ * Free models on OpenRouter, checked against the real prompt on 2026-11-24.
+ * Busy models answer 429 in under a second, so trying them costs little time.
+ */
 const MODELS = [
-  'liquid/lfm-2.5-2.6b:free',
+  'nvidia/nemotron-3-ultra-550b-a55b:free',
+  'baidu/ernie-5.5-flash-preview:free',
   'dots-studio/dots-3-note-preview:free',
-  'google/gemma-4-26b-a4b-it:free',
-  'google/gemma-4-31b-it:free',
-  'poolside/laguna-s-2.1:free',
-  'nvidia/nemotron-3.5-lightning:free',
-  'nvidia/nemotron-3-super-120b-a12b:free',
+  'google/gemma-4-26b-a4b-it:free', // often rate-limited
+  'google/gemma-4-31b-it:free', // often rate-limited
+  // Last resort: OpenRouter routes to any free model that is up right now.
+  'openrouter/free',
 ];
 /** The only sites the assistant may link to; any other URL is removed from replies. */
 const ALLOWED_HOSTS = ['wa.me', 'drcristianvalencia.com'];
@@ -45,7 +64,7 @@ export default async (req: Request): Promise<Response> => {
   }
 
   const origin = req.headers.get('origin');
-  if (origin && new URL(origin).host !== new URL(req.url).host) {
+  if (origin && hostOf(origin) !== new URL(req.url).host) {
     return json({ error: 'forbidden' }, 403);
   }
 
@@ -68,21 +87,35 @@ export default async (req: Request): Promise<Response> => {
     return json({ error: 'bad_request' }, 400);
   }
 
-  let rateLimited = false;
+  const prompt = systemPrompt(typeof pageLang === 'string' ? pageLang : undefined);
+  const deadline = Date.now() + DEADLINE_MS;
+  // "Busy" only when every attempt was rate-limited: then a retry would just
+  // spend quota. A timeout, an empty reply or a missing model is worth retrying.
+  let busy = 0;
+  let other = 0;
   for (const model of MODELS) {
+    const remaining = deadline - Date.now();
+    if (remaining < MIN_ATTEMPT_MS) {
+      console.error('[chat] out of time before trying every model');
+      other++;
+      break;
+    }
     try {
-      const prompt = systemPrompt(typeof pageLang === 'string' ? pageLang : undefined);
-      const reply = cleanReply(await complete(baseUrl, apiKey, model, prompt, messages));
+      const timeout = Math.min(ATTEMPT_MS, remaining);
+      const reply = cleanReply(await complete(baseUrl, apiKey, model, prompt, messages, timeout));
       if (reply) {
+        console.info(`[chat] answered by ${model}`);
         return json({ reply });
       }
       console.error(`[chat] ${model} returned an empty reply`);
+      other++;
     } catch (error) {
-      rateLimited ||= error instanceof UpstreamError && error.status === 429;
+      if (error instanceof UpstreamError && error.status === 429) busy++;
+      else other++;
       console.error(`[chat] ${model} failed`, error);
     }
   }
-  return json({ error: rateLimited ? 'rate_limited' : 'upstream_error' }, 502);
+  return json({ error: busy > 0 && other === 0 ? 'rate_limited' : 'upstream_error' }, 502);
 };
 
 class UpstreamError extends Error {
@@ -100,6 +133,7 @@ async function complete(
   model: string,
   prompt: string,
   messages: ChatMessage[],
+  timeoutMs: number,
 ): Promise<string | undefined> {
   const response = await fetch(`${baseUrl}/chat/completions`, {
     method: 'POST',
@@ -114,12 +148,11 @@ async function complete(
       model,
       messages: [{ role: 'system', content: prompt }, ...messages],
       temperature: 0.2,
-      // Short replies only: the prompt asks for a few sentences.
-      max_tokens: 400,
+      max_tokens: MAX_TOKENS,
       // OpenRouter: keep reasoning short and out of the reply. Other providers skip it.
       ...(baseUrl.includes('openrouter.ai') && { reasoning: { effort: 'low', exclude: true } }),
     }),
-    signal: AbortSignal.timeout(ATTEMPT_MS),
+    signal: AbortSignal.timeout(timeoutMs),
   });
 
   if (!response.ok) {
@@ -133,7 +166,7 @@ async function complete(
  * Free models sometimes leak their reasoning or special tokens, or prefix the
  * speaker name. Strip that, and drop links to sites we do not control.
  */
-function cleanReply(reply: string | undefined): string | undefined {
+export function cleanReply(reply: string | undefined): string | undefined {
   if (!reply) return undefined;
   const cleaned = reply
     .replace(/<think>[\s\S]*?<\/think>/gi, '')
@@ -154,7 +187,7 @@ function cleanReply(reply: string | undefined): string | undefined {
   return cleaned || undefined;
 }
 
-function parseMessages(body: unknown): ChatMessage[] | null {
+export function parseMessages(body: unknown): ChatMessage[] | null {
   const raw = (body as { messages?: unknown } | null)?.messages;
   if (!Array.isArray(raw) || raw.length === 0) {
     return null;
@@ -171,6 +204,15 @@ function parseMessages(body: unknown): ChatMessage[] | null {
     return null;
   }
   return messages as ChatMessage[];
+}
+
+/** Host of an Origin header, or null when it is not a URL (browsers send "null" for opaque origins). */
+function hostOf(origin: string): string | null {
+  try {
+    return new URL(origin).host;
+  } catch {
+    return null;
+  }
 }
 
 function isRateLimited(ip: string): boolean {

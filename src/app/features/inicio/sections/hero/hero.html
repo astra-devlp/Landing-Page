@@ -49,26 +49,31 @@
           fragment="servicios"
         >
           {{ i18n.copy().hero.ctaSecondary }}
-          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_downward</span>
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true"
+            >arrow_downward</span
+          >
         </a>
       </div>
 
       <ul class="flex flex-col gap-3 font-body-md text-body-md text-on-surface">
-        @for (item of i18n.copy().hero.trust; track item; let i = $index) {
+        @for (item of i18n.copy().hero.trust; track item.text) {
           <li class="flex items-center gap-3">
             <span
               class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-surface-container-high text-accent"
               aria-hidden="true"
             >
-              <span class="material-symbols-outlined text-[20px]">{{ trustIcons[i] }}</span>
+              <span class="material-symbols-outlined text-[20px]">{{ item.icon }}</span>
             </span>
-            {{ item }}
+            {{ item.text }}
           </li>
         }
       </ul>
     </div>
 
-    <figure class="m-0 w-full motion-safe:animate-float" [attr.aria-label]="i18n.copy().hero.chat.demo.label">
+    <figure
+      class="m-0 w-full motion-safe:animate-float"
+      [attr.aria-label]="i18n.copy().hero.chat.demo.label"
+    >
       <div
         class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-0"
         aria-hidden="true"
@@ -132,7 +137,9 @@
         </div>
 
         <div class="flex flex-col items-center gap-1 text-center text-accent sm:w-24 sm:shrink-0">
-          <span class="sm:hidden"><span class="material-symbols-outlined rotate-90 text-[22px]">sync_alt</span></span>
+          <span class="sm:hidden"
+            ><span class="material-symbols-outlined rotate-90 text-[22px]">sync_alt</span></span
+          >
           <svg class="hidden h-3 w-full sm:block" viewBox="0 0 80 12" fill="none">
             <line
               x1="0"

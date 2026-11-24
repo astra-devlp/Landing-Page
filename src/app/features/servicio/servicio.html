@@ -1,5 +1,4 @@
 <section class="relative w-full overflow-hidden">
-
   <div
     class="relative mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-space-xl px-margin-mobile pt-space-xl pb-space-xl md:px-margin-tablet lg:grid-cols-12 lg:gap-gutter lg:px-margin lg:pt-16 lg:pb-20"
   >
@@ -34,12 +33,12 @@
         </button>
       </div>
       <ul class="mt-space-lg flex flex-wrap gap-x-space-lg gap-y-space-xs">
-        @for (item of i18n.copy().hero.trust; track item) {
+        @for (item of i18n.copy().hero.trust; track item.text) {
           <li
             class="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant"
           >
             <span class="material-symbols-outlined text-[18px] text-accent">check_circle</span>
-            {{ item }}
+            {{ item.text }}
           </li>
         }
       </ul>

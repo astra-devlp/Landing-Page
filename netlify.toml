@@ -5,19 +5,23 @@
 [build.environment]
   SITE_URL = "https://astradevlp.com"
 
+# Local development: `npm run dev` serves Angular and the chat function together
+# on http://localhost:8888. Plain `ng serve` (port 4200) has no functions, so the
+# chat answers 404 there. The AI key comes from .env (see .env.example).
+[dev]
+  framework = "#custom"
+  command = "npx ng serve --port 4310"
+  targetPort = 4310
+  port = 8888
+  autoLaunch = false
+  # Not dist/: a local production build there carries the long-cache _headers.
+  publish = "public"
+
 # Single-page app: let the Angular router handle every route
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Hashed build files never change: cache them for a year (faster repeat visits).
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+# The year-long cache for hashed JS/CSS is written to the build output as
+# _headers by scripts/postbuild-seo.mjs, so it applies only to production.

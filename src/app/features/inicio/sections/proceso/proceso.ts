@@ -1,4 +1,12 @@
-import { afterNextRender, Component, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { I18nService } from '../../../../core/i18n/i18n.service';
 import { Spotlight } from '../../../../shared/ui/spotlight/spotlight';
 import { Reveal } from '../../../../shared/ui/reveal/reveal';
@@ -18,7 +26,6 @@ const STEP_DELAY_MS = 380;
 })
 export class Proceso {
   protected readonly i18n = inject(I18nService);
-  protected readonly icons = ['forum', 'request_quote', 'construction', 'rocket_launch'];
   protected readonly stepDelay = STEP_DELAY_MS;
   protected readonly stepLabel: Record<string, string> = { es: 'Paso', en: 'Step', pt: 'Passo' };
 

@@ -31,6 +31,7 @@ export interface AiCapability {
 }
 
 export interface ProcessStep {
+  icon: string;
   title: string;
   description: string;
   /** What the client walks away with from this step. */
@@ -42,6 +43,9 @@ export interface AboutPillar {
   title: string;
   description: string;
 }
+
+/** Stable key of a project, shared by every language. */
+export type ProjectId = 'dr-cristian' | 'table-assistant' | 'chatbot' | 'pos';
 
 export interface ProjectItem {
   kind: 'client' | 'product' | 'offer';

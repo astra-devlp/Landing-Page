@@ -24,7 +24,6 @@ const TYPE_TICK_MS = 22;
 })
 export class Hero {
   protected readonly i18n = inject(I18nService);
-  protected readonly trustIcons = ['request_quote', 'layers', 'support_agent'];
 
   /** How many finished chat messages are visible. */
   protected readonly shown = signal(0);

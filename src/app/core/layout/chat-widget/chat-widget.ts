@@ -117,6 +117,15 @@ function readSession(key: string): boolean {
               role="alert"
             >
               {{ error() }}
+              <a
+                class="mt-space-xs flex items-center gap-space-xs font-semibold text-[#25D366] hover:underline"
+                [href]="handoffHref()"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <app-whatsapp-icon [size]="16" />
+                {{ copy().handoff }}
+              </a>
             </p>
           }
 
@@ -333,23 +342,33 @@ export class ChatWidget {
     this.scrollToEnd();
 
     try {
+      const result = await this.ask();
+      if (result.reply) {
+        this.reveal(result.reply);
+      } else {
+        this.error.set(result.rateLimited ? this.copy().rateLimited : this.copy().error);
+      }
+    } finally {
+      this.loading.set(false);
+      this.scrollToEnd();
+    }
+  }
+
+  /** One call to the chat function; the server already falls back across models. */
+  private async ask(): Promise<{ reply?: string; rateLimited?: boolean }> {
+    try {
       const response = await fetch(CHAT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: this.turns(), lang: this.i18n.lang() }),
       });
       const data = (await response.json().catch(() => ({}))) as { reply?: string; error?: string };
-
       if (response.ok && data.reply) {
-        this.reveal(data.reply);
-      } else {
-        this.error.set(data.error === 'rate_limited' ? this.copy().rateLimited : this.copy().error);
+        return { reply: data.reply };
       }
+      return { rateLimited: data.error === 'rate_limited' };
     } catch {
-      this.error.set(this.copy().error);
-    } finally {
-      this.loading.set(false);
-      this.scrollToEnd();
+      return {};
     }
   }
 

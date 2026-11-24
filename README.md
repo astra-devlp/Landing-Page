@@ -186,15 +186,40 @@ Luego abre:
 http://localhost:4200
 ```
 
+> `npm start` sirve solo Angular: el asistente del chat responde **404** ahí,
+> porque su backend es una función de Netlify. Para probar el chat usa `npm run dev`.
+
+### Desarrollo con el chat (Netlify Functions)
+
+1. Copia `.env.example` a `.env` y pon tu clave de la IA (`.env` no se sube a git):
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Levanta Angular y la función juntos:
+
+   ```bash
+   npm run dev
+   ```
+
+3. Abre `http://localhost:8888`. El chat llama a `/.netlify/functions/chat` como en producción.
+
+En producción (Netlify) las mismas variables, `LLM_API_KEY` y `LLM_BASE_URL`, se configuran en
+**Site configuration → Environment variables**. Para reproducir el build de Netlify en local:
+`npx netlify build --offline`.
+
 ---
 
 ## 📦 Scripts disponibles
 
-| Comando         | Descripción                      |
-| --------------- | -------------------------------- |
-| `npm start`     | Inicia el servidor de desarrollo |
-| `npm run build` | Genera el build de producción    |
-| `npm test`      | Ejecuta las pruebas unitarias    |
+| Comando                  | Descripción                                          |
+| ------------------------ | ---------------------------------------------------- |
+| `npm start`              | Servidor de desarrollo de Angular (sin chat)         |
+| `npm run dev`            | Angular + función del chat en `localhost:8888`       |
+| `npm run build`          | Genera el build de producción                        |
+| `npm test`               | Pruebas unitarias de la app                          |
+| `npm run test:functions` | Pruebas de la función del chat (filtro, prompt, API) |
 
 ---
 

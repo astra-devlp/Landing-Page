@@ -61,9 +61,9 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       ctaPrimary: 'Solicitar cotización',
       ctaSecondary: 'Ver soluciones',
       trust: [
-        'Propuesta con alcance, fechas y precio',
-        'Entregas por etapas',
-        'Soporte técnico después de lanzar',
+        { icon: 'request_quote', text: 'Propuesta con alcance, fechas y precio' },
+        { icon: 'layers', text: 'Entregas por etapas' },
+        { icon: 'support_agent', text: 'Soporte técnico después de lanzar' },
       ],
       chat: {
         name: 'Asistente de tu tienda',
@@ -362,14 +362,97 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       next: 'Siguiente',
       goTo: 'Ir a la diapositiva',
       cta: 'Quiero uno así',
+      /** WhatsApp message; {product} is the product on screen. */
+      ctaMessage: 'Hola Astra Dev, me interesa {product}. ¿Me pueden enviar una cotización?',
       slides: [
-        { tag: 'Restaurantes · IA', title: 'Table Assistant', description: 'Mesero virtual con IA: menú digital, recomendaciones y pedidos desde la mesa.' },
-        { tag: 'Atención al cliente', title: 'Bots de WhatsApp con IA', description: 'Responde, agenda y vende 24/7 con la información real de tu negocio.' },
-        { tag: 'Comercio', title: 'Sistema POS con inventario', description: 'Caja, facturación e inventario conectados en tiempo real.' },
-        { tag: 'Gestión', title: 'ERP y reportes', description: 'Ventas, compras e indicadores de toda la empresa en un solo panel.' },
-        { tag: 'A la medida', title: 'Analítica para tu operación', description: 'Dashboards construidos sobre tus datos para decidir más rápido.' },
-        { tag: 'Ventas en línea', title: 'Páginas web que venden', description: 'Sitios rápidos, bilingües y optimizados para Google.' },
-        { tag: 'Logística', title: 'Control de bodegas', description: 'Entradas, salidas y existencias por bodega, sin hojas de cálculo.' },
+        {
+          tag: 'Restaurantes · IA',
+          title: 'Table Assistant',
+          description:
+            'Mesero virtual con IA: menú digital, recomendaciones y pedidos desde la mesa.',
+          image: '/projects/table-assistant.jpg',
+          fit: 'contain',
+          icon: 'restaurant',
+          features: [
+            'Menú digital y pedidos desde la mesa',
+            'Recomienda platos con IA',
+            'Responde solo con tu menú real',
+          ],
+        },
+        {
+          tag: 'Atención al cliente',
+          title: 'Bots de WhatsApp con IA',
+          description: 'Responde, agenda y vende 24/7 con la información real de tu negocio.',
+          image: '/projects/chatbot-whatsapp.jpg',
+          fit: 'cover',
+          icon: 'chat',
+          features: [
+            'Atiende 24/7 con la información de tu negocio',
+            'Agenda citas y toma pedidos',
+            'Pasa a una persona cuando hace falta',
+          ],
+        },
+        {
+          tag: 'Comercio',
+          title: 'Sistema POS con inventario',
+          description: 'Caja, facturación e inventario conectados en tiempo real.',
+          image: '/projects/sistema-pos.jpg',
+          fit: 'cover',
+          icon: 'point_of_sale',
+          features: ['Caja y facturación', 'Inventario en tiempo real', 'Reportes del día'],
+        },
+        {
+          tag: 'Gestión',
+          title: 'ERP y reportes',
+          description: 'Ventas, compras e indicadores de toda la empresa en un solo panel.',
+          image: '/services/web.jpg',
+          fit: 'cover',
+          icon: 'monitoring',
+          features: [
+            'Ventas, compras e inventario conectados',
+            'Indicadores de toda la empresa',
+            'Varios usuarios y sucursales',
+          ],
+        },
+        {
+          tag: 'A la medida',
+          title: 'Analítica para tu operación',
+          description: 'Dashboards construidos sobre tus datos para decidir más rápido.',
+          image: '/services/custom.jpg',
+          fit: 'cover',
+          icon: 'insights',
+          features: [
+            'Dashboards sobre tus propios datos',
+            'Reportes de ventas e inventario',
+            'Decisiones con números claros',
+          ],
+        },
+        {
+          tag: 'Ventas en línea',
+          title: 'Páginas web que venden',
+          description: 'Sitios rápidos, bilingües y optimizados para Google.',
+          image: '/projects/dr-cristian-valencia-sitio.jpg',
+          fit: 'contain',
+          icon: 'web',
+          features: [
+            'Rápidas y pensadas para celular',
+            'SEO para aparecer en Google',
+            'Contacto directo por WhatsApp',
+          ],
+        },
+        {
+          tag: 'Logística',
+          title: 'Control de bodegas',
+          description: 'Entradas, salidas y existencias por bodega, sin hojas de cálculo.',
+          image: '/services/inventory.jpg',
+          fit: 'cover',
+          icon: 'warehouse',
+          features: [
+            'Entradas y salidas por bodega',
+            'Existencias en tiempo real',
+            'Alertas de productos por agotarse',
+          ],
+        },
       ],
     },
     process: {
@@ -379,23 +462,27 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       cta: 'Empezar con el paso 1',
       steps: [
         {
+          icon: 'forum',
           title: 'Hablamos',
           description:
             'Nos cuentas cómo funciona tu negocio y qué quieres resolver, por WhatsApp o en una llamada.',
           deliverable: 'Diagnóstico sin costo',
         },
         {
+          icon: 'request_quote',
           title: 'Te proponemos',
           description: 'Recibes una propuesta con alcance, etapas y precio antes de empezar.',
           deliverable: 'Propuesta por escrito',
         },
         {
+          icon: 'construction',
           title: 'Construimos por etapas',
           description:
             'Ves avances reales, das tu opinión y empiezas a usar partes del sistema desde temprano.',
           deliverable: 'Avances que puedes usar',
         },
         {
+          icon: 'rocket_launch',
           title: 'Lanzamos y acompañamos',
           description: 'Lo ponemos en marcha con tu equipo y seguimos mejorándolo contigo.',
           deliverable: 'Soporte continuo',
@@ -412,22 +499,26 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'code',
           title: 'Desarrollo propio',
-          description: 'Diseñamos, programamos y mantenemos cada sistema con nuestro equipo. Sin plantillas ni intermediarios.',
+          description:
+            'Diseñamos, programamos y mantenemos cada sistema con nuestro equipo. Sin plantillas ni intermediarios.',
         },
         {
           icon: 'request_quote',
           title: 'Acuerdos claros',
-          description: 'Antes de empezar recibes por escrito el alcance, las etapas, las fechas y el precio.',
+          description:
+            'Antes de empezar recibes por escrito el alcance, las etapas, las fechas y el precio.',
         },
         {
           icon: 'deployed_code',
           title: 'Productos propios en operación',
-          description: 'Además de proyectos a la medida, operamos nuestros propios productos, como Table Assistant y nuestro sistema de inventario.',
+          description:
+            'Además de proyectos a la medida, operamos nuestros propios productos, como Table Assistant y nuestro sistema de inventario.',
         },
         {
           icon: 'support_agent',
           title: 'Soporte después de lanzar',
-          description: 'Seguimos contigo con ajustes, mejoras y soporte técnico cuando el sistema ya está en uso.',
+          description:
+            'Seguimos contigo con ajustes, mejoras y soporte técnico cuando el sistema ya está en uso.',
         },
       ],
     },
@@ -441,8 +532,8 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       clientBadge: 'Cliente real',
       productBadge: 'Producto propio',
       offerBadge: 'Solución',
-      items: [
-        {
+      items: {
+        'dr-cristian': {
           kind: 'client',
           code: 'SALUD // 01',
           sector: 'Odontología · Armenia, Quindío',
@@ -465,7 +556,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
             'Hola Astra Dev, vi el sitio del Dr. Cristian Valencia y quiero una página web para mi negocio.',
           ),
         },
-        {
+        'table-assistant': {
           kind: 'product',
           code: 'RESTAURANTES // 02',
           sector: 'Restaurantes · Producto SaaS',
@@ -485,7 +576,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
             'Table Assistant en un portátil y un celular mostrando el menú y el asistente de mesa',
           href: whatsappUrl('Hola Astra Dev, me interesa Table Assistant para mi restaurante.'),
         },
-        {
+        chatbot: {
           kind: 'offer',
           code: 'IA // 03',
           sector: 'Atención al cliente',
@@ -506,7 +597,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
           imageAnchor: 'center',
           href: whatsappUrl('Hola Astra Dev, quiero un chatbot con IA para mi negocio.'),
         },
-        {
+        pos: {
           kind: 'offer',
           code: 'COMERCIO // 04',
           sector: 'Ventas e inventario',
@@ -527,7 +618,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
           imageAnchor: 'right',
           href: whatsappUrl('Hola Astra Dev, quiero cotizar un sistema POS con inventario.'),
         },
-      ],
+      },
     },
     faq: {
       eyebrow: 'Preguntas frecuentes',
@@ -1055,9 +1146,9 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       ctaPrimary: 'Request a quote',
       ctaSecondary: 'See solutions',
       trust: [
-        'Proposal with scope, dates and price',
-        'Delivered in stages',
-        'Technical support after launch',
+        { icon: 'request_quote', text: 'Proposal with scope, dates and price' },
+        { icon: 'layers', text: 'Delivered in stages' },
+        { icon: 'support_agent', text: 'Technical support after launch' },
       ],
       chat: {
         name: 'Your store assistant',
@@ -1355,14 +1446,97 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       next: 'Next',
       goTo: 'Go to slide',
       cta: 'I want one like this',
+      /** WhatsApp message; {product} is the product on screen. */
+      ctaMessage: "Hi Astra Dev, I'm interested in {product}. Could you send me a quote?",
       slides: [
-        { tag: 'Restaurants · AI', title: 'Table Assistant', description: 'AI virtual waiter: digital menu, recommendations and orders from the table.' },
-        { tag: 'Customer service', title: 'AI WhatsApp bots', description: 'Answers, books and sells 24/7 with your business’s real information.' },
-        { tag: 'Retail', title: 'POS with inventory', description: 'Register, invoicing and inventory connected in real time.' },
-        { tag: 'Management', title: 'ERP and reports', description: 'Company-wide sales, purchasing and KPIs in a single dashboard.' },
-        { tag: 'Custom', title: 'Analytics for your operation', description: 'Dashboards built on your data so you decide faster.' },
-        { tag: 'Online sales', title: 'Websites that sell', description: 'Fast, bilingual sites optimized for Google.' },
-        { tag: 'Logistics', title: 'Warehouse control', description: 'Stock in, stock out and levels per warehouse, no spreadsheets.' },
+        {
+          tag: 'Restaurants · AI',
+          title: 'Table Assistant',
+          description:
+            'AI virtual waiter: digital menu, recommendations and orders from the table.',
+          image: '/projects/table-assistant.jpg',
+          fit: 'contain',
+          icon: 'restaurant',
+          features: [
+            'Digital menu and table-side ordering',
+            'AI dish recommendations',
+            'Answers only from your real menu',
+          ],
+        },
+        {
+          tag: 'Customer service',
+          title: 'AI WhatsApp bots',
+          description: 'Answers, books and sells 24/7 with your business’s real information.',
+          image: '/projects/chatbot-whatsapp.jpg',
+          fit: 'cover',
+          icon: 'chat',
+          features: [
+            'Answers 24/7 with your business information',
+            'Books appointments and takes orders',
+            'Hands over to a person when needed',
+          ],
+        },
+        {
+          tag: 'Retail',
+          title: 'POS with inventory',
+          description: 'Register, invoicing and inventory connected in real time.',
+          image: '/projects/sistema-pos.jpg',
+          fit: 'cover',
+          icon: 'point_of_sale',
+          features: ['Register and invoicing', 'Real-time inventory', 'Daily reports'],
+        },
+        {
+          tag: 'Management',
+          title: 'ERP and reports',
+          description: 'Company-wide sales, purchasing and KPIs in a single dashboard.',
+          image: '/services/web.jpg',
+          fit: 'cover',
+          icon: 'monitoring',
+          features: [
+            'Sales, purchasing and inventory connected',
+            'Company-wide KPIs',
+            'Multiple users and branches',
+          ],
+        },
+        {
+          tag: 'Custom',
+          title: 'Analytics for your operation',
+          description: 'Dashboards built on your data so you decide faster.',
+          image: '/services/custom.jpg',
+          fit: 'cover',
+          icon: 'insights',
+          features: [
+            'Dashboards on your own data',
+            'Sales and inventory reports',
+            'Decisions backed by clear numbers',
+          ],
+        },
+        {
+          tag: 'Online sales',
+          title: 'Websites that sell',
+          description: 'Fast, bilingual sites optimized for Google.',
+          image: '/projects/dr-cristian-valencia-sitio.jpg',
+          fit: 'contain',
+          icon: 'web',
+          features: [
+            'Fast and built for mobile',
+            'SEO to show up on Google',
+            'Direct contact through WhatsApp',
+          ],
+        },
+        {
+          tag: 'Logistics',
+          title: 'Warehouse control',
+          description: 'Stock in, stock out and levels per warehouse, no spreadsheets.',
+          image: '/services/inventory.jpg',
+          fit: 'cover',
+          icon: 'warehouse',
+          features: [
+            'Stock in and out per warehouse',
+            'Real-time stock levels',
+            'Low-stock alerts',
+          ],
+        },
       ],
     },
     process: {
@@ -1372,23 +1546,27 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       cta: 'Start with step 1',
       steps: [
         {
+          icon: 'forum',
           title: 'We talk',
           description:
             'You tell us how your business works and what you want to solve, on WhatsApp or a call.',
           deliverable: 'Free assessment',
         },
         {
+          icon: 'request_quote',
           title: 'We propose',
           description: 'You get a proposal with scope, stages, and price before any work starts.',
           deliverable: 'Written proposal',
         },
         {
+          icon: 'construction',
           title: 'We build in stages',
           description:
             'You see real progress, give feedback, and start using parts of the system early.',
           deliverable: 'Progress you can use',
         },
         {
+          icon: 'rocket_launch',
           title: 'We launch and support',
           description: 'We roll it out with your team and keep improving it with you.',
           deliverable: 'Ongoing support',
@@ -1405,7 +1583,8 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'code',
           title: 'In-house development',
-          description: 'We design, code and maintain every system with our own team. No templates, no middlemen.',
+          description:
+            'We design, code and maintain every system with our own team. No templates, no middlemen.',
         },
         {
           icon: 'request_quote',
@@ -1415,12 +1594,14 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'deployed_code',
           title: 'Our own products, live',
-          description: 'Beyond custom projects, we run our own products, such as Table Assistant and our inventory system.',
+          description:
+            'Beyond custom projects, we run our own products, such as Table Assistant and our inventory system.',
         },
         {
           icon: 'support_agent',
           title: 'Support after launch',
-          description: 'We stay with you for adjustments, improvements and technical support once the system is in use.',
+          description:
+            'We stay with you for adjustments, improvements and technical support once the system is in use.',
         },
       ],
     },
@@ -1434,8 +1615,8 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       clientBadge: 'Real client',
       productBadge: 'Our product',
       offerBadge: 'Solution',
-      items: [
-        {
+      items: {
+        'dr-cristian': {
           kind: 'client',
           code: 'HEALTH // 01',
           sector: 'Dentistry · Armenia, Colombia',
@@ -1458,7 +1639,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
             'Hi Astra Dev, I saw Dr. Cristian Valencia’s website and I would like a website for my business.',
           ),
         },
-        {
+        'table-assistant': {
           kind: 'product',
           code: 'RESTAURANTS // 02',
           sector: 'Restaurants · SaaS product',
@@ -1478,7 +1659,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
             'Table Assistant on a laptop and a phone showing the menu and the table assistant',
           href: whatsappUrl('Hi Astra Dev, I am interested in Table Assistant for my restaurant.'),
         },
-        {
+        chatbot: {
           kind: 'offer',
           code: 'AI // 03',
           sector: 'Customer support',
@@ -1498,7 +1679,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
           imageAnchor: 'center',
           href: whatsappUrl('Hi Astra Dev, I would like an AI chatbot for my business.'),
         },
-        {
+        pos: {
           kind: 'offer',
           code: 'RETAIL // 04',
           sector: 'Sales and inventory',
@@ -1519,7 +1700,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
           imageAnchor: 'right',
           href: whatsappUrl('Hi Astra Dev, I would like a quote for a POS system with inventory.'),
         },
-      ],
+      },
     },
     faq: {
       eyebrow: 'FAQ',
@@ -2040,9 +2221,9 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       ctaPrimary: 'Solicitar orçamento',
       ctaSecondary: 'Ver soluções',
       trust: [
-        'Proposta com escopo, prazos e preço',
-        'Entregas por etapas',
-        'Suporte técnico depois do lançamento',
+        { icon: 'request_quote', text: 'Proposta com escopo, prazos e preço' },
+        { icon: 'layers', text: 'Entregas por etapas' },
+        { icon: 'support_agent', text: 'Suporte técnico depois do lançamento' },
       ],
       chat: {
         name: 'Assistente da sua loja',
@@ -2342,14 +2523,96 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       next: 'Próximo',
       goTo: 'Ir para o slide',
       cta: 'Quero um assim',
+      /** WhatsApp message; {product} is the product on screen. */
+      ctaMessage: 'Olá Astra Dev, tenho interesse em {product}. Podem me enviar um orçamento?',
       slides: [
-        { tag: 'Restaurantes · IA', title: 'Table Assistant', description: 'Garçom virtual com IA: cardápio digital, recomendações e pedidos na mesa.' },
-        { tag: 'Atendimento', title: 'Bots de WhatsApp com IA', description: 'Responde, agenda e vende 24/7 com as informações reais do seu negócio.' },
-        { tag: 'Comércio', title: 'Sistema PDV com estoque', description: 'Caixa, faturamento e estoque conectados em tempo real.' },
-        { tag: 'Gestão', title: 'ERP e relatórios', description: 'Vendas, compras e indicadores de toda a empresa em um só painel.' },
-        { tag: 'Sob medida', title: 'Análise para a sua operação', description: 'Dashboards construídos sobre os seus dados para decidir mais rápido.' },
-        { tag: 'Vendas online', title: 'Sites que vendem', description: 'Sites rápidos, bilíngues e otimizados para o Google.' },
-        { tag: 'Logística', title: 'Controle de armazéns', description: 'Entradas, saídas e saldos por armazém, sem planilhas.' },
+        {
+          tag: 'Restaurantes · IA',
+          title: 'Table Assistant',
+          description: 'Garçom virtual com IA: cardápio digital, recomendações e pedidos na mesa.',
+          image: '/projects/table-assistant.jpg',
+          fit: 'contain',
+          icon: 'restaurant',
+          features: [
+            'Cardápio digital e pedidos na mesa',
+            'Recomenda pratos com IA',
+            'Responde só com o seu cardápio real',
+          ],
+        },
+        {
+          tag: 'Atendimento',
+          title: 'Bots de WhatsApp com IA',
+          description: 'Responde, agenda e vende 24/7 com as informações reais do seu negócio.',
+          image: '/projects/chatbot-whatsapp.jpg',
+          fit: 'cover',
+          icon: 'chat',
+          features: [
+            'Atende 24/7 com as informações do seu negócio',
+            'Agenda horários e recebe pedidos',
+            'Passa para uma pessoa quando precisa',
+          ],
+        },
+        {
+          tag: 'Comércio',
+          title: 'Sistema PDV com estoque',
+          description: 'Caixa, faturamento e estoque conectados em tempo real.',
+          image: '/projects/sistema-pos.jpg',
+          fit: 'cover',
+          icon: 'point_of_sale',
+          features: ['Caixa e faturamento', 'Estoque em tempo real', 'Relatórios do dia'],
+        },
+        {
+          tag: 'Gestão',
+          title: 'ERP e relatórios',
+          description: 'Vendas, compras e indicadores de toda a empresa em um só painel.',
+          image: '/services/web.jpg',
+          fit: 'cover',
+          icon: 'monitoring',
+          features: [
+            'Vendas, compras e estoque conectados',
+            'Indicadores de toda a empresa',
+            'Vários usuários e filiais',
+          ],
+        },
+        {
+          tag: 'Sob medida',
+          title: 'Análise para a sua operação',
+          description: 'Dashboards construídos sobre os seus dados para decidir mais rápido.',
+          image: '/services/custom.jpg',
+          fit: 'cover',
+          icon: 'insights',
+          features: [
+            'Dashboards com os seus próprios dados',
+            'Relatórios de vendas e estoque',
+            'Decisões com números claros',
+          ],
+        },
+        {
+          tag: 'Vendas online',
+          title: 'Sites que vendem',
+          description: 'Sites rápidos, bilíngues e otimizados para o Google.',
+          image: '/projects/dr-cristian-valencia-sitio.jpg',
+          fit: 'contain',
+          icon: 'web',
+          features: [
+            'Rápidos e pensados para celular',
+            'SEO para aparecer no Google',
+            'Contato direto pelo WhatsApp',
+          ],
+        },
+        {
+          tag: 'Logística',
+          title: 'Controle de armazéns',
+          description: 'Entradas, saídas e saldos por armazém, sem planilhas.',
+          image: '/services/inventory.jpg',
+          fit: 'cover',
+          icon: 'warehouse',
+          features: [
+            'Entradas e saídas por armazém',
+            'Saldos em tempo real',
+            'Alertas de produtos acabando',
+          ],
+        },
       ],
     },
     process: {
@@ -2359,23 +2622,27 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       cta: 'Começar pelo passo 1',
       steps: [
         {
+          icon: 'forum',
           title: 'Conversamos',
           description:
             'Você conta como seu negócio funciona e o que quer resolver, pelo WhatsApp ou em uma chamada.',
           deliverable: 'Diagnóstico sem custo',
         },
         {
+          icon: 'request_quote',
           title: 'Fazemos a proposta',
           description: 'Você recebe uma proposta com escopo, etapas e preço antes de começar.',
           deliverable: 'Proposta por escrito',
         },
         {
+          icon: 'construction',
           title: 'Construímos por etapas',
           description:
             'Você vê avanços reais, dá sua opinião e começa a usar partes do sistema desde cedo.',
           deliverable: 'Avanços que você pode usar',
         },
         {
+          icon: 'rocket_launch',
           title: 'Lançamos e acompanhamos',
           description: 'Colocamos em funcionamento com sua equipe e seguimos melhorando com você.',
           deliverable: 'Suporte contínuo',
@@ -2392,22 +2659,26 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
         {
           icon: 'code',
           title: 'Desenvolvimento próprio',
-          description: 'Projetamos, programamos e mantemos cada sistema com a nossa equipe. Sem modelos prontos nem intermediários.',
+          description:
+            'Projetamos, programamos e mantemos cada sistema com a nossa equipe. Sem modelos prontos nem intermediários.',
         },
         {
           icon: 'request_quote',
           title: 'Acordos claros',
-          description: 'Antes de começar você recebe por escrito o escopo, as etapas, os prazos e o preço.',
+          description:
+            'Antes de começar você recebe por escrito o escopo, as etapas, os prazos e o preço.',
         },
         {
           icon: 'deployed_code',
           title: 'Produtos próprios em operação',
-          description: 'Além de projetos sob medida, operamos nossos próprios produtos, como o Table Assistant e o nosso sistema de estoque.',
+          description:
+            'Além de projetos sob medida, operamos nossos próprios produtos, como o Table Assistant e o nosso sistema de estoque.',
         },
         {
           icon: 'support_agent',
           title: 'Suporte depois do lançamento',
-          description: 'Seguimos com você em ajustes, melhorias e suporte técnico quando o sistema já está em uso.',
+          description:
+            'Seguimos com você em ajustes, melhorias e suporte técnico quando o sistema já está em uso.',
         },
       ],
     },
@@ -2421,8 +2692,8 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
       clientBadge: 'Cliente real',
       productBadge: 'Produto próprio',
       offerBadge: 'Solução',
-      items: [
-        {
+      items: {
+        'dr-cristian': {
           kind: 'client',
           code: 'SAÚDE // 01',
           sector: 'Odontologia · Armenia, Colômbia',
@@ -2445,7 +2716,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
             'Olá Astra Dev, vi o site do Dr. Cristian Valencia e quero um site para o meu negócio.',
           ),
         },
-        {
+        'table-assistant': {
           kind: 'product',
           code: 'RESTAURANTES // 02',
           sector: 'Restaurantes · Produto SaaS',
@@ -2467,7 +2738,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
             'Olá Astra Dev, tenho interesse no Table Assistant para o meu restaurante.',
           ),
         },
-        {
+        chatbot: {
           kind: 'offer',
           code: 'IA // 03',
           sector: 'Atendimento ao cliente',
@@ -2488,7 +2759,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
           imageAnchor: 'center',
           href: whatsappUrl('Olá Astra Dev, quero um chatbot com IA para o meu negócio.'),
         },
-        {
+        pos: {
           kind: 'offer',
           code: 'COMÉRCIO // 04',
           sector: 'Vendas e estoque',
@@ -2509,7 +2780,7 @@ export const TRANSLATIONS: Record<Lang, AppCopy> = {
           imageAnchor: 'right',
           href: whatsappUrl('Olá Astra Dev, quero um orçamento de sistema PDV com estoque.'),
         },
-      ],
+      },
     },
     faq: {
       eyebrow: 'Perguntas frequentes',

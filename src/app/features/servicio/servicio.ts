@@ -9,13 +9,18 @@ import { ServicePageKey } from '../../core/i18n/i18n.models';
 import { I18nService } from '../../core/i18n/i18n.service';
 import { ChatService } from '../../core/layout/chat-widget/chat.service';
 import { SERVICE_PAGE_PATHS } from '../../shared/data/service-pages';
+import { ProjectId } from '../../shared/models/site.models';
 import { Reveal } from '../../shared/ui/reveal/reveal';
 import { whatsappUrl } from '../../shared/utils/whatsapp';
 import { Contacto } from '../inicio/sections/contacto/contacto';
 import { Proceso } from '../inicio/sections/proceso/proceso';
 
-/** Project shown under "See it in action" for each page (index in projects.items). */
-const RELATED_PROJECT: Record<ServicePageKey, number> = { pos: 3, bot: 2, ia: 1 };
+/** Project shown under "See it in action" for each page. */
+const RELATED_PROJECT: Record<ServicePageKey, ProjectId> = {
+  pos: 'pos',
+  bot: 'chatbot',
+  ia: 'table-assistant',
+};
 
 @Component({
   selector: 'app-servicio',

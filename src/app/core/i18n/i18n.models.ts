@@ -6,6 +6,7 @@ import {
   FaqItem,
   NavLink,
   ProcessStep,
+  ProjectId,
   ProjectItem,
   SectorItem,
   ServiceGroup,
@@ -144,7 +145,7 @@ export interface AppCopy {
     body: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    trust: string[];
+    trust: { icon: string; text: string }[];
     chat: {
       name: string;
       status: string;
@@ -209,7 +210,19 @@ export interface AppCopy {
     next: string;
     goTo: string;
     cta: string;
-    slides: { tag: string; title: string; description: string }[];
+    /** WhatsApp message; {product} is replaced with the product on screen. */
+    ctaMessage: string;
+    slides: {
+      tag: string;
+      title: string;
+      description: string;
+      image: string;
+      /** 'contain' frames a mock-up on a light backdrop instead of cropping it. */
+      fit: 'cover' | 'contain';
+      icon: string;
+      /** Three short selling points shown beside the screenshot. */
+      features: [string, string, string];
+    }[];
   };
   process: {
     eyebrow: string;
@@ -236,7 +249,7 @@ export interface AppCopy {
     clientBadge: string;
     productBadge: string;
     offerBadge: string;
-    items: ProjectItem[];
+    items: Record<ProjectId, ProjectItem>;
   };
   faq: {
     eyebrow: string;

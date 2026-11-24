@@ -1,22 +1,19 @@
 import { afterNextRender, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { I18nService } from '../../../../core/i18n/i18n.service';
+import { whatsappUrl } from '../../../../shared/utils/whatsapp';
 import { WhatsappIcon } from '../../../../shared/ui/whatsapp-icon/whatsapp-icon';
 
-const AUTOPLAY_MS = 5000;
+const AUTOPLAY_MS = 6000;
 const SWIPE_PX = 50;
 
-/** Image per slide, in the same order as `showcase.slides` in the copy. */
-const SLIDE_IMAGES: { src: string; fit: 'cover' | 'contain' }[] = [
-  { src: '/projects/table-assistant.jpg', fit: 'contain' },
-  { src: '/projects/chatbot-whatsapp.jpg', fit: 'cover' },
-  { src: '/projects/sistema-pos.jpg', fit: 'cover' },
-  { src: '/services/web.jpg', fit: 'cover' },
-  { src: '/services/custom.jpg', fit: 'cover' },
-  { src: '/projects/dr-cristian-valencia-sitio.jpg', fit: 'contain' },
-  { src: '/services/inventory.jpg', fit: 'cover' },
+/** Deck position of the next cards behind the active one: x/y shift (%), scale, opacity. */
+const DECK = [
+  { x: 0, y: 0, scale: 1, opacity: 1 },
+  { x: 9, y: -9, scale: 0.94, opacity: 0.6 },
+  { x: 18, y: -18, scale: 0.88, opacity: 0.3 },
 ];
 
-/** Coverflow carousel of the products we build. */
+/** Product showcase: details on one side, a stacked deck of screenshots on the other. */
 @Component({
   selector: 'app-showcase',
   imports: [WhatsappIcon],
@@ -25,12 +22,16 @@ const SLIDE_IMAGES: { src: string; fit: 'cover' | 'contain' }[] = [
 })
 export class Showcase {
   protected readonly i18n = inject(I18nService);
-  protected readonly images = SLIDE_IMAGES;
   protected readonly autoplayMs = AUTOPLAY_MS;
 
   protected readonly index = signal(0);
   protected readonly paused = signal(false);
   protected readonly slides = computed(() => this.i18n.copy().showcase.slides);
+  protected readonly current = computed(() => this.slides()[this.index()]);
+  /** WhatsApp link that already names the product on screen. */
+  protected readonly ctaHref = computed(() =>
+    whatsappUrl(this.i18n.copy().showcase.ctaMessage.replace('{product}', this.current().title)),
+  );
 
   private readonly reduced =
     typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -59,25 +60,31 @@ export class Showcase {
     });
   }
 
-  /** Signed distance of slide i from the active one, wrapped around the ends. */
-  protected offset(i: number): number {
+  /** How many places slide i sits behind the active one (0 = on top). */
+  protected depth(i: number): number {
     const n = this.slides().length;
-    let d = (i - this.index() + n) % n;
-    if (d > n / 2) {
-      d -= n;
-    }
-    return d;
+    return (i - this.index() + n) % n;
   }
 
   protected slideStyle(i: number): Record<string, string> {
-    const d = this.offset(i);
-    const far = Math.abs(d) > 1;
+    const n = this.slides().length;
+    const d = this.depth(i);
+    // The card that just left slides out to the left; cards far back wait hidden.
+    const place =
+      DECK[d] ??
+      (d === n - 1
+        ? { x: -35, y: 0, scale: 0.9, opacity: 0 }
+        : { x: 15, y: -18, scale: 0.76, opacity: 0 });
     return {
-      transform: `translateX(calc(-50% + ${d * 68}%)) scale(${d === 0 ? 1 : 0.8}) rotateY(${d * -10}deg)`,
-      opacity: far ? '0' : d === 0 ? '1' : '0.45',
-      zIndex: String(10 - Math.abs(d)),
-      pointerEvents: far ? 'none' : 'auto',
+      transform: `translate(${place.x}%, ${place.y}%) scale(${place.scale})`,
+      opacity: String(place.opacity),
+      zIndex: String(n - d),
+      pointerEvents: d === 0 ? 'auto' : 'none',
     };
+  }
+
+  protected pad(value: number): string {
+    return String(value).padStart(2, '0');
   }
 
   protected go(i: number): void {

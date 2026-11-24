@@ -5,6 +5,7 @@
 //    data, so Google, WhatsApp and LinkedIn read the right page without running JS.
 // 2. Adds structured data (organization, website, services, FAQ, breadcrumbs).
 // 3. Generates sitemap.xml with the build date and fills %SITE_URL% everywhere.
+// 4. Writes _headers: a long browser cache for the hashed JS/CSS files.
 //
 // The copy comes from the Spanish translations, the same text visitors see.
 // Netlify sets URL automatically on every build; SITE_URL overrides it.
@@ -131,6 +132,17 @@ for (const [key, path] of Object.entries(LEGAL_PATHS)) {
 
 const pagePaths = [...Object.values(SERVICE_PAGE_PATHS), ...Object.values(LEGAL_PATHS)];
 await writeFile(`${OUT_DIR}/sitemap.xml`, sitemap(['', ...pagePaths]));
+
+// Long cache only for the production build, where every JS/CSS file name
+// carries a content hash. It lives here, not in netlify.toml, because
+// `netlify dev` applies netlify.toml headers locally too, where file names
+// (main.js) do not change between rebuilds and the browser would keep stale code.
+await writeFile(
+  `${OUT_DIR}/_headers`,
+  ['/*.js', '/*.css']
+    .map((path) => `${path}\n  Cache-Control: public, max-age=31536000, immutable\n`)
+    .join('\n'),
+);
 
 const files = ['index.html', 'robots.txt', 'sitemap.xml'].concat(
   pagePaths.map((path) => `${path}/index.html`),

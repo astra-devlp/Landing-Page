@@ -1,10 +1,14 @@
 @let copy = i18n.copy().projects;
 <section id="proyectos" class="w-full border-t border-outline-variant py-16 lg:py-20">
   <div class="mx-auto max-w-[1440px] px-margin-mobile md:px-margin-tablet lg:px-margin">
-    <div class="mb-10 flex flex-col gap-3 lg:mb-12 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+    <div
+      class="mb-10 flex flex-col gap-3 lg:mb-12 lg:flex-row lg:items-end lg:justify-between lg:gap-12"
+    >
       <div>
         <p class="mb-3 font-body-md text-body-md font-semibold text-accent">{{ copy.eyebrow }}</p>
-        <h2 class="font-display text-[1.75rem] leading-tight font-semibold tracking-tight text-primary lg:text-[2.25rem]">
+        <h2
+          class="font-display text-[1.75rem] leading-tight font-semibold tracking-tight text-primary lg:text-[2.25rem]"
+        >
           {{ copy.title }}
         </h2>
       </div>
@@ -12,21 +16,44 @@
     </div>
 
     <ul class="flex flex-wrap items-center gap-4 sm:gap-6">
-      @for (client of clients; track client.href) {
+      @for (client of clients; track client.href; let i = $index) {
         <li>
           <a
-            class="group flex h-24 w-44 items-center justify-center rounded-2xl border border-outline-variant bg-white p-4 transition duration-300 hover:-translate-y-0.5 hover:border-accent sm:h-28 sm:w-52"
+            class="group flex h-24 w-44 items-center justify-center p-2 sm:h-28 sm:w-52"
             [href]="client.href"
             target="_blank"
             rel="noopener noreferrer"
             [title]="client.name"
           >
-            <img
-              class="max-h-full w-auto object-contain"
-              [src]="client.logo"
-              [alt]="client.name"
-              loading="lazy"
-            />
+            <!--
+              The logo file has a white background. This filter keeps only its
+              dark strokes and paints them in the page text colour, so the logo
+              is white on the dark theme, black on the light one, with no box.
+            -->
+            <svg
+              role="img"
+              class="h-full w-auto text-primary opacity-80 transition duration-300 group-hover:scale-105 group-hover:opacity-100"
+              [attr.viewBox]="'0 0 ' + client.width + ' ' + client.height"
+              [attr.aria-label]="client.name"
+            >
+              <defs>
+                <filter [attr.id]="'logo-ink-' + i" color-interpolation-filters="sRGB">
+                  <feColorMatrix
+                    type="matrix"
+                    values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.2126 -0.7152 -0.0722 0 1"
+                    result="ink"
+                  />
+                  <feFlood style="flood-color: currentColor" result="colour" />
+                  <feComposite in="colour" in2="ink" operator="in" />
+                </filter>
+              </defs>
+              <image
+                [attr.href]="client.logo"
+                [attr.width]="client.width"
+                [attr.height]="client.height"
+                [attr.filter]="'url(#logo-ink-' + i + ')'"
+              />
+            </svg>
           </a>
         </li>
       }
